@@ -20,12 +20,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 	
+#warning Provide keys for app tp work correctly. Go to: https://code.google.com/apis/console
 	// provide API key for GET requests
-//    [[SJConstants sharedInstance] setApiKey:@"<#set API key#>"];
-    
+    [[SJConstants sharedInstance] setApiKey:@"<#set API key#>"];
 	
 	// provide API key for SDK
-//	[GMSServices provideAPIKey:@"<#set API key#>"];
+	[GMSServices provideAPIKey:@"<#set API key#>"];
     
     return YES;
 }

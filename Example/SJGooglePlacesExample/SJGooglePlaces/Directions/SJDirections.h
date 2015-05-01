@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-@import CoreLocation;
 #import "SJSession.h"
 #import "SJOriginDestination.h"
 
