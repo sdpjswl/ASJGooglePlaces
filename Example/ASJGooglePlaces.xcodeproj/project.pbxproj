@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C02264911AF5F98D006A1903 /* ASJDetails+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */; };
+		C02264921AF5F98D006A1903 /* ASJDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C022648E1AF5F98D006A1903 /* ASJDetails.m */; };
+		C02264931AF5F98D006A1903 /* ASJPlaceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */; };
 		C040F0931AF5F09700B6E085 /* UILabel+PreferredWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = C040F08F1AF5F09700B6E085 /* UILabel+PreferredWidth.m */; };
 		C0978F0E1AF5F12D00729DD2 /* ASJAutocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EE91AF5F12D00729DD2 /* ASJAutocomplete.m */; };
 		C0978F0F1AF5F12D00729DD2 /* ASJPlace+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EEB1AF5F12D00729DD2 /* ASJPlace+Create.m */; };
@@ -15,9 +18,6 @@
 		C0978F121AF5F12D00729DD2 /* ASJSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF21AF5F12D00729DD2 /* ASJSession.m */; };
 		C0978F131AF5F12D00729DD2 /* ASJDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF51AF5F12D00729DD2 /* ASJDirections.m */; };
 		C0978F141AF5F12D00729DD2 /* ASJOriginDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF71AF5F12D00729DD2 /* ASJOriginDestination.m */; };
-		C0978F151AF5F12D00729DD2 /* ASJDetails+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EFA1AF5F12D00729DD2 /* ASJDetails+Create.m */; };
-		C0978F161AF5F12D00729DD2 /* ASJDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EFC1AF5F12D00729DD2 /* ASJDetails.m */; };
-		C0978F171AF5F12D00729DD2 /* ASJPlaceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EFE1AF5F12D00729DD2 /* ASJPlaceDetails.m */; };
 		C0978F181AF5F12D00729DD2 /* ASJPlaceID.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F011AF5F12D00729DD2 /* ASJPlaceID.m */; };
 		C0978F191AF5F12D00729DD2 /* ASJPhoto+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F041AF5F12D00729DD2 /* ASJPhoto+Create.m */; };
 		C0978F1A1AF5F12D00729DD2 /* ASJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F061AF5F12D00729DD2 /* ASJPhoto.m */; };
@@ -52,6 +52,12 @@
 
 /* Begin PBXFileReference section */
 		0FD290BFF5D9DAEB57786E07 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C022648B1AF5F98D006A1903 /* ASJDetails+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASJDetails+Create.h"; sourceTree = "<group>"; };
+		C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASJDetails+Create.m"; sourceTree = "<group>"; };
+		C022648D1AF5F98D006A1903 /* ASJDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJDetails.h; sourceTree = "<group>"; };
+		C022648E1AF5F98D006A1903 /* ASJDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJDetails.m; sourceTree = "<group>"; };
+		C022648F1AF5F98D006A1903 /* ASJPlaceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlaceDetails.h; sourceTree = "<group>"; };
+		C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPlaceDetails.m; sourceTree = "<group>"; };
 		C040F08E1AF5F09700B6E085 /* UILabel+PreferredWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+PreferredWidth.h"; sourceTree = "<group>"; };
 		C040F08F1AF5F09700B6E085 /* UILabel+PreferredWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+PreferredWidth.m"; sourceTree = "<group>"; };
 		C0978EE81AF5F12D00729DD2 /* ASJAutocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJAutocomplete.h; sourceTree = "<group>"; };
@@ -68,12 +74,6 @@
 		C0978EF51AF5F12D00729DD2 /* ASJDirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJDirections.m; sourceTree = "<group>"; };
 		C0978EF61AF5F12D00729DD2 /* ASJOriginDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJOriginDestination.h; sourceTree = "<group>"; };
 		C0978EF71AF5F12D00729DD2 /* ASJOriginDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJOriginDestination.m; sourceTree = "<group>"; };
-		C0978EF91AF5F12D00729DD2 /* ASJDetails+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASJDetails+Create.h"; sourceTree = "<group>"; };
-		C0978EFA1AF5F12D00729DD2 /* ASJDetails+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASJDetails+Create.m"; sourceTree = "<group>"; };
-		C0978EFB1AF5F12D00729DD2 /* ASJDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJDetails.h; sourceTree = "<group>"; };
-		C0978EFC1AF5F12D00729DD2 /* ASJDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJDetails.m; sourceTree = "<group>"; };
-		C0978EFD1AF5F12D00729DD2 /* ASJPlaceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlaceDetails.h; sourceTree = "<group>"; };
-		C0978EFE1AF5F12D00729DD2 /* ASJPlaceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPlaceDetails.m; sourceTree = "<group>"; };
 		C0978F001AF5F12D00729DD2 /* ASJPlaceID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlaceID.h; sourceTree = "<group>"; };
 		C0978F011AF5F12D00729DD2 /* ASJPlaceID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPlaceID.m; sourceTree = "<group>"; };
 		C0978F031AF5F12D00729DD2 /* ASJPhoto+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASJPhoto+Create.h"; sourceTree = "<group>"; };
@@ -151,6 +151,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C022648A1AF5F98D006A1903 /* Place Details */ = {
+			isa = PBXGroup;
+			children = (
+				C022648B1AF5F98D006A1903 /* ASJDetails+Create.h */,
+				C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */,
+				C022648D1AF5F98D006A1903 /* ASJDetails.h */,
+				C022648E1AF5F98D006A1903 /* ASJDetails.m */,
+				C022648F1AF5F98D006A1903 /* ASJPlaceDetails.h */,
+				C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */,
+			);
+			path = "Place Details";
+			sourceTree = "<group>";
+		};
 		C040F08B1AF5F09700B6E085 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,7 +189,7 @@
 				C0978EE71AF5F12D00729DD2 /* Autocomplete */,
 				C0978EEE1AF5F12D00729DD2 /* Base */,
 				C0978EF31AF5F12D00729DD2 /* Directions */,
-				C0978EF81AF5F12D00729DD2 /* Place Detaiis */,
+				C022648A1AF5F98D006A1903 /* Place Details */,
 				C0978EFF1AF5F12D00729DD2 /* Place ID */,
 				C0978F021AF5F12D00729DD2 /* Place Photos */,
 				C0978F091AF5F12D00729DD2 /* Validation */,
@@ -218,19 +231,6 @@
 				C0978EF71AF5F12D00729DD2 /* ASJOriginDestination.m */,
 			);
 			path = Directions;
-			sourceTree = "<group>";
-		};
-		C0978EF81AF5F12D00729DD2 /* Place Detaiis */ = {
-			isa = PBXGroup;
-			children = (
-				C0978EF91AF5F12D00729DD2 /* ASJDetails+Create.h */,
-				C0978EFA1AF5F12D00729DD2 /* ASJDetails+Create.m */,
-				C0978EFB1AF5F12D00729DD2 /* ASJDetails.h */,
-				C0978EFC1AF5F12D00729DD2 /* ASJDetails.m */,
-				C0978EFD1AF5F12D00729DD2 /* ASJPlaceDetails.h */,
-				C0978EFE1AF5F12D00729DD2 /* ASJPlaceDetails.m */,
-			);
-			path = "Place Detaiis";
 			sourceTree = "<group>";
 		};
 		C0978EFF1AF5F12D00729DD2 /* Place ID */ = {
@@ -490,23 +490,23 @@
 				C0978F1A1AF5F12D00729DD2 /* ASJPhoto.m in Sources */,
 				C0978F111AF5F12D00729DD2 /* ASJConstants.m in Sources */,
 				C0978F141AF5F12D00729DD2 /* ASJOriginDestination.m in Sources */,
-				C0978F161AF5F12D00729DD2 /* ASJDetails.m in Sources */,
 				C0BC8E611AF5435900209170 /* ViewController.m in Sources */,
 				C0BC8E8C1AF543C200209170 /* PlaceDetailsController.m in Sources */,
 				C0978F191AF5F12D00729DD2 /* ASJPhoto+Create.m in Sources */,
-				C0978F171AF5F12D00729DD2 /* ASJPlaceDetails.m in Sources */,
 				C0BC8E8A1AF543C200209170 /* AutocompleteController.m in Sources */,
 				C0978F0E1AF5F12D00729DD2 /* ASJAutocomplete.m in Sources */,
 				C0BC8E8D1AF543C200209170 /* PlaceIDController.m in Sources */,
-				C0978F151AF5F12D00729DD2 /* ASJDetails+Create.m in Sources */,
 				C0978F211AF5F1B800729DD2 /* UIViewController+Utilities.m in Sources */,
 				C0BC8E5E1AF5435900209170 /* AppDelegate.m in Sources */,
 				C0BC8E5B1AF5435900209170 /* main.m in Sources */,
+				C02264921AF5F98D006A1903 /* ASJDetails.m in Sources */,
 				C0978F131AF5F12D00729DD2 /* ASJDirections.m in Sources */,
+				C02264911AF5F98D006A1903 /* ASJDetails+Create.m in Sources */,
 				C0978F0F1AF5F12D00729DD2 /* ASJPlace+Create.m in Sources */,
 				C040F0931AF5F09700B6E085 /* UILabel+PreferredWidth.m in Sources */,
 				C0978F181AF5F12D00729DD2 /* ASJPlaceID.m in Sources */,
 				C0978F1C1AF5F12D00729DD2 /* ASJResponseValidator.m in Sources */,
+				C02264931AF5F98D006A1903 /* ASJPlaceDetails.m in Sources */,
 				C0978F121AF5F12D00729DD2 /* ASJSession.m in Sources */,
 				C0978F1D1AF5F12D00729DD2 /* ASJStatusCodeValueTransformer.m in Sources */,
 			);
