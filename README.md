@@ -73,6 +73,10 @@ These methods get the directions polyline between two places; an 'origin' and a 
 
 The polyline can be used to draw a `GMSPolyline` between the two places on a `GMSMapView`. You will need to use the Google Maps SDK for this and will need a key from the [Google API console](https://code.google.com/apis/console).
 
+### To-do
+
+- Add documentation to methods
+
 # License
 
 ASJGooglePlaces is available under the MIT license. See the LICENSE file for more info.
