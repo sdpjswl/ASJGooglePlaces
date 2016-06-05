@@ -1,4 +1,5 @@
 # ASJGooglePlaces
+
 This library is a collection of classes that act as a wrapper around a few features of the Google Places API and the Directions API. To use Google's Places API in your project, you need to have an API key from the [API console](https://code.google.com/apis/console). You can however use the Directions API without a key. In the example project, it has been used to display a polyline between two places. Note that you will need an API key to run the example project.
 
 To set up, `#import "ASJConstants.h"` in AppDelegate.m and add this in your `didFinishLaunchingWithOptions:` method:
@@ -6,14 +7,16 @@ To set up, `#import "ASJConstants.h"` in AppDelegate.m and add this in your `did
 [[ASJConstants sharedInstance] setApiKey:@"your API key"];
 ```
 
-# ASJPlaceID
+### ASJPlaceID
+
 ```
 - (void)asjPlaceIDForPlaceNamed:(NSString *)place
                     completion:(void (^)(ASJResponseStatusCode statusCode, NSString *placeID))completion;
 ```
 Provide a name of a place and get the corresponding place ID in the completion. Returns `nil` if none was found.
 
-# ASJPlaceDetails
+### ASJPlaceDetails
+
 ```
 - (void)asjPlaceDetailsForPlaceNamed:(NSString *)place
 					  completion:(void (^)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails))completion;
@@ -33,14 +36,16 @@ For both methods, the following information can be fetched depending on their av
 - Coordinates
 - Photos
 
-# ASJPlacePhotos
+### ASJPlacePhotos
+
 ```
 - (void)asjPlacePhotosForPlaceNamed:(NSString *)place
 					  completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *placePhotos))completion;
 ```
 This method returns an array of `ASJPhoto`s for a provided place name. It will return `nil` if there are no available photos for the place.
 
-# ASJAutocomplete
+### ASJAutocomplete
+
 ```
 - (void)asjAutocompleteForInput:(NSString *)input
 					completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *places))completion;
@@ -53,7 +58,8 @@ To control the minimum length of the input before the autocomplete query should 
 ```
 
 
-# ASJDirections
+### ASJDirections
+
 ```
 - (void)asjDirectionsPolylineFromOriginNamed:(NSString *)origin
 						   destinationNamed:(NSString *)destination
@@ -76,6 +82,10 @@ The polyline can be used to draw a `GMSPolyline` between the two places on a `GM
 ### To-do
 
 - Add documentation to methods
+
+# Credits
+
+- To Deepti Walde for adding code to get all available directions
 
 # License
 
