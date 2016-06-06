@@ -3,6 +3,6 @@ inhibit_all_warnings!
 
 target 'ASJGooglePlaces' do
   
-  #pod 'Google-Maps-iOS-SDK', '1.9.2'
+  pod 'Google-Maps-iOS-SDK', '1.9.2'
   
 end
