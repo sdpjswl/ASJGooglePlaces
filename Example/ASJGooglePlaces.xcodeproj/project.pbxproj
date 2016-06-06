@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98992455F180BF297FEE90FA /* libPods-ASJGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */; };
 		C02264911AF5F98D006A1903 /* ASJDetails+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */; };
 		C02264921AF5F98D006A1903 /* ASJDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C022648E1AF5F98D006A1903 /* ASJDetails.m */; };
 		C02264931AF5F98D006A1903 /* ASJPlaceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */; };
@@ -37,7 +38,6 @@
 		C0BC8E8C1AF543C200209170 /* PlaceDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E831AF543C200209170 /* PlaceDetailsController.m */; };
 		C0BC8E8D1AF543C200209170 /* PlaceIDController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E851AF543C200209170 /* PlaceIDController.m */; };
 		C0BC8E8E1AF543C200209170 /* PlacePhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E871AF543C200209170 /* PlacePhotosController.m */; };
-		E8C0AB1E9DACA6FC70248540 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7C42C815AC178CFC9A73AA /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0FD290BFF5D9DAEB57786E07 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		58F1A7EA4F0B86570C88A124 /* Pods-ASJGooglePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASJGooglePlaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces.release.xcconfig"; sourceTree = "<group>"; };
+		9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ASJGooglePlaces.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C022648B1AF5F98D006A1903 /* ASJDetails+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASJDetails+Create.h"; sourceTree = "<group>"; };
 		C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASJDetails+Create.m"; sourceTree = "<group>"; };
 		C022648D1AF5F98D006A1903 /* ASJDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJDetails.h; sourceTree = "<group>"; };
@@ -111,8 +112,7 @@
 		C0BC8E851AF543C200209170 /* PlaceIDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceIDController.m; sourceTree = "<group>"; };
 		C0BC8E861AF543C200209170 /* PlacePhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePhotosController.h; sourceTree = "<group>"; };
 		C0BC8E871AF543C200209170 /* PlacePhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacePhotosController.m; sourceTree = "<group>"; };
-		ED7C42C815AC178CFC9A73AA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F88D03F7733EEDF71B9DEE11 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DA7E29BA6A172ED8515201E6 /* Pods-ASJGooglePlaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASJGooglePlaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8C0AB1E9DACA6FC70248540 /* libPods.a in Frameworks */,
+				98992455F180BF297FEE90FA /* libPods-ASJGooglePlaces.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,19 +134,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B479DC69BFC84ABF06AC18C /* Frameworks */ = {
+		31AC227FA5DCCF752983AD7E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				ED7C42C815AC178CFC9A73AA /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		18D1C247667E776A8C6E30F8 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F88D03F7733EEDF71B9DEE11 /* Pods.debug.xcconfig */,
-				0FD290BFF5D9DAEB57786E07 /* Pods.release.xcconfig */,
+				DA7E29BA6A172ED8515201E6 /* Pods-ASJGooglePlaces.debug.xcconfig */,
+				58F1A7EA4F0B86570C88A124 /* Pods-ASJGooglePlaces.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -282,8 +274,8 @@
 				C040F08B1AF5F09700B6E085 /* Categories */,
 				C0BC8E711AF5435900209170 /* ASJGooglePlacesTests */,
 				C0BC8E561AF5435900209170 /* Products */,
-				18D1C247667E776A8C6E30F8 /* Pods */,
-				0B479DC69BFC84ABF06AC18C /* Frameworks */,
+				31AC227FA5DCCF752983AD7E /* Pods */,
+				F38919D2F3AA22A56070B465 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -348,6 +340,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F38919D2F3AA22A56070B465 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -355,11 +355,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0BC8E781AF5435900209170 /* Build configuration list for PBXNativeTarget "ASJGooglePlaces" */;
 			buildPhases = (
-				4A52A6AA671B76FB81F6BD04 /* Check Pods Manifest.lock */,
+				31B80B827605B58BF4C3689F /* 📦 Check Pods Manifest.lock */,
 				C0BC8E511AF5435900209170 /* Sources */,
 				C0BC8E521AF5435900209170 /* Frameworks */,
 				C0BC8E531AF5435900209170 /* Resources */,
-				3BBC7CD51E18D8EC2BA5B60E /* Copy Pods Resources */,
+				713BE311946D5F66527C6BE6 /* 📦 Embed Pods Frameworks */,
+				A03DA72FAC3006471643E646 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -446,34 +447,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3BBC7CD51E18D8EC2BA5B60E /* Copy Pods Resources */ = {
+		31B80B827605B58BF4C3689F /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4A52A6AA671B76FB81F6BD04 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		713BE311946D5F66527C6BE6 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A03DA72FAC3006471643E646 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -628,7 +644,7 @@
 		};
 		C0BC8E791AF5435900209170 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F88D03F7733EEDF71B9DEE11 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = DA7E29BA6A172ED8515201E6 /* Pods-ASJGooglePlaces.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ASJGooglePlaces/Info.plist;
@@ -639,7 +655,7 @@
 		};
 		C0BC8E7A1AF5435900209170 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FD290BFF5D9DAEB57786E07 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 58F1A7EA4F0B86570C88A124 /* Pods-ASJGooglePlaces.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ASJGooglePlaces/Info.plist;
