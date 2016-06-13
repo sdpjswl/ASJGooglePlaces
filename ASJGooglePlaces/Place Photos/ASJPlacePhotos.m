@@ -1,6 +1,7 @@
-//  ASJPlacePhotos.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJPlacePhotos.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -47,54 +48,54 @@ typedef void (^CallbackBlock)(ASJResponseStatusCode, NSArray *);
 #pragma mark - Public
 
 - (void)asjPlacePhotosForPlaceNamed:(NSString *)place
-                        completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *placePhotos))completion {
-    _placeName = place;
-    _callback = completion;
-    [self fetchPlaceDetails];
+                         completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *placePhotos))completion {
+  _placeName = place;
+  _callback = completion;
+  [self fetchPlaceDetails];
 }
 
 - (void)fetchPlaceDetails {
-    ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
-    [api asjPlaceDetailsForPlaceNamed:_placeName
-                          completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails) {
-                              _placeDetails = placeDetails;
-                              [self fetchPlacePhotosWithCompletion:^(NSArray *photos) {
-                                  if (_callback) {
-                                      _callback(statusCode, photos);
-                                  }
-                              }];
-                          }];
+  ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
+  [api asjPlaceDetailsForPlaceNamed:_placeName
+                         completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails) {
+                           _placeDetails = placeDetails;
+                           [self fetchPlacePhotosWithCompletion:^(NSArray *photos) {
+                             if (_callback) {
+                               _callback(statusCode, photos);
+                             }
+                           }];
+                         }];
 }
 
 
 #pragma mark - Private
 
 - (void)fetchPlacePhotosWithCompletion:(void (^)(NSArray *photos))completion {
-    if (!_placeDetails.photos.count && _callback) {
-        _callback(ASJResponseStatusCodeOk, _placeDetails.photos);
-        return;
-    }
-    NSMutableArray *temp = @[].mutableCopy;
-    for (ASJPhoto *photo in _placeDetails.photos) {
-        NSURL *url = [self urlForPlacePhoto:photo];
-        [self executeRequestForURL:url
-                        completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response) {
-                            
-                            UIImage *image = [UIImage imageWithData:data];
-                            [temp addObject:image];
-                            if (temp.count == _placeDetails.photos.count && completion) {
-                                NSArray *images = [NSArray arrayWithArray:temp];
-                                completion(images);
-                            }
-                        }];
-    }
+  if (!_placeDetails.photos.count && _callback) {
+    _callback(ASJResponseStatusCodeOk, _placeDetails.photos);
+    return;
+  }
+  NSMutableArray *temp = @[].mutableCopy;
+  for (ASJPhoto *photo in _placeDetails.photos) {
+    NSURL *url = [self urlForPlacePhoto:photo];
+    [self executeRequestForURL:url
+                    completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response) {
+                      
+                      UIImage *image = [UIImage imageWithData:data];
+                      [temp addObject:image];
+                      if (temp.count == _placeDetails.photos.count && completion) {
+                        NSArray *images = [NSArray arrayWithArray:temp];
+                        completion(images);
+                      }
+                    }];
+  }
 }
 
 - (NSURL *)urlForPlacePhoto:(ASJPhoto *)photo {
-    NSString *stub = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, [ASJConstants sharedInstance].apiKey];
-    stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
-    return queryURL;
+  NSString *stub = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
+  stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
+  return queryURL;
 }
 
 @end

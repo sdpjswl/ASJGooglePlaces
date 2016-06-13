@@ -1,6 +1,7 @@
-//  ASJPlaceID.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJPlaceID.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,55 +23,51 @@
 
 #import "ASJPlaceID.h"
 
-typedef void (^CallbackBlock)(ASJResponseStatusCode, NSString *);
-
 @interface ASJPlaceID ()
 
-@property (nonatomic) NSString *placeName;
-@property (copy) CallbackBlock callback;
-
-- (void)executeRequest;
-- (NSURL *)urlForPlaceIDQuery;
+@property (copy, nonatomic) NSString *placeName;
+@property (copy) PlaceIDBlock completion;
+@property (readonly, weak, nonatomic) NSURL *placeIDURL;
 
 @end
 
 @implementation ASJPlaceID
 
-
 #pragma mark - Public
 
-- (void)asjPlaceIDForPlaceNamed:(NSString *)place
-					completion:(void (^)(ASJResponseStatusCode statusCode, NSString *placeID))completion {
-	_placeName = place;
-	_callback = completion;
-	[self executeRequest];
+- (void)placeIDForPlace:(NSString *)place completion:(PlaceIDBlock)completion
+{
+  _placeName = place;
+  _completion = completion;
+  [self executeGooglePlacesRequest];
 }
-
 
 #pragma mark - Private
 
-- (void)executeRequest {
-	NSURL *url = [self urlForPlaceIDQuery];
-	[self executeRequestForURL:url
-					completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response) {
-						
-                        NSString *placeID = nil;
-                        NSArray *results = response[@"results"];
-                        if (results.count) {
-                            NSDictionary *topResult = results[0];
-                            placeID = topResult[@"place_id"];
-                        }
-						if (_callback) {
-							_callback(statusCode, placeID);
-						}
-					}];
+- (void)executeGooglePlacesRequest
+{
+  [self executeRequestForURL:self.placeIDURL completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+   {
+     if (!_completion) {
+       return;
+     }
+     
+     NSArray *results = response[@"results"];
+     if (!results.count) {
+       return;
+     }
+     
+     NSDictionary *topResult = results[0];
+     NSString *placeID = topResult[@"place_id"];
+     _completion(statusCode, placeID);
+   }];
 }
 
-- (NSURL *)urlForPlaceIDQuery {
-	NSString *stub = [NSString stringWithFormat:@"%@?query=%@&key=%@", kPlaceIDSubURL, _placeName, [ASJConstants sharedInstance].apiKey];
-	stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
-	return queryURL;
+- (NSURL *)placeIDURL
+{
+  NSString *relativePath = [NSString stringWithFormat:@"%@?query=%@&key=%@", kPlaceIDSubURL, _placeName, self.apiKey];
+  relativePath = [relativePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end

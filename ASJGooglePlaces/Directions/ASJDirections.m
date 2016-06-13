@@ -1,6 +1,7 @@
-//  ASJDirections.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJDirections.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,117 +21,71 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import CoreGraphics;
 #import "ASJDirections.h"
-#define kDirectionsURL @"http://maps.googleapis.com/maps/api/directions/json?alternatives=true&"
-
-
-typedef void (^CallbackBlock)(ASJResponseStatusCode, ASJOriginDestination *);
 
 @interface ASJDirections ()
 
 @property (copy, nonatomic) NSString *originName;
 @property (copy, nonatomic) NSString *destinationName;
-@property (nonatomic) CLLocationCoordinate2D origin;
-@property (nonatomic) CLLocationCoordinate2D destination;
-@property (copy) CallbackBlock callback;
+@property (assign, nonatomic) CLLocationCoordinate2D origin;
+@property (assign, nonatomic) CLLocationCoordinate2D destination;
+@property (readonly, weak, nonatomic) NSURL *directionsURL;
+@property (copy) DirectionsBlock completion;
 
-- (void)executeRequest;
-- (NSURL *)urlForDirectionsQuery;
 + (ASJOriginDestination *)directionDetailsForResponse:(NSDictionary *)response;
 
 @end
 
 @implementation ASJDirections
 
-
 #pragma mark - Public
 
-- (void)asjDirectionsPolylineFromOriginNamed:(NSString *)origin
-						   destinationNamed:(NSString *)destination
-								 completion:(void (^)(ASJResponseStatusCode statusCode, ASJOriginDestination *directionDetails))completion {
-	_originName = origin;
-	_destinationName = destination;
-	_callback = completion;
-	[self executeRequest];
+- (void)directionsFromOriginNamed:(NSString *)origin destinationNamed:(NSString *)destination completion:(DirectionsBlock)completion
+{
+  _originName = origin;
+  _destinationName = destination;
+  _completion = completion;
+  [self executeGooglePlacesRequest];
 }
 
-- (void)asjDirectionsPolylineFromOrigin:(CLLocationCoordinate2D)origin
-				   destination:(CLLocationCoordinate2D)destination
-					completion:(void (^)(ASJResponseStatusCode statusCode, ASJOriginDestination *directionDetails))completion {
-	_origin = origin;
-	_destination = destination;
-	_callback = completion;
-	[self executeRequest];
+- (void)directionsFromOrigin:(CLLocationCoordinate2D)origin destination:(CLLocationCoordinate2D)destination completion:(DirectionsBlock)completion
+{
+  _origin = origin;
+  _destination = destination;
+  _completion = completion;
+  [self executeGooglePlacesRequest];
 }
 
-- (void)executeRequest {
-	NSURL *url = [self urlForDirectionsQuery];
-	[self executeRequestForURL:url
-					completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response) {
-                        
-                        ASJOriginDestination *directionDetails = [ASJDirections directionDetailsForResponse:response];
-						if (_callback) {
-							_callback(statusCode, directionDetails);
-						}
-					}];
+#pragma mark - Private
+
+- (void)executeGooglePlacesRequest
+{
+  [self executeRequestForURL:self.urlForDirectionsQuery completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+   {
+     if (!_completion) {
+       return;
+     }
+     
+     ASJOriginDestination *directionDetails = [ASJOriginDestination directionDetailsForResponse:response];
+     _completion(statusCode, directionDetails);
+   }];
 }
 
-- (NSURL *)urlForDirectionsQuery {
-	NSMutableString *urlString = nil;
-	if (_originName && _destinationName) {
-//		urlString = [NSString stringWithFormat:@"%@?origin=%@&destination=%@", kDirectionsBaseURL, _originName, _destinationName];
-	}
-	else {
-        
-        urlString = [NSMutableString stringWithFormat:@"%@origin=%f,%f&destination=%f,%f", kDirectionsURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
-        
-       [urlString appendString:@"&sensor=false&mode=driving"];
-       
-        
-	}
-	urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSURL *queryURL = [NSURL URLWithString:urlString];
-	return queryURL;
-}
-
-+ (NSArray *)directionDetailsForResponse:(NSDictionary *)response {
-        
-    NSArray *routesArray = [response objectForKey:@"routes"];
-    NSMutableArray *ASJOriginDestinationArray = [NSMutableArray array];
-    
-        for (NSDictionary *topRoute in routesArray) {
-            if (!topRoute) {
-            return nil;
-        }
-        NSString *polyline = topRoute[@"overview_polyline"][@"points"];
-        NSDictionary *legs = [topRoute[@"legs"] objectAtIndex:0];
-        NSString *originName = legs[@"start_address"];
-        NSString *destinationName = legs[@"end_address"];
-        
-        NSNumber *originLat = legs[@"start_location"][@"lat"];
-        NSNumber *originLng = legs[@"start_location"][@"lng"];
-        NSNumber *destinationLat = legs[@"end_location"][@"lat"];
-        NSNumber *destinationLng = legs[@"end_location"][@"lng"];
-        
-        CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(originLat.doubleValue, originLng.doubleValue);
-        CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(destinationLat.doubleValue, destinationLng.doubleValue);
-        
-        ASJOriginDestination *directionDetails = [[ASJOriginDestination alloc] init];
-        directionDetails.originName = originName;
-        directionDetails.destinationName = destinationName;
-        directionDetails.origin = origin;
-        directionDetails.destination = destination;
-        directionDetails.polyline = polyline;
-
-        [ASJOriginDestinationArray addObject:directionDetails];
-        
-    }
-    
-    
-    
-    
-    return ASJOriginDestinationArray;
+- (NSURL *)urlForDirectionsQuery
+{
+  NSMutableString *urlString = nil;
+  if (_originName.length && _destinationName.length)
+  {
+    [urlString appendFormat:@"%@origin=%@&destination=%@", kDirectionsBaseURL, _originName, _destinationName];
+  }
+  else
+  {
+    [urlString appendFormat:@"%@&origin=%f,%f&destination=%f,%f", kDirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
+    [urlString appendString:@"&sensor=false&mode=driving"];
+  }
+  
+  urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
+  return [NSURL URLWithString:urlString];
 }
 
 @end

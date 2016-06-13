@@ -1,6 +1,7 @@
-//  ASJAutocomplete.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJAutocomplete.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,59 +22,47 @@
 // THE SOFTWARE.
 
 #import "ASJAutocomplete.h"
-#import "ASJPlace+Create.h"
-
-typedef void (^CallbackBlock)(ASJResponseStatusCode, NSArray *);
 
 @interface ASJAutocomplete ()
 
-@property (copy, nonatomic) NSString *input;
-@property (copy) CallbackBlock callback;
-
-- (void)executeRequest;
-- (NSURL *)urlForAutocompleteQuery;
+@property (copy, nonatomic) NSString *query;
+@property (copy) AutocompleteBlock completion;
+@property (readonly, weak, nonatomic) NSURL *autocompleteURL;
 
 @end
 
 @implementation ASJAutocomplete
 
-
 #pragma mark - Public
 
-- (void)asjAutocompleteForInput:(NSString *)input
-					completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *places))completion {
-	
-	_input = input;
-	_callback = completion;
-	if (!_minimumInputLength) {
-		[self executeRequest];
-		return;
-	}
-	if (input.length >= _minimumInputLength) {
-		[self executeRequest];
-	}
+- (void)autocompleteForQuery:(NSString *)query completion:(AutocompleteBlock)completion
+{
+  _query = query;
+  _completion = completion;
+  
+  if (query.length >= _minimumInputLength) {
+    [self executeGooglePlacesRequest];
+  }
 }
-
 
 #pragma mark - Private
 
-- (void)executeRequest {
-	NSURL *url = [self urlForAutocompleteQuery];
-	[self executeRequestForURL:url
-					completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response) {
-						
-                        NSArray *places = [ASJPlace placesForResponse:response];
-						if (_callback) {
-							_callback(statusCode, places);
-						}
-					}];
+- (void)executeGooglePlacesRequest
+{
+  [self executeRequestForURL:self.autocompleteURL completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+   {
+     NSArray *places = [ASJPlace placesForResponse:response];
+     if (_completion) {
+       _completion(statusCode, places);
+     }
+   }];
 }
 
-- (NSURL *)urlForAutocompleteQuery {
-	NSString *stub = [NSString stringWithFormat:@"%@?input=%@&key=%@", kAutocompleteSubURL, _input, [ASJConstants sharedInstance].apiKey];
-	stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
-	return queryURL;
+- (NSURL *)autocompleteURL
+{
+  NSString *relativePath = [NSString stringWithFormat:@"%@?input=%@&key=%@", kAutocompleteSubURL, _query, self.apiKey];
+  relativePath = [relativePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end

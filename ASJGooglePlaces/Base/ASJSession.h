@@ -1,6 +1,7 @@
-//  ASJSession.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJSession.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +24,42 @@
 @import Foundation;
 #import "ASJConstants.h"
 
+@protocol ASJSession <NSObject>
+
+/**
+ *  A required method you must implement to write the logic that calls the Google Places API.
+ */
+- (void)executeGooglePlacesRequest;
+
+@end
+
+typedef void(^CompletionBlock)(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response);
+
 @interface ASJSession : NSObject
 
-@property (nonatomic) NSURL *baseURL;
+/**
+ *  A single URL session to make all API calls.
+ *
+ *  @return An instance of NSURLSession.
+ */
+@property (readonly, strong, nonatomic) NSURLSession *urlSession;
 
-+ (NSURLSession *)asjSession;
-- (void)executeRequestForURL:(NSURL *)url
-				  completion:(void (^)(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response))completion;
+/**
+ *  The base URL for all Google Place API requests.
+ */
+@property (readonly, strong, nonatomic) NSURL *baseURL;
+
+/**
+ *  The API key that authorizes each API call.
+ */
+@property (readonly, copy, nonatomic) NSString *apiKey;
+
+/**
+ *  A generic method that executes a URL request. For subclass use.
+ *
+ *  @param url        The URL to be executed.
+ *  @param completion A completion block that is executed when the API call is complete.
+ */
+- (void)executeRequestForURL:(NSURL *)url completion:(CompletionBlock)completion;
 
 @end

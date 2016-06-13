@@ -1,6 +1,7 @@
-//  ASJDirections.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJDirections.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,18 +21,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import CoreLocation;
 #import "ASJSession.h"
 #import "ASJOriginDestination.h"
+#import <CoreLocation/CLLocation.h>
 
-@interface ASJDirections : ASJSession
+typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails);
 
-- (void)asjDirectionsPolylineFromOriginNamed:(NSString *)origin
-						   destinationNamed:(NSString *)destination
-							completion:(void (^)(ASJResponseStatusCode statusCode, ASJOriginDestination *directionDetails))completion;
+@interface ASJDirections : ASJSession <ASJSession>
 
-- (void)asjDirectionsPolylineFromOrigin:(CLLocationCoordinate2D)origin
-				   destination:(CLLocationCoordinate2D)destination
-					completion:(void (^)(ASJResponseStatusCode statusCode, ASJOriginDestination *directionDetails))completion;
+/**
+ *  Fetch directions between points A and B by their names.
+ *
+ *  @param origin      The starting point's name.
+ *  @param destination The destination's name.
+ *  @param completion  A completion block that is called when the API call is complete.
+ */
+- (void)directionsFromOriginNamed:(NSString *)origin destinationNamed:(NSString *)destination completion:(DirectionsBlock)completion;
+
+/**
+ *  Fetch directions between points A and B by their coordinates.
+ *
+ *  @param origin      The starting point's coordinates.
+ *  @param destination The destination's coordinates.
+ *  @param completion  A completion block that is called when the API call is complete.
+ */
+- (void)directionsFromOrigin:(CLLocationCoordinate2D)origin destination:(CLLocationCoordinate2D)destination completion:(DirectionsBlock)completion;
 
 @end

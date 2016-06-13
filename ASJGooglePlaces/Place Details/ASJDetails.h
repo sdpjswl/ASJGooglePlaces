@@ -1,6 +1,7 @@
-//  ASJDetails.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJDetails.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +22,53 @@
 // THE SOFTWARE.
 
 @import Foundation;
-@import CoreLocation;
+#import "ASJPhoto.h"
+#import <CoreLocation/CLLocation.h>
 
 @interface ASJDetails : NSObject
 
+/**
+ *  The unique ID assigned by Google to each place.
+ */
 @property (copy, nonatomic) NSString *placeID;
+
+/**
+ *  The place's name.
+ */
 @property (copy, nonatomic) NSString *name;
+
+/**
+ *  The place's address.
+ */
 @property (copy, nonatomic) NSString *address;
+
+/**
+ *  The place's phone number (if available).
+ */
 @property (copy, nonatomic) NSString *phone;
+
+/**
+ *  The place's website (if available).
+ */
 @property (copy, nonatomic) NSString *website;
-@property (nonatomic) CLLocationCoordinate2D location;
-@property (nonatomic) NSArray *photos; // of type ASJPhoto
+
+/**
+ *  The place's photos (if available).
+ */
+@property (copy, nonatomic) NSArray <ASJPhoto *> *photos;
+
+/**
+ *  The place's coordinates.
+ */
+@property (assign, nonatomic) CLLocationCoordinate2D location;
+
+/**
+ *  A helper method that creates an 'ASJDetails' model object from a JSON response.
+ *
+ *  @param response JSON fetched from Google API.
+ *
+ *  @return An instance of 'ASJDetails'.
+ */
++ (ASJDetails *)placeDetailsFromResponse:(NSDictionary *)response;
 
 @end

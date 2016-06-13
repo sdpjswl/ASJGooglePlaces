@@ -1,6 +1,7 @@
-//  ASJPlaceID.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJPlaceID.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +23,10 @@
 
 #import "ASJSession.h"
 
-@interface ASJPlaceID : ASJSession
+typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString *placeID);
 
-- (void)asjPlaceIDForPlaceNamed:(NSString *)place
-                    completion:(void (^)(ASJResponseStatusCode statusCode, NSString *placeID))completion;
+@interface ASJPlaceID : ASJSession <ASJSession>
+
+- (void)placeIDForPlace:(NSString *)place completion:(PlaceIDBlock)completion;
 
 @end

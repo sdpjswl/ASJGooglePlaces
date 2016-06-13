@@ -1,6 +1,7 @@
-//  ASJAutocomplete.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJAutocomplete.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +22,23 @@
 // THE SOFTWARE.
 
 #import "ASJSession.h"
+#import "ASJPlace.h"
 
-@interface ASJAutocomplete : ASJSession
+typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places);
 
-@property (nonatomic) NSUInteger minimumInputLength;
+@interface ASJAutocomplete : ASJSession <ASJSession>
 
-- (void)asjAutocompleteForInput:(NSString *)input
-					completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *places))completion;
+/**
+ *  The minimum number of characters input after which autocomplete results should be fetched.
+ */
+@property (assign, nonatomic) NSUInteger minimumInputLength;
+
+/**
+ *  Fetch place results from Google's Places Autocomplete API.
+ *
+ *  @param input      The search query against which place results are te be fetched.
+ *  @param completion The completion block that is called after the API call is complete. It contains an array of 'ASJPlace' instances and a status code indicating the result of the request. Be sure you check it for ay failure conditions.
+ */
+- (void)autocompleteForQuery:(NSString *)query completion:(AutocompleteBlock)completion;
 
 @end

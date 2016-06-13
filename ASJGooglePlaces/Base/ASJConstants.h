@@ -1,6 +1,7 @@
-//  ASJConstants.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJConstants.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,25 +25,60 @@
 
 @interface ASJConstants : NSObject
 
+/**
+ *  The API key used to authorize requests. You must set this before making any requests. This is usually done in AppDelegate's 'application:didFinishLaunchingWithOptions:' method.
+ */
 @property (copy, nonatomic) NSString *apiKey;
 
+/**
+ *  The singleton object. Use it to set the API key in your AppDelegate.
+ *
+ *  @return The instance of 'ASJConstants'.
+ */
 + (instancetype)sharedInstance;
 
 @end
 
+/**
+ *  Every Places API request gives a 'status code' in its response. Each is mapped to an enum.
+ */
 typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
-	ASJResponseStatusCodeOk,
-	ASJResponseStatusCodeZeroResults,
-	ASJResponseStatusCodeOverQueryLimit,
-	ASJResponseStatusCodeRequestDenied,
-	ASJResponseStatusCodeInvalidRequest,
-	ASJResponseStatusCodeUnknownError,
-	ASJResponseStatusCodeNotFound
+  /**
+   *  For response 'OK'.
+   */
+  ASJResponseStatusCodeOk,
+  /**
+   *  For response 'ZERO_RESULTS'.
+   */
+  ASJResponseStatusCodeZeroResults,
+  /**
+   *  For response 'OVER_QUERY_LIMIT'.
+   */
+  ASJResponseStatusCodeOverQueryLimit,
+  /**
+   *  For response 'REQUEST_DENIED'.
+   */
+  ASJResponseStatusCodeRequestDenied,
+  /**
+   *  For response 'INVALID_REQUEST'.
+   */
+  ASJResponseStatusCodeInvalidRequest,
+  /**
+   *  For response 'UNKNOWN_ERROR'.
+   */
+  ASJResponseStatusCodeUnknownError,
+  /**
+   *  For response 'NOT_FOUND'.
+   */
+  ASJResponseStatusCodeNotFound
 };
 
-static NSString *const kBaseURL = @"https://maps.googleapis.com/maps/api/place/";
-static NSString *const kDirectionsBaseURL = @"https://maps.googleapis.com/maps/api/directions/json";
-static NSString *const kAutocompleteSubURL = @"autocomplete/json";
-static NSString *const kPlaceDetailsSubURL = @"details/json";
-static NSString *const kPlaceIDSubURL = @"textsearch/json";
-static NSString *const kPlacePhotosSubURL = @"photo";
+/**
+ *  These are a few constants that help construct the different URLs used to make API calls.
+ */
+static NSString *const kBaseURL             = @"https://maps.googleapis.com/maps/api/place/";
+static NSString *const kDirectionsBaseURL   = @"http://maps.googleapis.com/maps/api/directions/json?alternatives=true&";
+static NSString *const kAutocompleteSubURL  = @"autocomplete/json";
+static NSString *const kPlaceDetailsSubURL  = @"details/json";
+static NSString *const kPlaceIDSubURL       = @"textsearch/json";
+static NSString *const kPlacePhotosSubURL   = @"photo";

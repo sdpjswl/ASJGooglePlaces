@@ -1,6 +1,7 @@
-//  ASJDetails.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJDetails.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,5 +24,22 @@
 #import "ASJDetails.h"
 
 @implementation ASJDetails
+
++ (ASJDetails *)placeDetailsFromResponse:(NSDictionary *)response {
+  
+  NSDictionary *result = response[@"result"];
+  ASJDetails *detail = [[ASJDetails alloc] init];
+  detail.placeID = result[@"place_id"];
+  detail.name = result[@"name"];
+  detail.address = result[@"formatted_address"];
+  detail.phone = result[@"formatted_phone_number"];
+  detail.website = result[@"website"];
+  detail.photos = [ASJPhoto photosFromResponse:result[@"photos"]];
+  
+  NSNumber *lat = result[@"geometry"][@"location"][@"lat"];
+  NSNumber *lng = result[@"geometry"][@"location"][@"lng"];
+  detail.location = CLLocationCoordinate2DMake(lat.doubleValue, lng.doubleValue);
+  return detail;
+}
 
 @end

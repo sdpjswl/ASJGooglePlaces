@@ -1,6 +1,7 @@
-//  ASJPlaceDetails.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJPlaceDetails.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +24,24 @@
 #import "ASJSession.h"
 #import "ASJDetails.h"
 
-@interface ASJPlaceDetails : ASJSession
+typedef void(^PlaceDetailsBlock)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails);
 
-- (void)asjPlaceDetailsForPlaceNamed:(NSString *)place
-					  completion:(void (^)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails))completion;
+@interface ASJPlaceDetails : ASJSession <ASJSession>
 
-- (void)asjPlaceDetailsForPlaceID:(NSString *)placeID
-					completion:(void (^)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails))completion;
+/**
+ *  Fetch place details of a place by its name.
+ *
+ *  @param place      The place's name.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
+- (void)placeDetailsForPlace:(NSString *)place completion:(PlaceDetailsBlock)completion;
+
+/**
+ *  Fetch place details of a place by its unique place ID.
+ *
+ *  @param placeID    The place's unique ID.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
+- (void)placeDetailsForPlaceID:(NSString *)placeID completion:(PlaceDetailsBlock)completion;
 
 @end

@@ -1,6 +1,7 @@
-//  ASJSession.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJSession.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,59 +24,58 @@
 #import "ASJSession.h"
 #import "ASJResponseValidator.h"
 
-typedef void (^CallbackBlock)(ASJResponseStatusCode, NSData *, NSDictionary *);
-
 @interface ASJSession ()
 
-@property (copy) CallbackBlock callback;
+@property (copy) CompletionBlock completion;
 
-- (void)onTaskCompletionWithData:(NSData *)data error:(NSError *)error;
+- (void)validate:(NSData *)data error:(NSError *)error;
 
 @end
 
 @implementation ASJSession
 
-
 #pragma mark - Public
 
-+ (NSURLSession *)asjSession {
-    static NSURLSession *ASJSession = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-        ASJSession = [NSURLSession sessionWithConfiguration:config];
-    });
-    return ASJSession;
+- (NSURLSession *)urlSession
+{
+  static NSURLSession *urlSession = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    urlSession = [NSURLSession sessionWithConfiguration:config];
+  });
+  return urlSession;
 }
 
-- (NSURL *)baseURL {
-    return [NSURL URLWithString:kBaseURL];
+- (NSURL *)baseURL
+{
+  return [NSURL URLWithString:kBaseURL];
 }
 
-- (void)executeRequestForURL:(NSURL *)url
-                  completion:(void (^)(ASJResponseStatusCode, NSData *, NSDictionary *))completion {
-    
-    _callback = completion;
-    NSURLSession *session = [ASJSession asjSession];
-    NSURLSessionDataTask *task = [session dataTaskWithURL:url
-                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                            [self onTaskCompletionWithData:data error:error];
-                                        }];
-    [task resume];
+- (NSString *)apiKey
+{
+  return [ASJConstants sharedInstance].apiKey;
 }
 
+- (void)executeRequestForURL:(NSURL *)url completion:(CompletionBlock)completion
+{
+  _completion = completion;
+  [[self.urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    {
+      [self validate:data error:error];
+    }] resume];
+}
 
 #pragma mark - Private
 
-- (void)onTaskCompletionWithData:(NSData *)data error:(NSError *)error {
-    
-    [ASJResponseValidator validateResponseData:data
-                                        error:error
-                                   completion:^(ASJResponseStatusCode statusCode, NSDictionary *response) {
-                                       if (_callback) {
-                                           _callback(statusCode, data, response);
-                                       }
-                                   }];
+- (void)validate:(NSData *)data error:(NSError *)error
+{
+  [ASJResponseValidator validateResponseData:data error:error completion:^(ASJResponseStatusCode statusCode, NSDictionary *response)
+   {
+     if (_completion) {
+       _completion(statusCode, data, response);
+     }
+   }];
 }
 
 @end

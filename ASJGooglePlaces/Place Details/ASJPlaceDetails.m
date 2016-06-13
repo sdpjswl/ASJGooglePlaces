@@ -1,6 +1,7 @@
-//  ASJPlaceDetails.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJPlaceDetails.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,90 +21,67 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import CoreGraphics;
 #import "ASJPlaceDetails.h"
 #import "ASJPlaceID.h"
-#import "ASJDetails+Create.h"
-
-typedef void (^PlaceNameCallbackBlock)(ASJResponseStatusCode, ASJDetails *);
-typedef void (^PlaceIDCallbackBlock)(ASJResponseStatusCode, ASJDetails *);
 
 @interface ASJPlaceDetails ()
 
 @property (copy, nonatomic) NSString *placeName;
 @property (copy, nonatomic) NSString *placeID;
-@property (copy) PlaceNameCallbackBlock placeNameCallback;
-@property (copy) PlaceIDCallbackBlock placeIDCallback;
+@property (copy) PlaceDetailsBlock completion;
+@property (readonly, weak, nonatomic) NSURL *placeDetailsURL;
 
 - (void)fetchPlaceID;
-- (void)fetchPlaceDetailsForPlaceID:(NSString *)placeID;
-- (void)executePlaceIDRequest;
-- (NSURL *)urlForPlaceDetailsByIDQuery;
 
 @end
 
 @implementation ASJPlaceDetails
 
-
 #pragma mark - Public: By place name
 
-- (void)asjPlaceDetailsForPlaceNamed:(NSString *)place
-					  completion:(void (^)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails))completion {
-	_placeName = place;
-	_placeNameCallback = completion;
-	[self fetchPlaceID];
+- (void)placeDetailsForPlace:(NSString *)place completion:(PlaceDetailsBlock)completion
+{
+  _placeName = place;
+  _completion = completion;
+  [self fetchPlaceID];
 }
 
-
-#pragma mark - Private: By place name
-
-- (void)fetchPlaceID {
-	ASJPlaceID *api = [[ASJPlaceID alloc] init];
-	[api asjPlaceIDForPlaceNamed:_placeName
-					 completion:^(ASJResponseStatusCode statusCode, NSString *placeID) {
-                         [self fetchPlaceDetailsForPlaceID:placeID];
-                     }];
+- (void)placeDetailsForPlaceID:(NSString *)placeID completion:(PlaceDetailsBlock)completion
+{
+  _placeID = placeID;
+  _completion = completion;
+  [self executeGooglePlacesRequest];
 }
 
-- (void)fetchPlaceDetailsForPlaceID:(NSString *)placeID {
-	
-	[self asjPlaceDetailsForPlaceID:placeID completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails) {
-		if (_placeNameCallback) {
-			_placeNameCallback(statusCode, placeDetails);
-		}
-	}];
+#pragma mark - Private
+
+- (void)fetchPlaceID
+{
+  ASJPlaceID *api = [[ASJPlaceID alloc] init];
+  [api placeIDForPlace:_placeName completion:^(ASJResponseStatusCode statusCode, NSString *placeID)
+   {
+     _placeID = placeID;
+     [self executeGooglePlacesRequest];
+   }];
 }
 
-
-#pragma mark - Public: By place ID
-
-- (void)asjPlaceDetailsForPlaceID:(NSString *)placeID
-					  completion:(void (^)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails))completion {
-	_placeID = placeID;
-	_placeIDCallback = completion;
-	[self executePlaceIDRequest];
+- (void)executeGooglePlacesRequest
+{
+  [self executeRequestForURL:self.placeDetailsURL completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+   {
+     ASJDetails *placeDetails = [ASJDetails placeDetailsFromResponse:response];
+     if (_completion) {
+       _completion(statusCode, placeDetails);
+     }
+   }];
 }
 
-
-#pragma mark - Private: By place ID
-
-- (void)executePlaceIDRequest {
-	NSURL *url = [self urlForPlaceDetailsByIDQuery];
-	[self executeRequestForURL:url
-					completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response) {
-						
-						ASJDetails *placeDetails = [ASJDetails placeDetailsFromResponse:response];
-						if (_placeIDCallback) {
-							_placeIDCallback(statusCode, placeDetails);
-						}
-					}];
-}
-
-- (NSURL *)urlForPlaceDetailsByIDQuery {
-	NSString *stub = [NSString stringWithFormat:@"%@?placeid=%@&key=%@", kPlaceDetailsSubURL, _placeID, [ASJConstants sharedInstance].apiKey];
-	stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
-	return queryURL;
+- (NSURL *)placeDetailsURL
+{
+  NSString *stub = [NSString stringWithFormat:@"%@?placeid=%@&key=%@", kPlaceDetailsSubURL, _placeID, self.apiKey];
+  stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
+  return queryURL;
 }
 
 @end

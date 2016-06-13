@@ -1,6 +1,7 @@
-//  ASJResponseValidator.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJResponseValidator.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +24,10 @@
 @import Foundation;
 #import "ASJConstants.h"
 
+typedef void(^ValidatorBlock)(ASJResponseStatusCode statusCode, NSDictionary *response);
+
 @interface ASJResponseValidator : NSObject
 
-+ (void)validateResponseData:(NSData *)data
-                       error:(NSError *)error
-                  completion:(void (^)(ASJResponseStatusCode statusCode, NSDictionary *response))completion;
++ (void)validateResponseData:(NSData *)data error:(NSError *)error completion:(ValidatorBlock)completion;
 
 @end

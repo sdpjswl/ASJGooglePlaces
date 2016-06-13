@@ -1,6 +1,7 @@
-//  ASJOriginDestination.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJOriginDestination.m
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,5 +24,40 @@
 #import "ASJOriginDestination.h"
 
 @implementation ASJOriginDestination
+
+// Thanks: Deepti
+#warning test this
++ (NSArray<ASJOriginDestination *> *)directionsForResponse:(NSDictionary *)response
+{
+  NSArray *routesArray = [response objectForKey:@"routes"];
+  NSMutableArray *originDestinationArray = [[NSMutableArray alloc] init];
+  
+  for (NSDictionary *topRoute in routesArray)
+  {
+    NSString *polyline = topRoute[@"overview_polyline"][@"points"];
+    NSDictionary *legs = [topRoute[@"legs"] objectAtIndex:0];
+    NSString *originName = legs[@"start_address"];
+    NSString *destinationName = legs[@"end_address"];
+    
+    NSNumber *originLat = legs[@"start_location"][@"lat"];
+    NSNumber *originLng = legs[@"start_location"][@"lng"];
+    NSNumber *destinationLat = legs[@"end_location"][@"lat"];
+    NSNumber *destinationLng = legs[@"end_location"][@"lng"];
+    
+    CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(originLat.doubleValue, originLng.doubleValue);
+    CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(destinationLat.doubleValue, destinationLng.doubleValue);
+    
+    ASJOriginDestination *directionDetails = [[ASJOriginDestination alloc] init];
+    directionDetails.originName = originName;
+    directionDetails.destinationName = destinationName;
+    directionDetails.origin = origin;
+    directionDetails.destination = destination;
+    directionDetails.polyline = polyline;
+    
+    [originDestinationArray addObject:directionDetails];
+  }
+  
+  return originDestinationArray;
+}
 
 @end

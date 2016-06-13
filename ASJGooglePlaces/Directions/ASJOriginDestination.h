@@ -1,6 +1,7 @@
-//  ASJOriginDestination.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// ASJOriginDestination.h
+//
+// Copyright (c) 2014 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +22,42 @@
 // THE SOFTWARE.
 
 @import Foundation;
-@import CoreLocation;
+#import <CoreLocation/CLLocation.h>
 
 @interface ASJOriginDestination : NSObject
 
+/**
+ *  The starting point's name.
+ */
 @property (copy, nonatomic) NSString *originName;
+
+/**
+ *  The destination's name.
+ */
 @property (copy, nonatomic) NSString *destinationName;
+
+/**
+ *  The starting point's coordinates.
+ */
 @property (nonatomic) CLLocationCoordinate2D origin;
+
+/**
+ *  The destication's coordinates.
+ */
 @property (nonatomic) CLLocationCoordinate2D destination;
+
+/**
+ *  The polyline between points A and B. You can use this string to show a path between two points on a 'GMSMapView'.
+ */
 @property (copy, nonatomic) NSString *polyline;
+
+/**
+ *  A helper method that creates 'ASJOriginDestination' model objects from a JSON response.
+ *
+ *  @param response JSON fetched from Google API.
+ *
+ *  @return An array of 'ASJOriginDestination' instances.
+ */
++ (NSArray<ASJOriginDestination *> *)directionsForResponse:(NSDictionary *)response;
 
 @end
