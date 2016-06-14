@@ -33,8 +33,7 @@
 @property (copy) PlacePhotosBlock completion;
 
 - (void)fetchPlaceDetails;
-- (void)fetchPlacePhotosWithCompletion:(void (^)(NSArray *photos))completion;
-- (NSURL *)urlForPlacePhoto:(ASJPhoto *)photo;
+- (NSURL *)urlForPhoto:(ASJPhoto *)photo;
 
 @end
 
@@ -71,6 +70,7 @@
 
 - (void)executeGooglePlacesRequest
 {
+  /*
   if (!_placeDetails.photos.count && _completion)
   {
     _callback(ASJResponseStatusCodeOk, _placeDetails.photos);
@@ -89,9 +89,10 @@
                         completion(images);
                       }
                     }];
+   */
 }
 
-- (NSURL *)urlForPlacePhoto:(ASJPhoto *)photo
+- (NSURL *)urlForPhoto:(ASJPhoto *)photo
   {
   NSString *stub = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
   stub = [stub stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];

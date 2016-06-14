@@ -23,39 +23,39 @@
 @implementation PlaceIDController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.title = @"Place ID";
+  [super viewDidLoad];
+  // Do any additional setup after loading the view, typically from a nib.
+  self.title = @"Place ID";
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 
 #pragma mark - Methods
 
 - (IBAction)goTapped:(id)sender {
-    [self dismissKeyboard];
-    [self runPlaceIDRequest];
+  [self dismissKeyboard];
+  [self runPlaceIDRequest];
 }
 
-- (void)runPlaceIDRequest {
-    ASJPlaceID *api = [[ASJPlaceID alloc] init];
-    [api asjPlaceIDForPlaceNamed:_placeTextField.text
-                     completion:^(ASJResponseStatusCode statusCode, NSString *placeID) {
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                             _placeIDLabel.text = placeID;
-                         });
-                     }];
+- (void)runPlaceIDRequest
+{
+  ASJPlaceID *api = [[ASJPlaceID alloc] init];
+  [api placeIDForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSString *placeID)
+   {
+     dispatch_async(dispatch_get_main_queue(), ^{
+       _placeIDLabel.text = placeID;
+     });
+   }];
 }
-
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return [textField resignFirstResponder];
+  return [textField resignFirstResponder];
 }
 
 @end

@@ -23,7 +23,7 @@
 @property (nonatomic) NSArray *coordinateTextFields;
 @property (nonatomic) NSArray *nameTextFields;
 @property (nonatomic) UITextField *activeTextField;
-@property (nonatomic) ASJOriginDestination *directionDetails;
+@property (nonatomic) NSArray<ASJOriginDestination *> *directionDetails;
 
 - (void)setUp;
 - (IBAction)goTapped:(id)sender;
@@ -35,123 +35,127 @@
 @implementation DirectionsController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self setUp];
+  [super viewDidLoad];
+  // Do any additional setup after loading the view.
+  [self setUp];
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 
 #pragma mark - Methods
 
 - (void)setUp {
-    self.title = @"Directions";
-    _coordinateTextFields = @[_originLatTextField, _originLngTextField, _destinationLatTextField, _destinationLngTextField];
-    _nameTextFields = @[_originNameTextField, _destinationNameTextField];
+  self.title = @"Directions";
+  _coordinateTextFields = @[_originLatTextField, _originLngTextField, _destinationLatTextField, _destinationLngTextField];
+  _nameTextFields = @[_originNameTextField, _destinationNameTextField];
 }
 
 - (IBAction)goTapped:(id)sender {
-    [self dismissKeyboard];
-    [self runDirectionsRequest];
+  [self dismissKeyboard];
+  [self runDirectionsRequest];
 }
 
-- (void)runDirectionsRequest {
+- (void)runDirectionsRequest
+{
+  ASJDirections *api = [[ASJDirections alloc] init];
+  BOOL isActiveTextFieldCoordinateType = [_coordinateTextFields containsObject:_activeTextField];
+  
+  if (!isActiveTextFieldCoordinateType)
+  {
+    NSString *origin = _originNameTextField.text;
+    NSString *destination = _destinationNameTextField.text;
     
-    ASJDirections *api = [[ASJDirections alloc] init];
-    BOOL isActiveTextFieldCoordinateType = [_coordinateTextFields containsObject:_activeTextField];
+    [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails)
+     {
+       _directionDetails = directionDetails;
+       [self showMap];
+     }];
     
-    if (isActiveTextFieldCoordinateType) {
-        
-        CGFloat originLat = _originLatTextField.text.doubleValue;
-        CGFloat originLng = _originLngTextField.text.doubleValue;
-        CGFloat destinationLat = _destinationLatTextField.text.doubleValue;
-        CGFloat destinationLng = _destinationLngTextField.text.doubleValue;
-        
-        [api asjDirectionsPolylineFromOrigin:CLLocationCoordinate2DMake(originLat, originLng)
-                                destination:CLLocationCoordinate2DMake(destinationLat, destinationLng)
-                                 completion:^(ASJResponseStatusCode statusCode, ASJOriginDestination *directionDetails) {
-                                     _directionDetails = directionDetails;
-                                     [self showMap];
-                                 }];
-        return;
+    return;
+  }
+  
+  CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(_originLatTextField.text.doubleValue, _originLngTextField.text.doubleValue);
+  CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(_destinationLatTextField.text.doubleValue, _destinationLngTextField.text.doubleValue);
+  
+  [api directionsFromOrigin:origin destination:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails)
+   {
+     _directionDetails = directionDetails;
+     [self showMap];
+   }];
+}
+
+- (void)showMap
+{
+  if (!_directionDetails)
+  {
+    [self showNoDirectionsAlert];
+    return;
+  }
+  
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^
+  {
+    static GMSMapView *map = nil;
+    if (!map) {
+      map = [[GMSMapView alloc] initWithFrame:_mapContainerView.bounds];
     }
+    [map clear];
     
-    NSString *originName = _originNameTextField.text;
-    NSString *destinationName = _destinationNameTextField.text;
+    ASJOriginDestination *originDestination = _directionDetails[0];
+    GMSPath *path = [GMSPath pathFromEncodedPath:originDestination.polyline];
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
+    GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0];
+    GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
+    polyline.strokeWidth = 5.0;
+    polyline.strokeColor = [UIColor colorWithRed:50.0/255.0 green:205.0/255.0 blue:50.0/255.0 alpha:1.0];
+    polyline.map = map;
     
-    [api asjDirectionsPolylineFromOriginNamed:originName
-                            destinationNamed:destinationName
-                                  completion:^(ASJResponseStatusCode statusCode, ASJOriginDestination *directionDetails) {
-                                      _directionDetails = directionDetails;
-                                      [self showMap];
-                                  }];
+    GMSMarker *origin = [GMSMarker markerWithPosition:originDestination.origin];
+    origin.title = originDestination.originName;
+    origin.map = map;
+    
+    GMSMarker *destination = [GMSMarker markerWithPosition:originDestination.destination];
+    destination.title = originDestination.destinationName;
+    destination.map = map;
+    
+    [_mapContainerView addSubview:map];
+    [map animateWithCameraUpdate:update];
+  }];
 }
 
-- (void)showMap {
-    
-    if (!_directionDetails) {
-        [self showNoDirectionsAlert];
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        static GMSMapView *map = nil;
-        if (!map) {
-            map = [[GMSMapView alloc] initWithFrame:_mapContainerView.bounds];
-        }
-        [map clear];
-        
-        GMSPath *path = [GMSPath pathFromEncodedPath:_directionDetails.polyline];
-        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
-        GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0];
-        GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
-        polyline.strokeWidth = 5.0;
-        polyline.strokeColor = [UIColor colorWithRed:50.0/255.0 green:205.0/255.0 blue:50.0/255.0 alpha:1.0];
-        polyline.map = map;
-        
-        GMSMarker *origin = [GMSMarker markerWithPosition:_directionDetails.origin];
-        origin.title = _directionDetails.originName;
-        origin.map = map;
-        GMSMarker *destination = [GMSMarker markerWithPosition:_directionDetails.destination];
-        destination.title = _directionDetails.destinationName;
-        destination.map = map;
-        
-        [_mapContainerView addSubview:map];
-        [map animateWithCameraUpdate:update];
-    });
-}
-
-- (void)showNoDirectionsAlert {
-    [self showAlertWithMessage:@"No directions found."];
+- (void)showNoDirectionsAlert
+{
+  [self showAlertWithMessage:@"No directions found."];
 }
 
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
-    if (!_activeTextField) {
-        _activeTextField = textField;
-        return YES;
-    }
-    
-    BOOL isActiveTextFieldCoordinateType = [_coordinateTextFields containsObject:_activeTextField];
-    if (_activeTextField.text.length) {
-        BOOL isTextFieldCoordinateType = [_coordinateTextFields containsObject:textField];
-        if (isActiveTextFieldCoordinateType == isTextFieldCoordinateType) {
-            return YES;
-        }
-        return NO;
-    }
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+  if (!_activeTextField) {
     _activeTextField = textField;
     return YES;
+  }
+  
+  BOOL isActiveTextFieldCoordinateType = [_coordinateTextFields containsObject:_activeTextField];
+  if (_activeTextField.text.length) {
+    BOOL isTextFieldCoordinateType = [_coordinateTextFields containsObject:textField];
+    if (isActiveTextFieldCoordinateType == isTextFieldCoordinateType) {
+      return YES;
+    }
+    return NO;
+  }
+  _activeTextField = textField;
+  return YES;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return [textField resignFirstResponder];
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  return [textField resignFirstResponder];
 }
 
 @end

@@ -27,66 +27,67 @@
 @implementation AutocompleteController
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
-	// Do any additional setup after loading the view.
-	[self setUp];
+  [super viewDidLoad];
+  // Do any additional setup after loading the view.
+  [self setUp];
 }
 
 - (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 
 #pragma mark - Methods
 
-- (void)setUp {
-	self.title = @"Autocomplete";
-	[_resultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+- (void)setUp
+{
+  self.title = @"Autocomplete";
+  [_resultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
 - (IBAction)goTapped:(id)sender {
-    [self dismissKeyboard];
-	[self runAutocompleteRequest];
+  [self dismissKeyboard];
+  [self runAutocompleteRequest];
 }
 
 - (void)runAutocompleteRequest {
-	ASJAutocomplete *api = [[ASJAutocomplete alloc] init];
-	api.minimumInputLength = 3;
-	[api asjAutocompleteForInput:_placeTextField.text
-					 completion:^(ASJResponseStatusCode statusCode, NSArray *places) {
-                         _results = places;
-                         [self reloadTable];
-                     }];
+  ASJAutocomplete *api = [[ASJAutocomplete alloc] init];
+  api.minimumInputLength = 3;
+  [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places)
+   {
+     _results = places;
+     [self reloadTable];
+   }];
 }
 
 - (void)reloadTable {
-	dispatch_async(dispatch_get_main_queue(), ^{
-		[_resultsTableView reloadData];
-	});
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [_resultsTableView reloadData];
+  });
 }
 
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return _results.count;
+  return _results.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-	cell.textLabel.font = [UIFont fontWithName:@"TrebuchetMS" size:14.0];
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	ASJPlace *place = _results[indexPath.row];
-	cell.textLabel.text = place.placeDescription;
-	return cell;
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+  cell.textLabel.font = [UIFont fontWithName:@"TrebuchetMS" size:14.0];
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+  ASJPlace *place = _results[indexPath.row];
+  cell.textLabel.text = place.placeDescription;
+  return cell;
 }
 
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	return [textField resignFirstResponder];
+  return [textField resignFirstResponder];
 }
 
 @end
