@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 @import Foundation;
+
 #import "ASJPhoto.h"
 #import <CoreLocation/CLLocation.h>
 
@@ -69,6 +70,6 @@
  *
  *  @return An instance of 'ASJDetails'.
  */
-+ (ASJDetails *)placeDetailsFromResponse:(NSDictionary *)response;
++ (ASJDetails *)placeDetailsForResponse:(NSDictionary *)response;
 
 @end

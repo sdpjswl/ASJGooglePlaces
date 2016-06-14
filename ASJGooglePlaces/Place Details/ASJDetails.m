@@ -25,8 +25,8 @@
 
 @implementation ASJDetails
 
-+ (ASJDetails *)placeDetailsFromResponse:(NSDictionary *)response {
-  
++ (ASJDetails *)placeDetailsForResponse:(NSDictionary *)response
+{
   NSDictionary *result = response[@"result"];
   ASJDetails *detail = [[ASJDetails alloc] init];
   detail.placeID = result[@"place_id"];
@@ -34,7 +34,7 @@
   detail.address = result[@"formatted_address"];
   detail.phone = result[@"formatted_phone_number"];
   detail.website = result[@"website"];
-  detail.photos = [ASJPhoto photosFromResponse:result[@"photos"]];
+  detail.photos = [ASJPhoto photosForResponse:result[@"photos"]];
   
   NSNumber *lat = result[@"geometry"][@"location"][@"lat"];
   NSNumber *lng = result[@"geometry"][@"location"][@"lng"];
