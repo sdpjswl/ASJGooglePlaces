@@ -21,53 +21,70 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJStatusCodeValueTransformer.h"
 #import "ASJConstants.h"
+#import <Foundation/NSException.h>
+#import "ASJStatusCodeValueTransformer.h"
 
 @implementation ASJStatusCodeValueTransformer
 
-+ (Class)transformedValueClass {
-    return [NSNumber class];
+#pragma mark - Overrides
+
++ (Class)transformedValueClass
+{
+  return [NSNumber class];
 }
 
-+ (BOOL)allowsReverseTransformation {
-    return NO;
++ (BOOL)allowsReverseTransformation
+{
+  return NO;
 }
 
-- (id)transformedValue:(id)value {
-    
-    if (!value && ![value respondsToSelector:@selector(length)]) {
-        NSLog(@"you must pass an NSString");
-        return nil;
-    }
-    
-    NSString *statusCode = (NSString *)value;
-    if (areStringsEqual(statusCode, @"OK")) {
-        return @(ASJResponseStatusCodeOk);
-    }
-    if (areStringsEqual(statusCode, @"ZERO_RESULTS")) {
-        return @(ASJResponseStatusCodeZeroResults);
-    }
-    if (areStringsEqual(statusCode, @"OVER_QUERY_LIMIT")) {
-        return @(ASJResponseStatusCodeOverQueryLimit);
-    }
-    if (areStringsEqual(statusCode, @"REQUEST_DENIED")) {
-        return @(ASJResponseStatusCodeRequestDenied);
-    }
-    if (areStringsEqual(statusCode, @"INVALID_REQUEST")) {
-        return @(ASJResponseStatusCodeInvalidRequest);
-    }
-	if (areStringsEqual(statusCode, @"UNKNOWN_ERROR")) {
-		return @(ASJResponseStatusCodeUnknownError);
-	}
-	if (areStringsEqual(statusCode, @"NOT_FOUND")) {
-		return @(ASJResponseStatusCodeNotFound);
-	}
-    return nil;
+- (id)transformedValue:(id)value
+{
+  NSAssert([value respondsToSelector:@selector(length)], @"You must pass an NSString.");
+  NSString *statusCode = (NSString *)value;
+  
+  if (isEqual(statusCode, @"OK"))
+  {
+    return @(ASJResponseStatusCodeOk);
+  }
+  if (isEqual(statusCode, @"ZERO_RESULTS"))
+  {
+    return @(ASJResponseStatusCodeZeroResults);
+  }
+  if (isEqual(statusCode, @"MAX_WAYPOINTS_EXCEEDED"))
+  {
+    return @(ASJResponseStatusCodeMaxWaypointsExceeded);
+  }
+  if (isEqual(statusCode, @"OVER_QUERY_LIMIT"))
+  {
+    return @(ASJResponseStatusCodeOverQueryLimit);
+  }
+  if (isEqual(statusCode, @"REQUEST_DENIED"))
+  {
+    return @(ASJResponseStatusCodeRequestDenied);
+  }
+  if (isEqual(statusCode, @"INVALID_REQUEST"))
+  {
+    return @(ASJResponseStatusCodeInvalidRequest);
+  }
+  if (isEqual(statusCode, @"UNKNOWN_ERROR"))
+  {
+    return @(ASJResponseStatusCodeUnknownError);
+  }
+  if (isEqual(statusCode, @"NOT_FOUND"))
+  {
+    return @(ASJResponseStatusCodeNotFound);
+  }
+  
+  return @(ASJResponseStatusCodeOtherIssue);
 }
 
-BOOL areStringsEqual (NSString *string1, NSString *string2) {
-    return [string1 isEqualToString:string2];
+#pragma mark - Helper
+
+BOOL isEqual(NSString *s1, NSString *s2)
+{
+  return [s1 isEqualToString:s2];
 }
 
 @end

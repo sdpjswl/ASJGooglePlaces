@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  HomeController.h
 //  ASJGooglePlacesExample
 //
 //  Created by sudeep on 12/04/15.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface HomeController : UIViewController
 
 @end
-

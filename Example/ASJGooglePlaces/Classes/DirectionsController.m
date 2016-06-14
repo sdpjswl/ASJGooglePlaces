@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "DirectionsController.h"
 #import "ASJDirections.h"
-#import "UIViewController+Utilities.h"
+#import "DirectionsController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "UIViewController+Utilities.h"
 
 @interface DirectionsController () <UITextFieldDelegate>
 
@@ -69,7 +69,7 @@
     NSString *origin = _originNameTextField.text;
     NSString *destination = _destinationNameTextField.text;
     
-    [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails)
+    [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
      {
        _directionDetails = directionDetails;
        [self showMap];
@@ -81,7 +81,7 @@
   CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(_originLatTextField.text.doubleValue, _originLngTextField.text.doubleValue);
   CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(_destinationLatTextField.text.doubleValue, _destinationLngTextField.text.doubleValue);
   
-  [api directionsFromOrigin:origin destination:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails)
+  [api directionsFromOrigin:origin destination:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
    {
      _directionDetails = directionDetails;
      [self showMap];
@@ -97,33 +97,33 @@
   }
   
   [[NSOperationQueue mainQueue] addOperationWithBlock:^
-  {
-    static GMSMapView *map = nil;
-    if (!map) {
-      map = [[GMSMapView alloc] initWithFrame:_mapContainerView.bounds];
-    }
-    [map clear];
-    
-    ASJOriginDestination *originDestination = _directionDetails[0];
-    GMSPath *path = [GMSPath pathFromEncodedPath:originDestination.polyline];
-    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
-    GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0];
-    GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
-    polyline.strokeWidth = 5.0;
-    polyline.strokeColor = [UIColor colorWithRed:50.0/255.0 green:205.0/255.0 blue:50.0/255.0 alpha:1.0];
-    polyline.map = map;
-    
-    GMSMarker *origin = [GMSMarker markerWithPosition:originDestination.origin];
-    origin.title = originDestination.originName;
-    origin.map = map;
-    
-    GMSMarker *destination = [GMSMarker markerWithPosition:originDestination.destination];
-    destination.title = originDestination.destinationName;
-    destination.map = map;
-    
-    [_mapContainerView addSubview:map];
-    [map animateWithCameraUpdate:update];
-  }];
+   {
+     static GMSMapView *map = nil;
+     if (!map) {
+       map = [[GMSMapView alloc] initWithFrame:_mapContainerView.bounds];
+     }
+     [map clear];
+     
+     ASJOriginDestination *originDestination = _directionDetails[0];
+     GMSPath *path = [GMSPath pathFromEncodedPath:originDestination.polyline];
+     GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
+     GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0];
+     GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
+     polyline.strokeWidth = 5.0;
+     polyline.strokeColor = [UIColor colorWithRed:50.0/255.0 green:205.0/255.0 blue:50.0/255.0 alpha:1.0];
+     polyline.map = map;
+     
+     GMSMarker *origin = [GMSMarker markerWithPosition:originDestination.origin];
+     origin.title = originDestination.originName;
+     origin.map = map;
+     
+     GMSMarker *destination = [GMSMarker markerWithPosition:originDestination.destination];
+     destination.title = originDestination.destinationName;
+     destination.map = map;
+     
+     [_mapContainerView addSubview:map];
+     [map animateWithCameraUpdate:update];
+   }];
 }
 
 - (void)showNoDirectionsAlert

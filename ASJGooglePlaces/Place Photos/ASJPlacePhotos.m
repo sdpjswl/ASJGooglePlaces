@@ -21,10 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPlacePhotos.h"
 #import "ASJPlaceDetails.h"
+#import "ASJPlacePhotos.h"
 #import <UIKit/UIImage.h>
-//#import "ASJDetails.h"
 
 @interface ASJPlacePhotos ()
 
@@ -53,51 +52,54 @@
 - (void)fetchPlaceDetails
 {
   ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
-  [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails)
+  [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error)
    {
-     if (statusCode == ASJResponseStatusCodeOk)
-     {
-       _placeDetails = placeDetails;
-       [self executeGooglePlacesRequest];
+     if (!_completion) {
        return;
      }
      
-     if (_completion) {
-       _completion(statusCode, nil);
+     if (statusCode != ASJResponseStatusCodeOk ||
+         !_placeDetails.photos.count)
+     {
+       _completion(statusCode, nil, error);
+       return;
      }
+     
+     _placeDetails = placeDetails;
+     [self executeGooglePlacesRequest];
    }];
 }
 
 - (void)executeGooglePlacesRequest
 {
-  /*
-  if (!_placeDetails.photos.count && _completion)
-  {
-    _callback(ASJResponseStatusCodeOk, _placeDetails.photos);
+  if (!_completion) {
     return;
   }
-  NSMutableArray *temp = @[].mutableCopy;
-  for (ASJPhoto *photo in _placeDetails.photos) {
-    NSURL *url = [self urlForPlacePhoto:photo];
-    [self executeRequestForURL:url
-                    completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response) {
-                      
-                      UIImage *image = [UIImage imageWithData:data];
-                      [temp addObject:image];
-                      if (temp.count == _placeDetails.photos.count && completion) {
-                        NSArray *images = [NSArray arrayWithArray:temp];
-                        completion(images);
-                      }
-                    }];
-   */
+  
+  
+  
+  NSMutableArray *temp = [[NSMutableArray alloc] init];
+  for (ASJPhoto *photo in _placeDetails.photos)
+  {
+    NSURL *url = [self urlForPhoto:photo];
+    [self executeRequestForURL:url completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+     {
+#warning check this, need image data
+       //       UIImage *image = [UIImage imageWithData:data];
+       //       [temp addObject:image];
+       
+       if (temp.count == _placeDetails.photos.count) {
+         _completion(statusCode, [NSArray arrayWithArray:temp], error);
+       }
+     }];
+  }
 }
 
 - (NSURL *)urlForPhoto:(ASJPhoto *)photo
-  {
-  NSString *stub = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
-  stub = [stub stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-  NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
-  return queryURL;
+{
+  NSString *relativePath = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
+  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end

@@ -22,6 +22,8 @@
 // THE SOFTWARE.
 
 #import "ASJPlaceID.h"
+#import <Foundation/NSArray.h>
+#import <Foundation/NSDictionary.h>
 
 @interface ASJPlaceID ()
 
@@ -46,20 +48,22 @@
 
 - (void)executeGooglePlacesRequest
 {
-  [self executeRequestForURL:self.placeIDURL completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+  [self executeRequestForURL:self.placeIDURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
      if (!_completion) {
        return;
      }
      
      NSArray *results = response[@"results"];
-     if (!results.count) {
+     if (!results.count)
+     {
+       _completion(statusCode, nil, error);
        return;
      }
      
      NSDictionary *topResult = results[0];
      NSString *placeID = topResult[@"place_id"];
-     _completion(statusCode, placeID);
+     _completion(statusCode, placeID, error);
    }];
 }
 

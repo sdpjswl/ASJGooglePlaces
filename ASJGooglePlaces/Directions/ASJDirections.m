@@ -58,14 +58,13 @@
 
 - (void)executeGooglePlacesRequest
 {
-  [self executeRequestForURL:self.urlForDirectionsQuery completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+  [self executeRequestForURL:self.urlForDirectionsQuery completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
-     if (!_completion) {
-       return;
+     if (_completion)
+     {
+       NSArray *directions = [ASJOriginDestination directionsForResponse:response];
+       _completion(statusCode, directions, error);
      }
-     
-     NSArray *directions = [ASJOriginDestination directionsForResponse:response];
-     _completion(statusCode, directions);
    }];
 }
 

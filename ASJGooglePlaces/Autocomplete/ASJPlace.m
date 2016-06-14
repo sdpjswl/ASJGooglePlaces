@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import "ASJPlace.h"
+#import <Foundation/NSDictionary.h>
 
 @implementation ASJPlace
 

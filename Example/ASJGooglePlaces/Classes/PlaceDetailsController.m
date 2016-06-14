@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "PlaceDetailsController.h"
 #import "ASJPlaceDetails.h"
+#import "PlaceDetailsController.h"
 #import "UILabel+PreferredWidth.h"
 #import "UIViewController+Utilities.h"
 
@@ -47,7 +47,7 @@
 
 - (void)runPlaceDetailsRequest {
   ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
-  [api placeDetailsForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails)
+  [api placeDetailsForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error)
    {
      _placeDetails = placeDetails;
      [self showDetailsOnScreen];

@@ -23,30 +23,38 @@
 
 #import "ASJResponseValidator.h"
 #import "ASJStatusCodeValueTransformer.h"
+#import <Foundation/NSData.h>
+#import <Foundation/NSDictionary.h>
+#import <Foundation/NSError.h>
+#import <Foundation/NSJSONSerialization.h>
 
 @implementation ASJResponseValidator
 
-+ (void)validateResponseData:(NSData *)data
-					   error:(NSError *)error
-				  completion:(void (^)(ASJResponseStatusCode, NSDictionary *))completion {
-	
-	if (!data) {
-		return;
-	}
-	if (error) {
-		NSLog(@"%@", error.localizedDescription);
-		return;
-	}
-	
-	NSDictionary *response = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-	
-	ASJStatusCodeValueTransformer *transformer = [[ASJStatusCodeValueTransformer alloc] init];
-	NSNumber *statusCodeBoxed = [transformer transformedValue:response[@"status"]];
-	ASJResponseStatusCode statusCode = statusCodeBoxed.unsignedIntegerValue;
-	
-	if (completion) {
-		completion(statusCode, response);
-	}
++ (void)validateData:(NSData *)data error:(NSError *)error completion:(ValidatorBlock)completion
+{
+  if (!completion) {
+    return;
+  }
+  
+  if (!data.length || error)
+  {
+    completion(ASJResponseStatusCodeOtherIssue, nil, error);
+    return;
+  }
+  
+  NSError *jsonError = nil;
+  NSDictionary *response = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+  
+  if (!response || jsonError)
+  {
+    completion(ASJResponseStatusCodeOtherIssue, response, jsonError);
+    return;
+  }
+  
+  ASJStatusCodeValueTransformer *transformer = [[ASJStatusCodeValueTransformer alloc] init];
+  NSNumber *statusCodeBoxed = [transformer transformedValue:response[@"status"]];
+  ASJResponseStatusCode statusCode = (ASJResponseStatusCode)statusCodeBoxed.unsignedIntegerValue;
+  completion(statusCode, response, jsonError);
 }
 
 @end

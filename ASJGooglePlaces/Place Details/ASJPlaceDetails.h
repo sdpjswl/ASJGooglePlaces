@@ -21,10 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJSession.h"
 #import "ASJDetails.h"
+#import "ASJSession.h"
 
-typedef void(^PlaceDetailsBlock)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails);
+typedef void(^PlaceDetailsBlock)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error);
 
 @interface ASJPlaceDetails : ASJSession
 

@@ -23,7 +23,7 @@
 
 #import "ASJSession.h"
 
-typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString *placeID);
+typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error);
 
 @interface ASJPlaceID : ASJSession
 

@@ -21,12 +21,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJSession.h"
 #import "ASJResponseValidator.h"
+#import "ASJSession.h"
+#import <Foundation/NSException.h>
 
 @interface ASJSession ()
 
-@property (copy) CompletionBlock completion;
+@property (copy) SessionBlock completion;
 
 - (void)validate:(NSData *)data error:(NSError *)error;
 
@@ -57,7 +58,7 @@
   return [ASJConstants sharedInstance].apiKey;
 }
 
-- (void)executeRequestForURL:(NSURL *)url completion:(CompletionBlock)completion
+- (void)executeRequestForURL:(NSURL *)url completion:(SessionBlock)completion
 {
   _completion = completion;
   [[self.urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
@@ -70,10 +71,10 @@
 
 - (void)validate:(NSData *)data error:(NSError *)error
 {
-  [ASJResponseValidator validateResponseData:data error:error completion:^(ASJResponseStatusCode statusCode, NSDictionary *response)
+  [ASJResponseValidator validateData:data error:error completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
      if (_completion) {
-       _completion(statusCode, data, response);
+       _completion(statusCode, response, error);
      }
    }];
 }

@@ -21,8 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import Foundation;
+#import <Foundation/NSValueTransformer.h>
 
 @interface ASJStatusCodeValueTransformer : NSValueTransformer
+
+/**
+ *  This class transforms the value of the status code returned by a Google Places API call into an 'ASJResponseStatusCode'.
+ */
 
 @end

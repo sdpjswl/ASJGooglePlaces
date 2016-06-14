@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import "ASJConstants.h"
+#import <dispatch/once.h>
 
 @implementation ASJConstants
 

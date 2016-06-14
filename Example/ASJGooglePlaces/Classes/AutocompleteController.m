@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "AutocompleteController.h"
 #import "ASJAutocomplete.h"
 #import "ASJPlace.h"
+#import "AutocompleteController.h"
 #import "UIViewController+Utilities.h"
 
 @interface AutocompleteController () <UITableViewDataSource, UITextFieldDelegate>
@@ -54,7 +54,7 @@
 - (void)runAutocompleteRequest {
   ASJAutocomplete *api = [[ASJAutocomplete alloc] init];
   api.minimumInputLength = 3;
-  [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places)
+  [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error)
    {
      _results = places;
      [self reloadTable];

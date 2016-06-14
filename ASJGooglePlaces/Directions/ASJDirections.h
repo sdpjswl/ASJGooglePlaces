@@ -21,11 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJSession.h"
 #import "ASJOriginDestination.h"
+#import "ASJSession.h"
 #import <CoreLocation/CLLocation.h>
 
-typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails);
+typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error);
 
 @interface ASJDirections : ASJSession
 

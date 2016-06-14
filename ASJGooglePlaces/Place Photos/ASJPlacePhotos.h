@@ -21,10 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJSession.h"
 #import "ASJPhoto.h"
+#import "ASJSession.h"
+#import <UIKit/UIImage.h>
 
-typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPhoto *> *placePhotos);
+typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<UIImage *> *placePhotos, NSError *error);
 
 @interface ASJPlacePhotos : ASJSession
 

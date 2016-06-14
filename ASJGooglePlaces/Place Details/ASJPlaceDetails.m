@@ -58,31 +58,32 @@
 - (void)fetchPlaceID
 {
   ASJPlaceID *api = [[ASJPlaceID alloc] init];
-  [api placeIDForPlace:_placeName completion:^(ASJResponseStatusCode statusCode, NSString *placeID)
-   {
-     if (statusCode == ASJResponseStatusCodeOk)
-     {
-       _placeID = placeID;
-       [self executeGooglePlacesRequest];
-       return;
-     }
-     
-     if (_completion) {
-       _completion(statusCode, nil);
-     }
-   }];
-}
-
-- (void)executeGooglePlacesRequest
-{
-  [self executeRequestForURL:self.placeDetailsURL completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+  [api placeIDForPlace:_placeName completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
    {
      if (!_completion) {
        return;
      }
      
-     ASJDetails *placeDetails = [ASJDetails placeDetailsForResponse:response];
-     _completion(statusCode, placeDetails);
+     if (statusCode != ASJResponseStatusCodeOk)
+     {
+       _completion(statusCode, nil, error);
+       return;
+     }
+     
+     _placeID = placeID;
+     [self executeGooglePlacesRequest];
+   }];
+}
+
+- (void)executeGooglePlacesRequest
+{
+  [self executeRequestForURL:self.placeDetailsURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+   {
+     if (_completion)
+     {
+       ASJDetails *placeDetails = [ASJDetails placeDetailsForResponse:response];
+       _completion(statusCode, placeDetails, error);
+     }
    }];
 }
 

@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6BF362B71D0FF8D90054BF24 /* AutocompleteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362A41D0FF8D90054BF24 /* AutocompleteController.m */; };
+		6BF362B81D0FF8D90054BF24 /* DirectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362A61D0FF8D90054BF24 /* DirectionsController.m */; };
+		6BF362B91D0FF8D90054BF24 /* UILabel+PreferredWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362AB1D0FF8D90054BF24 /* UILabel+PreferredWidth.m */; };
+		6BF362BA1D0FF8D90054BF24 /* UIViewController+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362AE1D0FF8D90054BF24 /* UIViewController+Utilities.m */; };
+		6BF362BB1D0FF8D90054BF24 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362B01D0FF8D90054BF24 /* HomeController.m */; };
+		6BF362BC1D0FF8D90054BF24 /* PlaceDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362B21D0FF8D90054BF24 /* PlaceDetailsController.m */; };
+		6BF362BD1D0FF8D90054BF24 /* PlaceIDController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362B41D0FF8D90054BF24 /* PlaceIDController.m */; };
+		6BF362BE1D0FF8D90054BF24 /* PlacePhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362B61D0FF8D90054BF24 /* PlacePhotosController.m */; };
 		98992455F180BF297FEE90FA /* libPods-ASJGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */; };
 		C02264921AF5F98D006A1903 /* ASJDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C022648E1AF5F98D006A1903 /* ASJDetails.m */; };
 		C02264931AF5F98D006A1903 /* ASJPlaceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */; };
-		C040F0931AF5F09700B6E085 /* UILabel+PreferredWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = C040F08F1AF5F09700B6E085 /* UILabel+PreferredWidth.m */; };
 		C0978F0E1AF5F12D00729DD2 /* ASJAutocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EE91AF5F12D00729DD2 /* ASJAutocomplete.m */; };
 		C0978F101AF5F12D00729DD2 /* ASJPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EED1AF5F12D00729DD2 /* ASJPlace.m */; };
 		C0978F111AF5F12D00729DD2 /* ASJConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF01AF5F12D00729DD2 /* ASJConstants.m */; };
@@ -22,29 +29,36 @@
 		C0978F1B1AF5F12D00729DD2 /* ASJPlacePhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F081AF5F12D00729DD2 /* ASJPlacePhotos.m */; };
 		C0978F1C1AF5F12D00729DD2 /* ASJResponseValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F0B1AF5F12D00729DD2 /* ASJResponseValidator.m */; };
 		C0978F1D1AF5F12D00729DD2 /* ASJStatusCodeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F0D1AF5F12D00729DD2 /* ASJStatusCodeValueTransformer.m */; };
-		C0978F211AF5F1B800729DD2 /* UIViewController+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F201AF5F1B800729DD2 /* UIViewController+Utilities.m */; };
 		C0BC8E5B1AF5435900209170 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E5A1AF5435900209170 /* main.m */; };
 		C0BC8E5E1AF5435900209170 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E5D1AF5435900209170 /* AppDelegate.m */; };
-		C0BC8E611AF5435900209170 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E601AF5435900209170 /* ViewController.m */; };
 		C0BC8E641AF5435900209170 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0BC8E621AF5435900209170 /* Main.storyboard */; };
 		C0BC8E661AF5435900209170 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0BC8E651AF5435900209170 /* Images.xcassets */; };
 		C0BC8E691AF5435900209170 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0BC8E671AF5435900209170 /* LaunchScreen.xib */; };
-		C0BC8E8A1AF543C200209170 /* AutocompleteController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E7F1AF543C200209170 /* AutocompleteController.m */; };
-		C0BC8E8B1AF543C200209170 /* DirectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E811AF543C200209170 /* DirectionsController.m */; };
-		C0BC8E8C1AF543C200209170 /* PlaceDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E831AF543C200209170 /* PlaceDetailsController.m */; };
-		C0BC8E8D1AF543C200209170 /* PlaceIDController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E851AF543C200209170 /* PlaceIDController.m */; };
-		C0BC8E8E1AF543C200209170 /* PlacePhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BC8E871AF543C200209170 /* PlacePhotosController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		58F1A7EA4F0B86570C88A124 /* Pods-ASJGooglePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASJGooglePlaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces.release.xcconfig"; sourceTree = "<group>"; };
+		6BF362A31D0FF8D90054BF24 /* AutocompleteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocompleteController.h; sourceTree = "<group>"; };
+		6BF362A41D0FF8D90054BF24 /* AutocompleteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocompleteController.m; sourceTree = "<group>"; };
+		6BF362A51D0FF8D90054BF24 /* DirectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionsController.h; sourceTree = "<group>"; };
+		6BF362A61D0FF8D90054BF24 /* DirectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionsController.m; sourceTree = "<group>"; };
+		6BF362AA1D0FF8D90054BF24 /* UILabel+PreferredWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+PreferredWidth.h"; sourceTree = "<group>"; };
+		6BF362AB1D0FF8D90054BF24 /* UILabel+PreferredWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+PreferredWidth.m"; sourceTree = "<group>"; };
+		6BF362AD1D0FF8D90054BF24 /* UIViewController+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utilities.h"; sourceTree = "<group>"; };
+		6BF362AE1D0FF8D90054BF24 /* UIViewController+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utilities.m"; sourceTree = "<group>"; };
+		6BF362AF1D0FF8D90054BF24 /* HomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeController.h; sourceTree = "<group>"; };
+		6BF362B01D0FF8D90054BF24 /* HomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeController.m; sourceTree = "<group>"; };
+		6BF362B11D0FF8D90054BF24 /* PlaceDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDetailsController.h; sourceTree = "<group>"; };
+		6BF362B21D0FF8D90054BF24 /* PlaceDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDetailsController.m; sourceTree = "<group>"; };
+		6BF362B31D0FF8D90054BF24 /* PlaceIDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceIDController.h; sourceTree = "<group>"; };
+		6BF362B41D0FF8D90054BF24 /* PlaceIDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceIDController.m; sourceTree = "<group>"; };
+		6BF362B51D0FF8D90054BF24 /* PlacePhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePhotosController.h; sourceTree = "<group>"; };
+		6BF362B61D0FF8D90054BF24 /* PlacePhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacePhotosController.m; sourceTree = "<group>"; };
 		9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ASJGooglePlaces.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C022648D1AF5F98D006A1903 /* ASJDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJDetails.h; sourceTree = "<group>"; };
 		C022648E1AF5F98D006A1903 /* ASJDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJDetails.m; sourceTree = "<group>"; };
 		C022648F1AF5F98D006A1903 /* ASJPlaceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlaceDetails.h; sourceTree = "<group>"; };
 		C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPlaceDetails.m; sourceTree = "<group>"; };
-		C040F08E1AF5F09700B6E085 /* UILabel+PreferredWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+PreferredWidth.h"; sourceTree = "<group>"; };
-		C040F08F1AF5F09700B6E085 /* UILabel+PreferredWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+PreferredWidth.m"; sourceTree = "<group>"; };
 		C0978EE81AF5F12D00729DD2 /* ASJAutocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJAutocomplete.h; sourceTree = "<group>"; };
 		C0978EE91AF5F12D00729DD2 /* ASJAutocomplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJAutocomplete.m; sourceTree = "<group>"; };
 		C0978EEC1AF5F12D00729DD2 /* ASJPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlace.h; sourceTree = "<group>"; };
@@ -67,28 +81,14 @@
 		C0978F0B1AF5F12D00729DD2 /* ASJResponseValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJResponseValidator.m; sourceTree = "<group>"; };
 		C0978F0C1AF5F12D00729DD2 /* ASJStatusCodeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJStatusCodeValueTransformer.h; sourceTree = "<group>"; };
 		C0978F0D1AF5F12D00729DD2 /* ASJStatusCodeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJStatusCodeValueTransformer.m; sourceTree = "<group>"; };
-		C0978F1F1AF5F1B800729DD2 /* UIViewController+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utilities.h"; sourceTree = "<group>"; };
-		C0978F201AF5F1B800729DD2 /* UIViewController+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utilities.m"; sourceTree = "<group>"; };
 		C0BC8E551AF5435900209170 /* ASJGooglePlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASJGooglePlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0BC8E591AF5435900209170 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0BC8E5A1AF5435900209170 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C0BC8E5C1AF5435900209170 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C0BC8E5D1AF5435900209170 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C0BC8E5F1AF5435900209170 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C0BC8E601AF5435900209170 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C0BC8E631AF5435900209170 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0BC8E651AF5435900209170 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C0BC8E681AF5435900209170 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		C0BC8E7E1AF543C200209170 /* AutocompleteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocompleteController.h; sourceTree = "<group>"; };
-		C0BC8E7F1AF543C200209170 /* AutocompleteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocompleteController.m; sourceTree = "<group>"; };
-		C0BC8E801AF543C200209170 /* DirectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionsController.h; sourceTree = "<group>"; };
-		C0BC8E811AF543C200209170 /* DirectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionsController.m; sourceTree = "<group>"; };
-		C0BC8E821AF543C200209170 /* PlaceDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDetailsController.h; sourceTree = "<group>"; };
-		C0BC8E831AF543C200209170 /* PlaceDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDetailsController.m; sourceTree = "<group>"; };
-		C0BC8E841AF543C200209170 /* PlaceIDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceIDController.h; sourceTree = "<group>"; };
-		C0BC8E851AF543C200209170 /* PlaceIDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceIDController.m; sourceTree = "<group>"; };
-		C0BC8E861AF543C200209170 /* PlacePhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePhotosController.h; sourceTree = "<group>"; };
-		C0BC8E871AF543C200209170 /* PlacePhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacePhotosController.m; sourceTree = "<group>"; };
 		DA7E29BA6A172ED8515201E6 /* Pods-ASJGooglePlaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASJGooglePlaces.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +113,61 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6BF362A21D0FF8D90054BF24 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6BF362A31D0FF8D90054BF24 /* AutocompleteController.h */,
+				6BF362A41D0FF8D90054BF24 /* AutocompleteController.m */,
+				6BF362A51D0FF8D90054BF24 /* DirectionsController.h */,
+				6BF362A61D0FF8D90054BF24 /* DirectionsController.m */,
+				6BF362A71D0FF8D90054BF24 /* Helpers */,
+				6BF362AF1D0FF8D90054BF24 /* HomeController.h */,
+				6BF362B01D0FF8D90054BF24 /* HomeController.m */,
+				6BF362B11D0FF8D90054BF24 /* PlaceDetailsController.h */,
+				6BF362B21D0FF8D90054BF24 /* PlaceDetailsController.m */,
+				6BF362B31D0FF8D90054BF24 /* PlaceIDController.h */,
+				6BF362B41D0FF8D90054BF24 /* PlaceIDController.m */,
+				6BF362B51D0FF8D90054BF24 /* PlacePhotosController.h */,
+				6BF362B61D0FF8D90054BF24 /* PlacePhotosController.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		6BF362A71D0FF8D90054BF24 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6BF362A81D0FF8D90054BF24 /* BaseController */,
+				6BF362A91D0FF8D90054BF24 /* UILabel+PreferredWidth */,
+				6BF362AC1D0FF8D90054BF24 /* UIViewController+Utilities */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		6BF362A81D0FF8D90054BF24 /* BaseController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BaseController;
+			sourceTree = "<group>";
+		};
+		6BF362A91D0FF8D90054BF24 /* UILabel+PreferredWidth */ = {
+			isa = PBXGroup;
+			children = (
+				6BF362AA1D0FF8D90054BF24 /* UILabel+PreferredWidth.h */,
+				6BF362AB1D0FF8D90054BF24 /* UILabel+PreferredWidth.m */,
+			);
+			path = "UILabel+PreferredWidth";
+			sourceTree = "<group>";
+		};
+		6BF362AC1D0FF8D90054BF24 /* UIViewController+Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				6BF362AD1D0FF8D90054BF24 /* UIViewController+Utilities.h */,
+				6BF362AE1D0FF8D90054BF24 /* UIViewController+Utilities.m */,
+			);
+			path = "UIViewController+Utilities";
+			sourceTree = "<group>";
+		};
 		C022648A1AF5F98D006A1903 /* Place Details */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,25 +177,6 @@
 				C022648E1AF5F98D006A1903 /* ASJDetails.m */,
 			);
 			path = "Place Details";
-			sourceTree = "<group>";
-		};
-		C040F08B1AF5F09700B6E085 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				C0978F1E1AF5F1B800729DD2 /* UIViewController+Utilities */,
-				C040F08D1AF5F09700B6E085 /* UILabel+PreferredWidth */,
-			);
-			name = Categories;
-			path = ASJGooglePlaces/Categories;
-			sourceTree = "<group>";
-		};
-		C040F08D1AF5F09700B6E085 /* UILabel+PreferredWidth */ = {
-			isa = PBXGroup;
-			children = (
-				C040F08E1AF5F09700B6E085 /* UILabel+PreferredWidth.h */,
-				C040F08F1AF5F09700B6E085 /* UILabel+PreferredWidth.m */,
-			);
-			path = "UILabel+PreferredWidth";
 			sourceTree = "<group>";
 		};
 		C0978EE61AF5F12D00729DD2 /* ASJGooglePlaces */ = {
@@ -222,20 +258,10 @@
 			path = Validation;
 			sourceTree = "<group>";
 		};
-		C0978F1E1AF5F1B800729DD2 /* UIViewController+Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				C0978F1F1AF5F1B800729DD2 /* UIViewController+Utilities.h */,
-				C0978F201AF5F1B800729DD2 /* UIViewController+Utilities.m */,
-			);
-			path = "UIViewController+Utilities";
-			sourceTree = "<group>";
-		};
 		C0BC8E4C1AF5435900209170 = {
 			isa = PBXGroup;
 			children = (
 				C0BC8E571AF5435900209170 /* ASJGooglePlaces */,
-				C040F08B1AF5F09700B6E085 /* Categories */,
 				C0BC8E561AF5435900209170 /* Products */,
 				31AC227FA5DCCF752983AD7E /* Pods */,
 				F38919D2F3AA22A56070B465 /* Frameworks */,
@@ -256,18 +282,7 @@
 				C0978EE61AF5F12D00729DD2 /* ASJGooglePlaces */,
 				C0BC8E5C1AF5435900209170 /* AppDelegate.h */,
 				C0BC8E5D1AF5435900209170 /* AppDelegate.m */,
-				C0BC8E5F1AF5435900209170 /* ViewController.h */,
-				C0BC8E601AF5435900209170 /* ViewController.m */,
-				C0BC8E841AF543C200209170 /* PlaceIDController.h */,
-				C0BC8E851AF543C200209170 /* PlaceIDController.m */,
-				C0BC8E821AF543C200209170 /* PlaceDetailsController.h */,
-				C0BC8E831AF543C200209170 /* PlaceDetailsController.m */,
-				C0BC8E861AF543C200209170 /* PlacePhotosController.h */,
-				C0BC8E871AF543C200209170 /* PlacePhotosController.m */,
-				C0BC8E7E1AF543C200209170 /* AutocompleteController.h */,
-				C0BC8E7F1AF543C200209170 /* AutocompleteController.m */,
-				C0BC8E801AF543C200209170 /* DirectionsController.h */,
-				C0BC8E811AF543C200209170 /* DirectionsController.m */,
+				6BF362A21D0FF8D90054BF24 /* Classes */,
 				C0BC8E621AF5435900209170 /* Main.storyboard */,
 				C0BC8E651AF5435900209170 /* Images.xcassets */,
 				C0BC8E671AF5435900209170 /* LaunchScreen.xib */,
@@ -415,25 +430,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0978F101AF5F12D00729DD2 /* ASJPlace.m in Sources */,
-				C0BC8E8E1AF543C200209170 /* PlacePhotosController.m in Sources */,
 				C0978F1B1AF5F12D00729DD2 /* ASJPlacePhotos.m in Sources */,
-				C0BC8E8B1AF543C200209170 /* DirectionsController.m in Sources */,
+				6BF362BC1D0FF8D90054BF24 /* PlaceDetailsController.m in Sources */,
 				C0978F1A1AF5F12D00729DD2 /* ASJPhoto.m in Sources */,
+				6BF362BD1D0FF8D90054BF24 /* PlaceIDController.m in Sources */,
 				C0978F111AF5F12D00729DD2 /* ASJConstants.m in Sources */,
 				C0978F141AF5F12D00729DD2 /* ASJOriginDestination.m in Sources */,
-				C0BC8E611AF5435900209170 /* ViewController.m in Sources */,
-				C0BC8E8C1AF543C200209170 /* PlaceDetailsController.m in Sources */,
-				C0BC8E8A1AF543C200209170 /* AutocompleteController.m in Sources */,
 				C0978F0E1AF5F12D00729DD2 /* ASJAutocomplete.m in Sources */,
-				C0BC8E8D1AF543C200209170 /* PlaceIDController.m in Sources */,
-				C0978F211AF5F1B800729DD2 /* UIViewController+Utilities.m in Sources */,
+				6BF362BE1D0FF8D90054BF24 /* PlacePhotosController.m in Sources */,
 				C0BC8E5E1AF5435900209170 /* AppDelegate.m in Sources */,
 				C0BC8E5B1AF5435900209170 /* main.m in Sources */,
+				6BF362BB1D0FF8D90054BF24 /* HomeController.m in Sources */,
+				6BF362BA1D0FF8D90054BF24 /* UIViewController+Utilities.m in Sources */,
 				C02264921AF5F98D006A1903 /* ASJDetails.m in Sources */,
+				6BF362B71D0FF8D90054BF24 /* AutocompleteController.m in Sources */,
 				C0978F131AF5F12D00729DD2 /* ASJDirections.m in Sources */,
-				C040F0931AF5F09700B6E085 /* UILabel+PreferredWidth.m in Sources */,
+				6BF362B91D0FF8D90054BF24 /* UILabel+PreferredWidth.m in Sources */,
 				C0978F181AF5F12D00729DD2 /* ASJPlaceID.m in Sources */,
 				C0978F1C1AF5F12D00729DD2 /* ASJResponseValidator.m in Sources */,
+				6BF362B81D0FF8D90054BF24 /* DirectionsController.m in Sources */,
 				C02264931AF5F98D006A1903 /* ASJPlaceDetails.m in Sources */,
 				C0978F121AF5F12D00729DD2 /* ASJSession.m in Sources */,
 				C0978F1D1AF5F12D00729DD2 /* ASJStatusCodeValueTransformer.m in Sources */,

@@ -14,7 +14,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#warning Provide keys for app tp work correctly. Go to: https://code.google.com/apis/console
+#warning Provide keys for app to work correctly. If you don't have one, go to: https://console.developers.google.com
   // key for Google Places API requests
   [ASJConstants sharedInstance].apiKey = @"<#set API key#>";
   

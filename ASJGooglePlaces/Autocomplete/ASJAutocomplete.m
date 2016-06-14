@@ -49,11 +49,12 @@
 
 - (void)executeGooglePlacesRequest
 {
-  [self executeRequestForURL:self.autocompleteURL completion:^(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response)
+  [self executeRequestForURL:self.autocompleteURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
-     NSArray *places = [ASJPlace placesForResponse:response];
-     if (_completion) {
-       _completion(statusCode, places);
+     if (_completion)
+     {
+       NSArray *places = [ASJPlace placesForResponse:response];
+       _completion(statusCode, places, error);
      }
    }];
 }

@@ -21,9 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import Foundation;
+#warning add nullability annotations
 
 #import "ASJConstants.h"
+#import <Foundation/NSCharacterSet.h>
+#import <Foundation/NSURL.h>
+#import <Foundation/NSURLSession.h>
 
 @protocol ASJSession <NSObject>
 
@@ -34,7 +37,7 @@
 
 @end
 
-typedef void(^CompletionBlock)(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response);
+typedef void(^SessionBlock)(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error);
 
 @interface ASJSession : NSObject <ASJSession>
 
@@ -51,7 +54,7 @@ typedef void(^CompletionBlock)(ASJResponseStatusCode statusCode, NSData *data, N
 @property (readonly, strong, nonatomic) NSURL *baseURL;
 
 /**
- *  The API key that authorizes each API call.
+ *  The key that authorizes each API call. If you don't have a key, generate one from https://console.developers.google.com
  */
 @property (readonly, copy, nonatomic) NSString *apiKey;
 
@@ -61,6 +64,6 @@ typedef void(^CompletionBlock)(ASJResponseStatusCode statusCode, NSData *data, N
  *  @param url        The URL to be executed.
  *  @param completion A completion block that is executed when the API call is complete.
  */
-- (void)executeRequestForURL:(NSURL *)url completion:(CompletionBlock)completion;
+- (void)executeRequestForURL:(NSURL *)url completion:(SessionBlock)completion;
 
 @end

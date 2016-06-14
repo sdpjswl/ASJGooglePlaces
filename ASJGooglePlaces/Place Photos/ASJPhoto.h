@@ -21,14 +21,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import Foundation;
+#import <Foundation/NSArray.h>
+#import <Foundation/NSObjCRuntime.h>
+#import <Foundation/NSObject.h>
 
 @interface ASJPhoto : NSObject
 
-@property (nonatomic) NSUInteger width;
-@property (nonatomic) NSUInteger height;
+/**
+ *  The photo's width.
+ */
+@property (assign, nonatomic) NSUInteger width;
+
+/**
+ *  The photo's height.
+ */
+@property (assign, nonatomic) NSUInteger height;
+
+/**
+ *  The unique reference ID assigned to each photo by Google. This is needed to make the API call to download a photo.
+ */
 @property (copy, nonatomic) NSString *photoReference;
 
-+ (NSArray *)photosForResponse:(NSDictionary *)response;
+/**
+ *  A helper method that creates an array of 'ASJPhoto' model objects from a JSON response.
+ *
+ *  @param response JSON fetched from Google API.
+ *
+ *  @return An array of 'ASJPhoto' instances.
+ */
++ (NSArray<ASJPhoto *> *)photosForResponse:(NSDictionary *)response;
 
 @end

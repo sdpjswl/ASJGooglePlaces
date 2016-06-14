@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "PlacePhotosController.h"
 #import "ASJPlacePhotos.h"
+#import "PlacePhotosController.h"
 #import "UIViewController+Utilities.h"
 
 @interface PlacePhotosController () <UICollectionViewDataSource, UITextFieldDelegate>
@@ -58,7 +58,7 @@
 
 - (void)runPlacePhotosRequest {
   ASJPlacePhotos *api = [[ASJPlacePhotos alloc] init];
-  [api placePhotosForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPhoto *> *placePhotos)
+  [api placePhotosForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<UIImage *> *placePhotos, NSError *error)
    {
      _photos = placePhotos;
      if (!_photos.count) {

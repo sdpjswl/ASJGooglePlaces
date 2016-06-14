@@ -21,14 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import Foundation;
-
 #import "ASJConstants.h"
 
-typedef void(^ValidatorBlock)(ASJResponseStatusCode statusCode, NSDictionary *response);
+typedef void(^ValidatorBlock)(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error);
 
 @interface ASJResponseValidator : NSObject
 
-+ (void)validateResponseData:(NSData *)data error:(NSError *)error completion:(ValidatorBlock)completion;
+/**
+ *  Validates the response of the Google API call. Each call is being processed by this method before being passed on to the respective completion block.
+ *
+ *  @param data       The 'NSData' object received in the request's completion block.
+ *  @param error      The 'NSError' object received in the request's completion block.
+ *  @param completion A completion block that is called after validation is complete.
+ */
++ (void)validateData:(NSData *)data error:(NSError *)error completion:(ValidatorBlock)completion;
 
 @end

@@ -93,6 +93,7 @@ The polyline can be used to draw a `GMSPolyline` between the two places on a `GM
 
 - Refactor project and library.
 - Add documentation.
+- Add nullability annotations.
 
 # Credits
 

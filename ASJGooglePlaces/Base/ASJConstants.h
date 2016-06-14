@@ -21,12 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import Foundation;
+#import <Foundation/NSString.h>
 
 @interface ASJConstants : NSObject
 
 /**
- *  The API key used to authorize requests. You must set this before making any requests. This is usually done in AppDelegate's 'application:didFinishLaunchingWithOptions:' method.
+ *  The API key used to authorize requests. You must set this before making any requests. This is usually done in AppDelegate's 'application:didFinishLaunchingWithOptions:' method. If you don't have a key, generate one from https://console.developers.google.com
  */
 @property (copy, nonatomic) NSString *apiKey;
 
@@ -40,7 +40,7 @@
 @end
 
 /**
- *  Every Places API request gives a 'status code' in its response. Each is mapped to an enum.
+ *  Every Places API request gives a 'status code' in its response. Each is mapped to an enum. Defined here: https://developers.google.com/maps/documentation/directions/intro#DirectionsResponseElements
  */
 typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
   /**
@@ -51,6 +51,10 @@ typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
    *  For response 'ZERO_RESULTS'.
    */
   ASJResponseStatusCodeZeroResults,
+  /**
+   *  For response 'MAX_WAYPOINTS_EXCEEDED'.
+   */
+  ASJResponseStatusCodeMaxWaypointsExceeded,
   /**
    *  For response 'OVER_QUERY_LIMIT'.
    */
@@ -70,7 +74,11 @@ typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
   /**
    *  For response 'NOT_FOUND'.
    */
-  ASJResponseStatusCodeNotFound
+  ASJResponseStatusCodeNotFound,
+  /**
+   *  For none of the above status codes.
+   */
+  ASJResponseStatusCodeOtherIssue
 };
 
 /**
