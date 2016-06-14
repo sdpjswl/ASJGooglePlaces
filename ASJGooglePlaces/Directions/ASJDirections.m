@@ -32,8 +32,6 @@
 @property (readonly, weak, nonatomic) NSURL *directionsURL;
 @property (copy) DirectionsBlock completion;
 
-+ (ASJOriginDestination *)directionDetailsForResponse:(NSDictionary *)response;
-
 @end
 
 @implementation ASJDirections
@@ -66,11 +64,12 @@
        return;
      }
      
-     ASJOriginDestination *directionDetails = [ASJOriginDestination directionDetailsForResponse:response];
-     _completion(statusCode, directionDetails);
+     NSArray *directions = [ASJOriginDestination directionsForResponse:response];
+     _completion(statusCode, directions);
    }];
 }
 
+// Thanks: Deepti
 - (NSURL *)urlForDirectionsQuery
 {
   NSMutableString *urlString = nil;
@@ -80,12 +79,11 @@
   }
   else
   {
-    [urlString appendFormat:@"%@&origin=%f,%f&destination=%f,%f", kDirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
-    [urlString appendString:@"&sensor=false&mode=driving"];
+    [urlString appendFormat:@"%@origin=%f,%f&destination=%f,%f", kDirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
   }
   
-  urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]].mutableCopy;
-  return [NSURL URLWithString:urlString];
+  NSString *percentEscapedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+  return [NSURL URLWithString:percentEscapedString];
 }
 
 @end
