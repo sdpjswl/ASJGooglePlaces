@@ -300,12 +300,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0BC8E781AF5435900209170 /* Build configuration list for PBXNativeTarget "ASJGooglePlaces" */;
 			buildPhases = (
-				31B80B827605B58BF4C3689F /* 📦 Check Pods Manifest.lock */,
+				31B80B827605B58BF4C3689F /* [CP] Check Pods Manifest.lock */,
 				C0BC8E511AF5435900209170 /* Sources */,
 				C0BC8E521AF5435900209170 /* Frameworks */,
 				C0BC8E531AF5435900209170 /* Resources */,
-				713BE311946D5F66527C6BE6 /* 📦 Embed Pods Frameworks */,
-				A03DA72FAC3006471643E646 /* 📦 Copy Pods Resources */,
+				713BE311946D5F66527C6BE6 /* [CP] Embed Pods Frameworks */,
+				A03DA72FAC3006471643E646 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -362,14 +362,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31B80B827605B58BF4C3689F /* 📦 Check Pods Manifest.lock */ = {
+		31B80B827605B58BF4C3689F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,14 +377,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		713BE311946D5F66527C6BE6 /* 📦 Embed Pods Frameworks */ = {
+		713BE311946D5F66527C6BE6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,14 +392,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A03DA72FAC3006471643E646 /* 📦 Copy Pods Resources */ = {
+		A03DA72FAC3006471643E646 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
