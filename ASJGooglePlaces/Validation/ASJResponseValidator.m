@@ -47,7 +47,6 @@
   
   if (!response || jsonError)
   {
-    NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     completion(ASJResponseStatusCodeOtherIssue, response, jsonError);
     return;
   }

@@ -76,12 +76,20 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (NSArray *)options
 {
-  return @[@"Place ID", @"Place Details", @"Place Photos", @"Autocomplete", @"Directions"];
+  return @[@"Place ID",
+           @"Place Details",
+           @"Place Photos",
+           @"Autocomplete",
+           @"Directions"];
 }
 
 - (NSArray *)optionsSegueIdentifiers
 {
-  return @[@"PlaceIDController", @"PlaceDetailsController", @"PlacePhotosController", @"AutocompleteController", @"DirectionsController"];
+  return @[@"PlaceIDController",
+           @"PlaceDetailsController",
+           @"PlacePhotosController",
+           @"AutocompleteController",
+           @"DirectionsController"];
 }
 
 @end

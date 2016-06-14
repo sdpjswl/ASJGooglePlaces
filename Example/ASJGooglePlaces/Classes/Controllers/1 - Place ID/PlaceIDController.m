@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeIDLabel;
 
 - (IBAction)goTapped:(id)sender;
-- (void)runPlaceIDRequest;
+- (void)executePlaceIDRequest;
 
 @end
 
@@ -32,14 +32,20 @@
 - (IBAction)goTapped:(id)sender
 {
   [self dismissKeyboard];
-  [self runPlaceIDRequest];
+  [self executePlaceIDRequest];
 }
 
-- (void)runPlaceIDRequest
+- (void)executePlaceIDRequest
 {
   ASJPlaceID *api = [[ASJPlaceID alloc] init];
   [api placeIDForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
    {
+     if (!placeID.length || error)
+     {
+       [self showAlertWithMessage:error.localizedDescription];
+       return;
+     }
+     
      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
        _placeIDLabel.text = placeID;
      }];

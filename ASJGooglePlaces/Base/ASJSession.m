@@ -60,7 +60,6 @@
 
 - (void)executeRequestForURL:(NSURL *)url completion:(SessionBlock)completion
 {
-  NSLog(@"%@", url.absoluteString);
   _completion = completion;
   [[self.urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
     {

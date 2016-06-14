@@ -12,19 +12,18 @@
 
 @interface PlaceDetailsController () <UITextFieldDelegate>
 
-@property (nonatomic) IBOutlet UITextField *placeTextField;
-@property (nonatomic) IBOutlet UILabel *placeIDLabel;
-@property (nonatomic) IBOutlet UILabel *nameLabel;
-@property (nonatomic) IBOutlet UILabel *addressLabel;
-@property (nonatomic) IBOutlet UILabel *phoneLabel;
-@property (nonatomic) IBOutlet UILabel *websiteLabel;
-@property (nonatomic) IBOutlet UILabel *locationLabel;
-@property (nonatomic) ASJDetails *placeDetails;
+@property (weak, nonatomic) IBOutlet UITextField *placeTextField;
+@property (weak, nonatomic) IBOutlet UILabel *placeIDLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (strong, nonatomic) ASJDetails *placeDetails;
 
 - (IBAction)goTapped:(id)sender;
-- (void)runPlaceDetailsRequest;
+- (void)executePlaceDetailsRequest;
 - (void)showDetailsOnScreen;
-+ (NSString *)locationStringFromCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @end
 
@@ -41,10 +40,11 @@
 - (IBAction)goTapped:(id)sender
 {
   [self dismissKeyboard];
-  [self runPlaceDetailsRequest];
+  [self executePlaceDetailsRequest];
 }
 
-- (void)runPlaceDetailsRequest {
+- (void)executePlaceDetailsRequest
+{
   ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
   [api placeDetailsForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error)
    {
@@ -53,41 +53,45 @@
    }];
 }
 
-- (void)showDetailsOnScreen {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    if (_placeDetails.placeID) {
-      _placeIDLabel.text = _placeDetails.placeID;
-    }
-    if (_placeDetails.name) {
-      _nameLabel.text = _placeDetails.name;
-    }
-    if (_placeDetails.address) {
-      _addressLabel.text = _placeDetails.address;
-      _addressLabel.preferredMaxLayoutWidth = [_addressLabel preferredMaxWidthWithPadding:15.0];
-    }
-    if (_placeDetails.phone) {
-      _phoneLabel.text = _placeDetails.phone;
-    }
-    if (_placeDetails.website) {
-      _websiteLabel.text = _placeDetails.website;
-    }
-    if (_placeDetails.location.latitude && _placeDetails.location.longitude)  {
-      _locationLabel.text = [PlaceDetailsController locationStringFromCoordinate:_placeDetails.location];
-    }
-  });
+- (void)showDetailsOnScreen
+{
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^
+   {
+     if (_placeDetails.placeID.length)
+     {
+       _placeIDLabel.text = _placeDetails.placeID;
+     }
+     if (_placeDetails.name.length)
+     {
+       _nameLabel.text = _placeDetails.name;
+     }
+     if (_placeDetails.address.length)
+     {
+       _addressLabel.text = _placeDetails.address;
+       _addressLabel.preferredMaxLayoutWidth = [_addressLabel preferredMaxWidthWithPadding:15.0];
+     }
+     if (_placeDetails.phone.length)
+     {
+       _phoneLabel.text = _placeDetails.phone;
+     }
+     if (_placeDetails.website.length)
+     {
+       _websiteLabel.text = _placeDetails.website;
+     }
+     
+     CGFloat lat = _placeDetails.location.latitude;
+     CGFloat lng = _placeDetails.location.longitude;
+     if (lat && lng)
+     {
+       _locationLabel.text = [NSString stringWithFormat:@"%f, %f", lat, lng];
+     }
+   }];
 }
-
-
-#pragma mark - Helper function
-
-+ (NSString *)locationStringFromCoordinate:(CLLocationCoordinate2D)coordinate {
-  return [NSString stringWithFormat:@"%f, %f", coordinate.latitude, coordinate.longitude];
-}
-
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
   return [textField resignFirstResponder];
 }
 
