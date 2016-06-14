@@ -25,4 +25,18 @@
 
 @implementation ASJPhoto
 
++ (NSArray *)photosForResponse:(NSDictionary *)response
+{
+  NSMutableArray *temp = [[NSMutableArray alloc] init];
+  for (NSDictionary *dict in response)
+  {
+    ASJPhoto *photo = [[ASJPhoto alloc] init];
+    photo.width = [dict[@"width"] longValue];
+    photo.height = [dict[@"height"] longValue];
+    photo.photoReference = dict[@"photo_reference"];
+    [temp addObject:photo];
+  }
+  return [NSArray arrayWithArray:temp];
+}
+
 @end

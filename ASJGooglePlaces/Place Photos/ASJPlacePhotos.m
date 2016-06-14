@@ -21,20 +21,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import UIKit;
 #import "ASJPlacePhotos.h"
 #import "ASJPlaceDetails.h"
-#import "ASJPhoto.h"
-#import "ASJDetails.h"
-
-typedef void (^CallbackBlock)(ASJResponseStatusCode, NSArray *);
+#import <UIKit/UIImage.h>
+//#import "ASJDetails.h"
 
 @interface ASJPlacePhotos ()
 
-@property (nonatomic) NSString *placeName;
-@property (nonatomic) ASJDetails *placeDetails;
-@property (nonatomic) NSArray *photos;
-@property (copy) CallbackBlock callback;
+@property (copy, nonatomic) NSString *place;
+@property (strong, nonatomic) ASJDetails *placeDetails;
+@property (copy) PlacePhotosBlock completion;
 
 - (void)fetchPlaceDetails;
 - (void)fetchPlacePhotosWithCompletion:(void (^)(NSArray *photos))completion;
@@ -44,34 +40,39 @@ typedef void (^CallbackBlock)(ASJResponseStatusCode, NSArray *);
 
 @implementation ASJPlacePhotos
 
-
 #pragma mark - Public
 
-- (void)asjPlacePhotosForPlaceNamed:(NSString *)place
-                         completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *placePhotos))completion {
-  _placeName = place;
-  _callback = completion;
+- (void)placePhotosForPlace:(NSString *)place completion:(PlacePhotosBlock)completion
+{
+  _place = place;
+  _completion = completion;
   [self fetchPlaceDetails];
 }
 
-- (void)fetchPlaceDetails {
-  ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
-  [api asjPlaceDetailsForPlaceNamed:_placeName
-                         completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails) {
-                           _placeDetails = placeDetails;
-                           [self fetchPlacePhotosWithCompletion:^(NSArray *photos) {
-                             if (_callback) {
-                               _callback(statusCode, photos);
-                             }
-                           }];
-                         }];
-}
-
-
 #pragma mark - Private
 
-- (void)fetchPlacePhotosWithCompletion:(void (^)(NSArray *photos))completion {
-  if (!_placeDetails.photos.count && _callback) {
+- (void)fetchPlaceDetails
+{
+  ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
+  [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails)
+   {
+     if (statusCode == ASJResponseStatusCodeOk)
+     {
+       _placeDetails = placeDetails;
+       [self executeGooglePlacesRequest];
+       return;
+     }
+     
+     if (_completion) {
+       _completion(statusCode, nil);
+     }
+   }];
+}
+
+- (void)executeGooglePlacesRequest
+{
+  if (!_placeDetails.photos.count && _completion)
+  {
     _callback(ASJResponseStatusCodeOk, _placeDetails.photos);
     return;
   }
@@ -88,10 +89,10 @@ typedef void (^CallbackBlock)(ASJResponseStatusCode, NSArray *);
                         completion(images);
                       }
                     }];
-  }
 }
 
-- (NSURL *)urlForPlacePhoto:(ASJPhoto *)photo {
+- (NSURL *)urlForPlacePhoto:(ASJPhoto *)photo
+  {
   NSString *stub = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
   stub = [stub stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
   NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];

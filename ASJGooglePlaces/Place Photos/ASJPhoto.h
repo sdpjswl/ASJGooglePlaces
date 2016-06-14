@@ -29,4 +29,6 @@
 @property (nonatomic) NSUInteger height;
 @property (copy, nonatomic) NSString *photoReference;
 
++ (NSArray *)photosForResponse:(NSDictionary *)response;
+
 @end

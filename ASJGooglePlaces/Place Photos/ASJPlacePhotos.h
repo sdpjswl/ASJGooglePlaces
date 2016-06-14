@@ -22,10 +22,18 @@
 // THE SOFTWARE.
 
 #import "ASJSession.h"
+#import "ASJPhoto.h"
+
+typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPhoto *> *placePhotos);
 
 @interface ASJPlacePhotos : ASJSession
 
-- (void)asjPlacePhotosForPlaceNamed:(NSString *)place
-					  completion:(void (^)(ASJResponseStatusCode statusCode, NSArray *placePhotos))completion;
+/**
+ *  Fetch photos of a place by its name.
+ *
+ *  @param place      The place's name.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
+- (void)placePhotosForPlace:(NSString *)place completion:(PlacePhotosBlock)completion;
 
 @end
