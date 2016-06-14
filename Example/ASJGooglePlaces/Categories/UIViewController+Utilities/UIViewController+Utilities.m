@@ -10,7 +10,8 @@
 
 @implementation UIViewController (Utilities)
 
-- (void)showAlertWithMessage:(NSString *)message {
+- (void)showAlertWithMessage:(NSString *)message
+{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Boo!" message:message preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -18,7 +19,8 @@
     });
 }
 
-- (void)dismissKeyboard {
+- (void)dismissKeyboard
+{
     [self.view endEditing:YES];
 }
 

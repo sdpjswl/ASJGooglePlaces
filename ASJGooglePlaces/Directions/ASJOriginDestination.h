@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 @import Foundation;
+
 #import <CoreLocation/CLLocation.h>
 
 @interface ASJOriginDestination : NSObject

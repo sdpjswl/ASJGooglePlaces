@@ -27,7 +27,7 @@
 
 typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails);
 
-@interface ASJDirections : ASJSession <ASJSession>
+@interface ASJDirections : ASJSession
 
 /**
  *  Fetch directions between points A and B by their names.

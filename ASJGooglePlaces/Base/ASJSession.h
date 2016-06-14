@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 @import Foundation;
+
 #import "ASJConstants.h"
 
 @protocol ASJSession <NSObject>
@@ -35,7 +36,7 @@
 
 typedef void(^CompletionBlock)(ASJResponseStatusCode statusCode, NSData *data, NSDictionary *response);
 
-@interface ASJSession : NSObject
+@interface ASJSession : NSObject <ASJSession>
 
 /**
  *  A single URL session to make all API calls.

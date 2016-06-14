@@ -78,4 +78,9 @@
    }];
 }
 
+- (void)executeGooglePlacesRequest
+{
+  NSAssert(NO, @"You must implement this method in subclass and make your API call here.");
+}
+
 @end

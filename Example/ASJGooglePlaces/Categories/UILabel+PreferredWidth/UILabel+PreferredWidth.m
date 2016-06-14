@@ -10,11 +10,12 @@
 
 @implementation UILabel (PreferredWidth)
 
-- (CGFloat)preferredMaxWidthWithPadding:(CGFloat)padding {
-	self.numberOfLines = 0;
-	self.lineBreakMode = NSLineBreakByWordWrapping;
-	CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-	return screenWidth - self.frame.origin.y - padding;
+- (CGFloat)preferredMaxWidthWithPadding:(CGFloat)padding
+{
+  self.numberOfLines = 0;
+  self.lineBreakMode = NSLineBreakByWordWrapping;
+  CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+  return screenWidth - self.frame.origin.y - padding;
 }
 
 @end

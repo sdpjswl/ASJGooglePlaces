@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 @import Foundation;
+
 #import "ASJConstants.h"
 
 typedef void(^ValidatorBlock)(ASJResponseStatusCode statusCode, NSDictionary *response);

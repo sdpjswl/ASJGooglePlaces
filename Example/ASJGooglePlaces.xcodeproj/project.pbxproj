@@ -8,19 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		98992455F180BF297FEE90FA /* libPods-ASJGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */; };
-		C02264911AF5F98D006A1903 /* ASJDetails+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */; };
 		C02264921AF5F98D006A1903 /* ASJDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C022648E1AF5F98D006A1903 /* ASJDetails.m */; };
 		C02264931AF5F98D006A1903 /* ASJPlaceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */; };
 		C040F0931AF5F09700B6E085 /* UILabel+PreferredWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = C040F08F1AF5F09700B6E085 /* UILabel+PreferredWidth.m */; };
 		C0978F0E1AF5F12D00729DD2 /* ASJAutocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EE91AF5F12D00729DD2 /* ASJAutocomplete.m */; };
-		C0978F0F1AF5F12D00729DD2 /* ASJPlace+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EEB1AF5F12D00729DD2 /* ASJPlace+Create.m */; };
 		C0978F101AF5F12D00729DD2 /* ASJPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EED1AF5F12D00729DD2 /* ASJPlace.m */; };
 		C0978F111AF5F12D00729DD2 /* ASJConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF01AF5F12D00729DD2 /* ASJConstants.m */; };
 		C0978F121AF5F12D00729DD2 /* ASJSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF21AF5F12D00729DD2 /* ASJSession.m */; };
 		C0978F131AF5F12D00729DD2 /* ASJDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF51AF5F12D00729DD2 /* ASJDirections.m */; };
 		C0978F141AF5F12D00729DD2 /* ASJOriginDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978EF71AF5F12D00729DD2 /* ASJOriginDestination.m */; };
 		C0978F181AF5F12D00729DD2 /* ASJPlaceID.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F011AF5F12D00729DD2 /* ASJPlaceID.m */; };
-		C0978F191AF5F12D00729DD2 /* ASJPhoto+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F041AF5F12D00729DD2 /* ASJPhoto+Create.m */; };
 		C0978F1A1AF5F12D00729DD2 /* ASJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F061AF5F12D00729DD2 /* ASJPhoto.m */; };
 		C0978F1B1AF5F12D00729DD2 /* ASJPlacePhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F081AF5F12D00729DD2 /* ASJPlacePhotos.m */; };
 		C0978F1C1AF5F12D00729DD2 /* ASJResponseValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = C0978F0B1AF5F12D00729DD2 /* ASJResponseValidator.m */; };
@@ -42,8 +39,6 @@
 /* Begin PBXFileReference section */
 		58F1A7EA4F0B86570C88A124 /* Pods-ASJGooglePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASJGooglePlaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces.release.xcconfig"; sourceTree = "<group>"; };
 		9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ASJGooglePlaces.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C022648B1AF5F98D006A1903 /* ASJDetails+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASJDetails+Create.h"; sourceTree = "<group>"; };
-		C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASJDetails+Create.m"; sourceTree = "<group>"; };
 		C022648D1AF5F98D006A1903 /* ASJDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJDetails.h; sourceTree = "<group>"; };
 		C022648E1AF5F98D006A1903 /* ASJDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJDetails.m; sourceTree = "<group>"; };
 		C022648F1AF5F98D006A1903 /* ASJPlaceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlaceDetails.h; sourceTree = "<group>"; };
@@ -52,8 +47,6 @@
 		C040F08F1AF5F09700B6E085 /* UILabel+PreferredWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+PreferredWidth.m"; sourceTree = "<group>"; };
 		C0978EE81AF5F12D00729DD2 /* ASJAutocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJAutocomplete.h; sourceTree = "<group>"; };
 		C0978EE91AF5F12D00729DD2 /* ASJAutocomplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJAutocomplete.m; sourceTree = "<group>"; };
-		C0978EEA1AF5F12D00729DD2 /* ASJPlace+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASJPlace+Create.h"; sourceTree = "<group>"; };
-		C0978EEB1AF5F12D00729DD2 /* ASJPlace+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASJPlace+Create.m"; sourceTree = "<group>"; };
 		C0978EEC1AF5F12D00729DD2 /* ASJPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlace.h; sourceTree = "<group>"; };
 		C0978EED1AF5F12D00729DD2 /* ASJPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPlace.m; sourceTree = "<group>"; };
 		C0978EEF1AF5F12D00729DD2 /* ASJConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJConstants.h; sourceTree = "<group>"; };
@@ -66,8 +59,6 @@
 		C0978EF71AF5F12D00729DD2 /* ASJOriginDestination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJOriginDestination.m; sourceTree = "<group>"; };
 		C0978F001AF5F12D00729DD2 /* ASJPlaceID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlaceID.h; sourceTree = "<group>"; };
 		C0978F011AF5F12D00729DD2 /* ASJPlaceID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPlaceID.m; sourceTree = "<group>"; };
-		C0978F031AF5F12D00729DD2 /* ASJPhoto+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ASJPhoto+Create.h"; sourceTree = "<group>"; };
-		C0978F041AF5F12D00729DD2 /* ASJPhoto+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ASJPhoto+Create.m"; sourceTree = "<group>"; };
 		C0978F051AF5F12D00729DD2 /* ASJPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPhoto.h; sourceTree = "<group>"; };
 		C0978F061AF5F12D00729DD2 /* ASJPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPhoto.m; sourceTree = "<group>"; };
 		C0978F071AF5F12D00729DD2 /* ASJPlacePhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlacePhotos.h; sourceTree = "<group>"; };
@@ -125,12 +116,10 @@
 		C022648A1AF5F98D006A1903 /* Place Details */ = {
 			isa = PBXGroup;
 			children = (
-				C022648B1AF5F98D006A1903 /* ASJDetails+Create.h */,
-				C022648C1AF5F98D006A1903 /* ASJDetails+Create.m */,
-				C022648D1AF5F98D006A1903 /* ASJDetails.h */,
-				C022648E1AF5F98D006A1903 /* ASJDetails.m */,
 				C022648F1AF5F98D006A1903 /* ASJPlaceDetails.h */,
 				C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */,
+				C022648D1AF5F98D006A1903 /* ASJDetails.h */,
+				C022648E1AF5F98D006A1903 /* ASJDetails.m */,
 			);
 			path = "Place Details";
 			sourceTree = "<group>";
@@ -174,8 +163,6 @@
 			children = (
 				C0978EE81AF5F12D00729DD2 /* ASJAutocomplete.h */,
 				C0978EE91AF5F12D00729DD2 /* ASJAutocomplete.m */,
-				C0978EEA1AF5F12D00729DD2 /* ASJPlace+Create.h */,
-				C0978EEB1AF5F12D00729DD2 /* ASJPlace+Create.m */,
 				C0978EEC1AF5F12D00729DD2 /* ASJPlace.h */,
 				C0978EED1AF5F12D00729DD2 /* ASJPlace.m */,
 			);
@@ -216,12 +203,10 @@
 		C0978F021AF5F12D00729DD2 /* Place Photos */ = {
 			isa = PBXGroup;
 			children = (
-				C0978F031AF5F12D00729DD2 /* ASJPhoto+Create.h */,
-				C0978F041AF5F12D00729DD2 /* ASJPhoto+Create.m */,
-				C0978F051AF5F12D00729DD2 /* ASJPhoto.h */,
-				C0978F061AF5F12D00729DD2 /* ASJPhoto.m */,
 				C0978F071AF5F12D00729DD2 /* ASJPlacePhotos.h */,
 				C0978F081AF5F12D00729DD2 /* ASJPlacePhotos.m */,
+				C0978F051AF5F12D00729DD2 /* ASJPhoto.h */,
+				C0978F061AF5F12D00729DD2 /* ASJPhoto.m */,
 			);
 			path = "Place Photos";
 			sourceTree = "<group>";
@@ -438,7 +423,6 @@
 				C0978F141AF5F12D00729DD2 /* ASJOriginDestination.m in Sources */,
 				C0BC8E611AF5435900209170 /* ViewController.m in Sources */,
 				C0BC8E8C1AF543C200209170 /* PlaceDetailsController.m in Sources */,
-				C0978F191AF5F12D00729DD2 /* ASJPhoto+Create.m in Sources */,
 				C0BC8E8A1AF543C200209170 /* AutocompleteController.m in Sources */,
 				C0978F0E1AF5F12D00729DD2 /* ASJAutocomplete.m in Sources */,
 				C0BC8E8D1AF543C200209170 /* PlaceIDController.m in Sources */,
@@ -447,8 +431,6 @@
 				C0BC8E5B1AF5435900209170 /* main.m in Sources */,
 				C02264921AF5F98D006A1903 /* ASJDetails.m in Sources */,
 				C0978F131AF5F12D00729DD2 /* ASJDirections.m in Sources */,
-				C02264911AF5F98D006A1903 /* ASJDetails+Create.m in Sources */,
-				C0978F0F1AF5F12D00729DD2 /* ASJPlace+Create.m in Sources */,
 				C040F0931AF5F09700B6E085 /* UILabel+PreferredWidth.m in Sources */,
 				C0978F181AF5F12D00729DD2 /* ASJPlaceID.m in Sources */,
 				C0978F1C1AF5F12D00729DD2 /* ASJResponseValidator.m in Sources */,

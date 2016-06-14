@@ -26,7 +26,7 @@
 
 typedef void(^PlaceDetailsBlock)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails);
 
-@interface ASJPlaceDetails : ASJSession <ASJSession>
+@interface ASJPlaceDetails : ASJSession
 
 /**
  *  Fetch place details of a place by its name.

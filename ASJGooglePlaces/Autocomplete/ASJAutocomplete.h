@@ -26,7 +26,7 @@
 
 typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places);
 
-@interface ASJAutocomplete : ASJSession <ASJSession>
+@interface ASJAutocomplete : ASJSession
 
 /**
  *  The minimum number of characters input after which autocomplete results should be fetched.
