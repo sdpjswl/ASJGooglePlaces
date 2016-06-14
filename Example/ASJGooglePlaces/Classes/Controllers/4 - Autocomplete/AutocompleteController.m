@@ -10,49 +10,49 @@
 #import "ASJPlace.h"
 #import "AutocompleteController.h"
 
+static NSString *const kCellIdentifier = @"cell";
+
 @interface AutocompleteController () <UITableViewDataSource, UITextFieldDelegate>
 
-@property (nonatomic) IBOutlet UITextField *placeTextField;
-@property (nonatomic) IBOutlet UITableView *resultsTableView;
-@property (nonatomic) NSArray *results;
+@property (weak, nonatomic) IBOutlet UITextField *placeTextField;
+@property (weak, nonatomic) IBOutlet UITableView *resultsTableView;
+@property (copy, nonatomic) NSArray *results;
 
-- (void)setUp;
+- (void)setup;
 - (IBAction)goTapped:(id)sender;
-- (void)runAutocompleteRequest;
+- (void)executeAutocompleteRequest;
 - (void)reloadTable;
 
 @end
 
 @implementation AutocompleteController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
-  // Do any additional setup after loading the view.
-  [self setUp];
+  [self setup];
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
+#pragma mark - Setup
 
-
-#pragma mark - Methods
-
-- (void)setUp
+- (void)setup
 {
   self.title = @"Autocomplete";
-  [_resultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+  Class cellClass = [UITableViewCell class];
+  [_resultsTableView registerClass:cellClass forCellReuseIdentifier:kCellIdentifier];
 }
 
-- (IBAction)goTapped:(id)sender {
+- (IBAction)goTapped:(id)sender
+{
   [self dismissKeyboard];
-  [self runAutocompleteRequest];
+  [self executeAutocompleteRequest];
 }
 
-- (void)runAutocompleteRequest {
+- (void)executeAutocompleteRequest
+{
   ASJAutocomplete *api = [[ASJAutocomplete alloc] init];
   api.minimumInputLength = 3;
+  
   [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error)
    {
      _results = places;
@@ -60,32 +60,36 @@
    }];
 }
 
-- (void)reloadTable {
-  dispatch_async(dispatch_get_main_queue(), ^{
+- (void)reloadTable
+{
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
     [_resultsTableView reloadData];
-  });
+  }];
 }
-
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return _results.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-  cell.textLabel.font = [UIFont fontWithName:@"TrebuchetMS" size:14.0];
-  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+  
   ASJPlace *place = _results[indexPath.row];
+  cell.textLabel.font = [UIFont fontWithName:@"TrebuchetMS" size:14.0f];
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
   cell.textLabel.text = place.placeDescription;
+  
   return cell;
 }
 
-
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
   return [textField resignFirstResponder];
 }
 
