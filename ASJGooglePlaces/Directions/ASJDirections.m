@@ -71,7 +71,7 @@
 // Thanks: Deepti
 - (NSURL *)urlForDirectionsQuery
 {
-  NSMutableString *urlString = nil;
+  NSMutableString *urlString = [[NSMutableString alloc] init];
   if (_originName.length && _destinationName.length)
   {
     [urlString appendFormat:@"%@origin=%@&destination=%@", kDirectionsBaseURL, _originName, _destinationName];

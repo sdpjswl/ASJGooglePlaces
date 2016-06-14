@@ -12,53 +12,41 @@
 
 @interface DirectionsController () <UITextFieldDelegate>
 
-@property (nonatomic) IBOutlet UITextField *originLatTextField;
-@property (nonatomic) IBOutlet UITextField *originLngTextField;
-@property (nonatomic) IBOutlet UITextField *destinationLatTextField;
-@property (nonatomic) IBOutlet UITextField *destinationLngTextField;
-@property (nonatomic) IBOutlet UITextField *originNameTextField;
-@property (nonatomic) IBOutlet UITextField *destinationNameTextField;
-@property (nonatomic) IBOutlet UIView *mapContainerView;
-@property (nonatomic) NSArray *coordinateTextFields;
-@property (nonatomic) NSArray *nameTextFields;
-@property (nonatomic) UITextField *activeTextField;
-@property (nonatomic) NSArray<ASJOriginDestination *> *directionDetails;
+@property (weak, nonatomic) IBOutlet UITextField *originLatTextField;
+@property (weak, nonatomic) IBOutlet UITextField *originLngTextField;
+@property (weak, nonatomic) IBOutlet UITextField *destinationLatTextField;
+@property (weak, nonatomic) IBOutlet UITextField *destinationLngTextField;
+@property (weak, nonatomic) IBOutlet UITextField *originNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *destinationNameTextField;
+@property (weak, nonatomic) IBOutlet UIView *mapContainerView;
+@property (copy, nonatomic) NSArray *coordinateTextFields;
+@property (copy, nonatomic) NSArray *nameTextFields;
+@property (strong, nonatomic) UITextField *activeTextField;
+@property (strong, nonatomic) NSArray<ASJOriginDestination *> *directionDetails;
 
-- (void)setUp;
 - (IBAction)goTapped:(id)sender;
-- (void)runDirectionsRequest;
+- (void)executeDirectionsRequest;
 - (void)showMap;
 
 @end
 
 @implementation DirectionsController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
-  // Do any additional setup after loading the view.
-  [self setUp];
-}
-
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
-
-
-#pragma mark - Methods
-
-- (void)setUp {
   self.title = @"Directions";
-  _coordinateTextFields = @[_originLatTextField, _originLngTextField, _destinationLatTextField, _destinationLngTextField];
-  _nameTextFields = @[_originNameTextField, _destinationNameTextField];
 }
 
-- (IBAction)goTapped:(id)sender {
+#pragma mark - IBAction
+
+- (IBAction)goTapped:(id)sender
+{
   [self dismissKeyboard];
-  [self runDirectionsRequest];
+  [self executeDirectionsRequest];
 }
 
-- (void)runDirectionsRequest
+- (void)executeDirectionsRequest
 {
   ASJDirections *api = [[ASJDirections alloc] init];
   BOOL isActiveTextFieldCoordinateType = [_coordinateTextFields containsObject:_activeTextField];
@@ -91,7 +79,7 @@
 {
   if (!_directionDetails)
   {
-    [self showNoDirectionsAlert];
+    [self showAlertWithMessage:@"No directions found."];
     return;
   }
   
@@ -125,12 +113,6 @@
    }];
 }
 
-- (void)showNoDirectionsAlert
-{
-  [self showAlertWithMessage:@"No directions found."];
-}
-
-
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -155,6 +137,18 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   return [textField resignFirstResponder];
+}
+
+#pragma mark - Properties
+
+- (NSArray *)coordinateTextFields
+{
+  return @[_originLatTextField, _originLngTextField, _destinationLatTextField, _destinationLngTextField];
+}
+
+- (NSArray *)nameTextFields
+{
+  return @[_originNameTextField, _destinationNameTextField];
 }
 
 @end
