@@ -81,7 +81,7 @@
     [urlString appendFormat:@"%@origin=%f,%f&destination=%f,%f", kDirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
   }
   
-  NSString *percentEscapedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+  NSString *percentEscapedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
   return [NSURL URLWithString:percentEscapedString];
 }
 

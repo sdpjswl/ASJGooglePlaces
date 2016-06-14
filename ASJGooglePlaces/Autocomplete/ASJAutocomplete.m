@@ -62,7 +62,7 @@
 - (NSURL *)autocompleteURL
 {
   NSString *relativePath = [NSString stringWithFormat:@"%@?input=%@&key=%@", kAutocompleteSubURL, _query, self.apiKey];
-  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
   return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
