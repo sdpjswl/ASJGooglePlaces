@@ -9,7 +9,6 @@
 #import "ASJPlaceDetails.h"
 #import "PlaceDetailsController.h"
 #import "UILabel+PreferredWidth.h"
-#import "UIViewController+Utilities.h"
 
 @interface PlaceDetailsController () <UITextFieldDelegate>
 

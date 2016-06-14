@@ -9,7 +9,6 @@
 #import "ASJDirections.h"
 #import "DirectionsController.h"
 #import <GoogleMaps/GoogleMaps.h>
-#import "UIViewController+Utilities.h"
 
 @interface DirectionsController () <UITextFieldDelegate>
 

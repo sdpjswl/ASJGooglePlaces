@@ -8,7 +8,6 @@
 
 #import "ASJPlacePhotos.h"
 #import "PlacePhotosController.h"
-#import "UIViewController+Utilities.h"
 
 @interface PlacePhotosController () <UICollectionViewDataSource, UITextFieldDelegate>
 

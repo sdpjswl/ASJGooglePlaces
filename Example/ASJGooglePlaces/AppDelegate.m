@@ -16,10 +16,10 @@
 {
 #warning Provide keys for app to work correctly. If you don't have one, go to: https://console.developers.google.com
   // key for Google Places API requests
-  [ASJConstants sharedInstance].apiKey = @"<#set API key#>";
+  [ASJConstants sharedInstance].apiKey = @"AIzaSyAoXVbnsD_AV8ejPliFjT3vIEtEXsv1lPc";
   
   // key for Google Maps SDK
-  [GMSServices provideAPIKey:@"<#set API key#>"];
+  [GMSServices provideAPIKey:@"AIzaSyAYgIBV4d2xGc24Hq144GYT4R204tNFRQY"];
   
   return YES;
 }

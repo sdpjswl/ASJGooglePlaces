@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseController.h"
 
-@interface HomeController : UIViewController
+@interface HomeController : BaseController
 
 @end

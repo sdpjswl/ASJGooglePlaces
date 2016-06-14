@@ -9,7 +9,6 @@
 #import "ASJAutocomplete.h"
 #import "ASJPlace.h"
 #import "AutocompleteController.h"
-#import "UIViewController+Utilities.h"
 
 @interface AutocompleteController () <UITableViewDataSource, UITextFieldDelegate>
 

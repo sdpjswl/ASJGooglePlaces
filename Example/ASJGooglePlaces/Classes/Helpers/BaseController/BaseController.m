@@ -1,14 +1,14 @@
 //
-//  UIViewController+Utilities.m
+//  BaseController.m
 //  ASJGooglePlaces
 //
-//  Created by sudeep on 03/05/15.
-//  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
+//  Created by sudeep on 14/06/16.
+//  Copyright © 2016 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "UIViewController+Utilities.h"
+#import "BaseController.h"
 
-@implementation UIViewController (Utilities)
+@implementation BaseController
 
 - (void)showAlertWithMessage:(NSString *)message
 {

@@ -8,7 +8,6 @@
 
 #import "ASJPlaceID.h"
 #import "PlaceIDController.h"
-#import "UIViewController+Utilities.h"
 
 @interface PlaceIDController () <UITextFieldDelegate>
 
