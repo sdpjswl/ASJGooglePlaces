@@ -93,7 +93,7 @@ typedef void (^CallbackBlock)(ASJResponseStatusCode, NSArray *);
 
 - (NSURL *)urlForPlacePhoto:(ASJPhoto *)photo {
   NSString *stub = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
-  stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  stub = [stub stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
   NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
   return queryURL;
 }

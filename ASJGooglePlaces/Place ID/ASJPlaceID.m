@@ -66,7 +66,7 @@
 - (NSURL *)placeIDURL
 {
   NSString *relativePath = [NSString stringWithFormat:@"%@?query=%@&key=%@", kPlaceIDSubURL, _placeName, self.apiKey];
-  relativePath = [relativePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
   return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 

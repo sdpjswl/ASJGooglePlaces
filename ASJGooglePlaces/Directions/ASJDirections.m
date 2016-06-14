@@ -84,7 +84,7 @@
     [urlString appendString:@"&sensor=false&mode=driving"];
   }
   
-  urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding].mutableCopy;
+  urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]].mutableCopy;
   return [NSURL URLWithString:urlString];
 }
 

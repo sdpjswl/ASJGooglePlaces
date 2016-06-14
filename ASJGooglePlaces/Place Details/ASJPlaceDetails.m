@@ -78,10 +78,9 @@
 
 - (NSURL *)placeDetailsURL
 {
-  NSString *stub = [NSString stringWithFormat:@"%@?placeid=%@&key=%@", kPlaceDetailsSubURL, _placeID, self.apiKey];
-  stub = [stub stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-  NSURL *queryURL = [NSURL URLWithString:stub relativeToURL:self.baseURL];
-  return queryURL;
+  NSString *relativePath = [NSString stringWithFormat:@"%@?placeid=%@&key=%@", kPlaceDetailsSubURL, _placeID, self.apiKey];
+  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end
