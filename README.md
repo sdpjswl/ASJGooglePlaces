@@ -1,10 +1,20 @@
 # ASJGooglePlaces
 
-This library is a collection of classes that act as a wrapper around a few features of the Google Places API and the Directions API. To use Google's Places API in your project, you need to have an API key from the [API console](https://code.google.com/apis/console). You can however use the Directions API without a key. In the example project, it has been used to display a polyline between two places. Note that you will need an API key to run the example project.
+This library is a collection of classes that act as a wrapper around a few features of the Google Places API and the Directions API. To use Google's Places API in your project, you need to have an API key from the [API console](https://code.google.com/apis/console). Note that you **can** use the Directions API without a key. In the example project, it has been used to display a polyline between two places.
+
+Note that you will need an API key to run the example project. If you don't have a key, you can get one from [Google's API console](https://code.google.com/apis/console).
+
+# Usage
 
 To set up, `#import "ASJConstants.h"` in AppDelegate.m and add this in your `didFinishLaunchingWithOptions:` method:
+
+```objc
+[ASJConstants sharedInstance].apiKey = @"your API key";
 ```
-[[ASJConstants sharedInstance] setApiKey:@"your API key"];
+
+If you are using Google Maps in your app, you will need to `#import <GoogleMaps/GMSServices.h>` and add this line:
+```objc
+[GMSServices provideAPIKey:@"your API key"];
 ```
 
 ### ASJPlaceID
@@ -79,9 +89,10 @@ These methods get the directions polyline between two places; an 'origin' and a 
 
 The polyline can be used to draw a `GMSPolyline` between the two places on a `GMSMapView`. You will need to use the Google Maps SDK for this and will need a key from the [Google API console](https://code.google.com/apis/console).
 
-### To-do
+# To-do
 
-- Add documentation to methods
+- Refactor project and library.
+- Add documentation.
 
 # Credits
 
@@ -89,4 +100,4 @@ The polyline can be used to draw a `GMSPolyline` between the two places on a `GM
 
 # License
 
-ASJGooglePlaces is available under the MIT license. See the LICENSE file for more info.
+`ASJGooglePlaces` is available under the MIT license. See the LICENSE file for more info.
