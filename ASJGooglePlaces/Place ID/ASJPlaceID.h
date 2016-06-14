@@ -25,8 +25,14 @@
 
 typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString *placeID);
 
-@interface ASJPlaceID : ASJSession <ASJSession>
+@interface ASJPlaceID : ASJSession
 
+/**
+ *  Fetch unique place ID assigned by Google to a place by its name.
+ *
+ *  @param place      The place's name.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
 - (void)placeIDForPlace:(NSString *)place completion:(PlaceIDBlock)completion;
 
 @end
