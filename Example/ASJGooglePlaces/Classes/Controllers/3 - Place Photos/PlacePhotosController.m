@@ -9,96 +9,111 @@
 #import "ASJPlacePhotos.h"
 #import "PlacePhotosController.h"
 
+static NSString *const kCellIdentifier = @"cell";
+
 @interface PlacePhotosController () <UICollectionViewDataSource, UITextFieldDelegate>
 
-@property (nonatomic) IBOutlet UITextField *placeTextField;
-@property (nonatomic) IBOutlet UICollectionView *photosCollectionView;
-@property (nonatomic) NSArray *photos;
+@property (weak, nonatomic) IBOutlet UITextField *placeTextField;
+@property (weak, nonatomic) IBOutlet UICollectionView *photosCollectionView;
+@property (copy, nonatomic) NSArray *photos;
 
-- (void)setUp;
+- (void)setup;
+- (void)setupCollectionView;
+- (void)setupFlowLayout;
 - (IBAction)goTapped:(id)sender;
-- (void)runPlacePhotosRequest;
-- (void)showNoPhotosAlert;
+- (void)executePlacePhotosRequest;
 - (void)reloadCollectionView;
 
 @end
 
 @implementation PlacePhotosController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
-  // Do any additional setup after loading the view.
-  [self setUp];
+  [self setup];
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
+#pragma mark - Setup
 
-
-#pragma mark - Methods
-
-- (void)setUp {
+- (void)setup
+{
   self.title = @"Place Photos";
-  [_photosCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-  
+  [self setupCollectionView];
+  [self setupFlowLayout];
+}
+
+- (void)setupCollectionView
+{
+  Class cellClass = [UICollectionViewCell class];
+  [_photosCollectionView registerClass:cellClass forCellWithReuseIdentifier:kCellIdentifier];
+}
+
+- (void)setupFlowLayout
+{
   UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
   layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-  layout.itemSize = CGSizeMake(80, 80);
-  layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+  layout.itemSize = CGSizeMake(80.0f, 80.0f);
+  layout.sectionInset = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
   _photosCollectionView.collectionViewLayout = layout;
 }
 
-- (IBAction)goTapped:(id)sender {
+#pragma mark - IBAction
+
+- (IBAction)goTapped:(id)sender
+{
   [self dismissKeyboard];
-  [self runPlacePhotosRequest];
+  [self executePlacePhotosRequest];
 }
 
-- (void)runPlacePhotosRequest {
+- (void)executePlacePhotosRequest
+{
   ASJPlacePhotos *api = [[ASJPlacePhotos alloc] init];
   [api placePhotosForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<UIImage *> *placePhotos, NSError *error)
    {
-     _photos = placePhotos;
-     if (!_photos.count) {
-       [self showNoPhotosAlert];
+     if (!placePhotos.count)
+     {
+       NSString *message = [NSString stringWithFormat:@"No photos found for %@.", _placeTextField.text];
+       [self showAlertWithMessage:message];
        return;
      }
+     
+     _photos = placePhotos;
      [self reloadCollectionView];
    }];
 }
 
-- (void)showNoPhotosAlert {
-  [self showAlertWithMessage:@"No photos found."];
-}
-
-- (void)reloadCollectionView {
-  dispatch_async(dispatch_get_main_queue(), ^{
+- (void)reloadCollectionView
+{
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
     [_photosCollectionView reloadData];
-  });
+  }];
 }
-
 
 #pragma mark - UICollectionViewDataSource
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
   return _photos.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-  UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier forIndexPath:indexPath];
+  
   UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.contentView.bounds];
   imageView.contentMode = UIViewContentModeScaleAspectFill;
   imageView.clipsToBounds = YES;
   imageView.image = _photos[indexPath.row];
   [cell.contentView addSubview:imageView];
+  
   return cell;
 }
 
-
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
   return [textField resignFirstResponder];
 }
 

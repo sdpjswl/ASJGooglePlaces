@@ -59,7 +59,7 @@
      }
      
      if (statusCode != ASJResponseStatusCodeOk ||
-         !_placeDetails.photos.count)
+         !placeDetails.photos.count)
      {
        _completion(statusCode, nil, error);
        return;
@@ -75,8 +75,6 @@
   if (!_completion) {
     return;
   }
-  
-  
   
   NSMutableArray *temp = [[NSMutableArray alloc] init];
   for (ASJPhoto *photo in _placeDetails.photos)
