@@ -10,22 +10,36 @@
 #import "DirectionsController.h"
 #import <GoogleMaps/GoogleMaps.h>
 
+typedef NS_ENUM(NSInteger, DirectionsType) {
+  DirectionsTypeByCoordinates,
+  DirectionsTypeByName
+};
+
+static BOOL const kShouldAutofillTextFields = YES;
+
 @interface DirectionsController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *originLatTextField;
 @property (weak, nonatomic) IBOutlet UITextField *originLngTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationLatTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationLngTextField;
+
 @property (weak, nonatomic) IBOutlet UITextField *originNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *destinationNameTextField;
-@property (weak, nonatomic) IBOutlet UIView *mapContainerView;
-@property (copy, nonatomic) NSArray *coordinateTextFields;
-@property (copy, nonatomic) NSArray *nameTextFields;
-@property (strong, nonatomic) UITextField *activeTextField;
-@property (strong, nonatomic) NSArray<ASJOriginDestination *> *directionDetails;
 
+@property (weak, nonatomic) IBOutlet UIView *mapContainerView;
+@property (copy, nonatomic) NSArray<ASJOriginDestination *> *directionDetails;
+
+@property (assign, nonatomic) DirectionsType directionsType;
+@property (readonly, copy, nonatomic) NSArray<UITextField *> *coordinateTextFields;
+@property (readonly, copy, nonatomic) NSArray<UITextField *> *nameTextFields;
+
+- (void)setup;
+- (void)autofillTextFields;
+- (void)setupDirectionsTypeBarButton;
 - (IBAction)goTapped:(id)sender;
-- (void)executeDirectionsRequest;
+- (void)executeDirectionsByNameRequest;
+- (void)executeDirectionsByCoordinatesRequest;
 - (void)showMap;
 
 @end
@@ -35,7 +49,52 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  [self setup];
+}
+
+#pragma mark - Setup
+
+- (void)setup
+{
   self.title = @"Directions";
+  self.directionsType = DirectionsTypeByCoordinates;
+  
+  [self autofillTextFields];
+  [self setupDirectionsTypeBarButton];
+}
+
+- (void)autofillTextFields
+{
+  if (!kShouldAutofillTextFields) {
+    return;
+  }
+  
+  
+}
+
+#pragma mark - Bar button
+
+- (void)setupDirectionsTypeBarButton
+{
+  UIBarButtonItem *type = [[UIBarButtonItem alloc] initWithTitle:@"Type" style:UIBarButtonItemStylePlain target:self action:@selector(directionsTypeTapped:)];
+  self.navigationItem.rightBarButtonItem = type;
+}
+
+- (void)directionsTypeTapped:(id)sender
+{
+  UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Choose a directions type" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+  
+  UIAlertAction *byCoordinates = [UIAlertAction actionWithTitle:@"By coordinates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    self.directionsType = DirectionsTypeByCoordinates;
+  }];
+  
+  UIAlertAction *byName = [UIAlertAction actionWithTitle:@"By name" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    self.directionsType = DirectionsTypeByName;
+  }];
+  
+  [actionSheet addAction:byCoordinates];
+  [actionSheet addAction:byName];
+  [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 #pragma mark - IBAction
@@ -43,41 +102,60 @@
 - (IBAction)goTapped:(id)sender
 {
   [self dismissKeyboard];
-  [self executeDirectionsRequest];
+  
+  if (_directionsType == DirectionsTypeByCoordinates) {
+    [self executeDirectionsByCoordinatesRequest];
+  }
+  else if (_directionsType == DirectionsTypeByName) {
+    [self executeDirectionsByNameRequest];
+  }
 }
 
-- (void)executeDirectionsRequest
+#pragma mark - Directions requests
+
+- (void)executeDirectionsByCoordinatesRequest
 {
-  ASJDirections *api = [[ASJDirections alloc] init];
-  BOOL isActiveTextFieldCoordinateType = [_coordinateTextFields containsObject:_activeTextField];
-  
-  if (!isActiveTextFieldCoordinateType)
-  {
-    NSString *origin = _originNameTextField.text;
-    NSString *destination = _destinationNameTextField.text;
-    
-    [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
-     {
-       _directionDetails = directionDetails;
-       [self showMap];
-     }];
-    
-    return;
-  }
-  
   CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(_originLatTextField.text.doubleValue, _originLngTextField.text.doubleValue);
   CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(_destinationLatTextField.text.doubleValue, _destinationLngTextField.text.doubleValue);
   
+  ASJDirections *api = [[ASJDirections alloc] init];
   [api directionsFromOrigin:origin destination:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
    {
+     if (!directionDetails.count || error)
+     {
+       [self showAlertWithMessage:error.localizedDescription];
+       return;
+     }
+     
      _directionDetails = directionDetails;
      [self showMap];
    }];
 }
 
+- (void)executeDirectionsByNameRequest
+{
+  NSString *origin = _originNameTextField.text;
+  NSString *destination = _destinationNameTextField.text;
+  
+  ASJDirections *api = [[ASJDirections alloc] init];
+  [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
+   {
+     if (!directionDetails.count || error)
+     {
+       [self showAlertWithMessage:error.localizedDescription];
+       return;
+     }
+     
+     _directionDetails = directionDetails;
+     [self showMap];
+   }];
+}
+
+#pragma mark - Map
+
 - (void)showMap
 {
-  if (!_directionDetails)
+  if (!_directionDetails.count)
   {
     [self showAlertWithMessage:@"No directions found."];
     return;
@@ -115,25 +193,6 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-  if (!_activeTextField) {
-    _activeTextField = textField;
-    return YES;
-  }
-  
-  BOOL isActiveTextFieldCoordinateType = [_coordinateTextFields containsObject:_activeTextField];
-  if (_activeTextField.text.length) {
-    BOOL isTextFieldCoordinateType = [_coordinateTextFields containsObject:textField];
-    if (isActiveTextFieldCoordinateType == isTextFieldCoordinateType) {
-      return YES;
-    }
-    return NO;
-  }
-  _activeTextField = textField;
-  return YES;
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   return [textField resignFirstResponder];
@@ -141,12 +200,32 @@
 
 #pragma mark - Properties
 
-- (NSArray *)coordinateTextFields
+- (void)setDirectionsType:(DirectionsType)directionsType
+{
+  switch (directionsType)
+  {
+    case DirectionsTypeByCoordinates:
+    {
+      for (UITextField *textField in self.nameTextFields) { textField.enabled = NO; }
+      for (UITextField *textField in self.coordinateTextFields) { textField.enabled = YES; }
+      break;
+    }
+      
+    case DirectionsTypeByName:
+    {
+      for (UITextField *textField in self.nameTextFields) { textField.enabled = YES; }
+      for (UITextField *textField in self.coordinateTextFields) { textField.enabled = NO; }
+      break;
+    }
+  }
+}
+
+- (NSArray<UITextField *> *)coordinateTextFields
 {
   return @[_originLatTextField, _originLngTextField, _destinationLatTextField, _destinationLngTextField];
 }
 
-- (NSArray *)nameTextFields
+- (NSArray<UITextField *> *)nameTextFields
 {
   return @[_originNameTextField, _destinationNameTextField];
 }
