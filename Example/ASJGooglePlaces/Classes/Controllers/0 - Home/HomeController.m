@@ -57,7 +57,7 @@ static NSString *const kCellIdentifier = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-  cell.textLabel.font = [UIFont fontWithName:@"TrebuchetMS" size:14.0f];
+  cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
   cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   cell.textLabel.text = self.options[indexPath.row];
   return cell;

@@ -55,6 +55,12 @@ static NSString *const kCellIdentifier = @"cell";
   
   [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error)
    {
+     if (!places.count || error)
+     {
+       [self showAlertWithMessage:error.localizedDescription];
+       return;
+     }
+     
      _results = places;
      [self reloadTable];
    }];
@@ -79,7 +85,7 @@ static NSString *const kCellIdentifier = @"cell";
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
   
   ASJPlace *place = _results[indexPath.row];
-  cell.textLabel.font = [UIFont fontWithName:@"TrebuchetMS" size:14.0f];
+  cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
   cell.selectionStyle = UITableViewCellSelectionStyleNone;
   cell.textLabel.text = place.placeDescription;
   

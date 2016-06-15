@@ -35,7 +35,7 @@
   self.title = @"Place Details";
 }
 
-#pragma mark - Methods
+#pragma mark - IBAction
 
 - (IBAction)goTapped:(id)sender
 {
@@ -48,6 +48,12 @@
   ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
   [api placeDetailsForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error)
    {
+     if (!placeDetails || error)
+     {
+       [self showAlertWithMessage:error.localizedDescription];
+       return;
+     }
+     
      _placeDetails = placeDetails;
      [self showDetailsOnScreen];
    }];

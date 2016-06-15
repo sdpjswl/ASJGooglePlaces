@@ -74,6 +74,10 @@ static NSString *const kCellIdentifier = @"cell";
      if (!placePhotos.count)
      {
        NSString *message = [NSString stringWithFormat:@"No photos found for %@.", _placeTextField.text];
+       if (error) {
+         message = error.localizedDescription;
+       }
+       
        [self showAlertWithMessage:message];
        return;
      }
