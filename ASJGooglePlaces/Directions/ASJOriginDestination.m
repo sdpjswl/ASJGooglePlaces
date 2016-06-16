@@ -26,7 +26,6 @@
 @implementation ASJOriginDestination
 
 // Thanks: Deepti
-#warning test this
 + (NSArray<ASJOriginDestination *> *)directionsForResponse:(NSDictionary *)response
 {
   NSArray *routesArray = [response objectForKey:@"routes"];

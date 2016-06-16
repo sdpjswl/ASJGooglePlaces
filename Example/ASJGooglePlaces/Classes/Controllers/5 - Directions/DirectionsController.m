@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, DirectionsType) {
   DirectionsTypeByName
 };
 
-static BOOL const kShouldAutofillTextFields = YES;
+static BOOL const kShouldAutofillTextFields = NO;
 
 @interface DirectionsController () <UITextFieldDelegate>
 
@@ -37,6 +37,7 @@ static BOOL const kShouldAutofillTextFields = YES;
 - (void)setup;
 - (void)autofillTextFields;
 - (void)setupDirectionsTypeBarButton;
+- (void)directionsTypeTapped:(id)sender;
 - (IBAction)goTapped:(id)sender;
 - (void)executeDirectionsByNameRequest;
 - (void)executeDirectionsByCoordinatesRequest;
@@ -58,18 +59,22 @@ static BOOL const kShouldAutofillTextFields = YES;
 {
   self.title = @"Directions";
   self.directionsType = DirectionsTypeByCoordinates;
-  
-  [self autofillTextFields];
   [self setupDirectionsTypeBarButton];
+  
+  if (kShouldAutofillTextFields) {
+    [self autofillTextFields];
+  }
 }
 
 - (void)autofillTextFields
 {
-  if (!kShouldAutofillTextFields) {
-    return;
-  }
+  _originLatTextField.text        = @"21.138344";
+  _originLngTextField.text        = @"79.064194";
+  _destinationLatTextField.text   = @"19.245498";
+  _destinationLngTextField.text   = @"73.121994";
   
-  
+  _originNameTextField.text       = @"Nagpur";
+  _destinationNameTextField.text  = @"Kalyan";
 }
 
 #pragma mark - Bar button
@@ -77,7 +82,10 @@ static BOOL const kShouldAutofillTextFields = YES;
 - (void)setupDirectionsTypeBarButton
 {
   UIBarButtonItem *type = [[UIBarButtonItem alloc] initWithTitle:@"Type" style:UIBarButtonItemStylePlain target:self action:@selector(directionsTypeTapped:)];
-  self.navigationItem.rightBarButtonItem = type;
+  
+  UIBarButtonItem *autofill = [[UIBarButtonItem alloc] initWithTitle:@"Autofill" style:UIBarButtonItemStylePlain target:self action:@selector(autofillTapped:)];
+  
+  self.navigationItem.rightBarButtonItems = @[type, autofill];
 }
 
 - (void)directionsTypeTapped:(id)sender
@@ -92,9 +100,18 @@ static BOOL const kShouldAutofillTextFields = YES;
     self.directionsType = DirectionsTypeByName;
   }];
   
+  UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+  
   [actionSheet addAction:byCoordinates];
   [actionSheet addAction:byName];
+  [actionSheet addAction:cancel];
+  
   [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)autofillTapped:(id)sender
+{
+  [self autofillTextFields];
 }
 
 #pragma mark - IBAction
@@ -103,10 +120,10 @@ static BOOL const kShouldAutofillTextFields = YES;
 {
   [self dismissKeyboard];
   
-  if (_directionsType == DirectionsTypeByCoordinates) {
+  if (self.directionsType == DirectionsTypeByCoordinates) {
     [self executeDirectionsByCoordinatesRequest];
   }
-  else if (_directionsType == DirectionsTypeByName) {
+  else if (self.directionsType == DirectionsTypeByName) {
     [self executeDirectionsByNameRequest];
   }
 }
@@ -121,9 +138,14 @@ static BOOL const kShouldAutofillTextFields = YES;
   ASJDirections *api = [[ASJDirections alloc] init];
   [api directionsFromOrigin:origin destination:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
    {
-     if (!directionDetails.count || error)
+     if (!directionDetails.count)
      {
-       [self showAlertWithMessage:error.localizedDescription];
+       NSString *message = [NSString stringWithFormat:@"No directions found."];
+       if (error) {
+         message = error.localizedDescription;
+       }
+       
+       [self showAlertWithMessage:message];
        return;
      }
      
@@ -140,9 +162,14 @@ static BOOL const kShouldAutofillTextFields = YES;
   ASJDirections *api = [[ASJDirections alloc] init];
   [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
    {
-     if (!directionDetails.count || error)
+     if (!directionDetails.count)
      {
-       [self showAlertWithMessage:error.localizedDescription];
+       NSString *message = [NSString stringWithFormat:@"No directions found."];
+       if (error) {
+         message = error.localizedDescription;
+       }
+       
+       [self showAlertWithMessage:message];
        return;
      }
      
@@ -202,6 +229,8 @@ static BOOL const kShouldAutofillTextFields = YES;
 
 - (void)setDirectionsType:(DirectionsType)directionsType
 {
+  _directionsType = directionsType;
+  
   switch (directionsType)
   {
     case DirectionsTypeByCoordinates:

@@ -28,7 +28,7 @@
 }
 
 #pragma mark - Setup
-
+#warning add validations for go button
 - (IBAction)goTapped:(id)sender
 {
   [self dismissKeyboard];
