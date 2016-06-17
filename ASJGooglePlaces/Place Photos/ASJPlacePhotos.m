@@ -82,9 +82,11 @@
     NSURL *url = [self urlForPhoto:photo];
     [self executeRequestForURL:url completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
      {
-#warning check this, need image data
-       //       UIImage *image = [UIImage imageWithData:data];
-       //       [temp addObject:image];
+       if ([response.allKeys containsObject:@"image"])
+       {
+         UIImage *image = response[@"image"];
+         [temp addObject:image];
+       }
        
        if (temp.count == _placeDetails.photos.count) {
          _completion(statusCode, [NSArray arrayWithArray:temp], error);

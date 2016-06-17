@@ -27,6 +27,7 @@
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSError.h>
 #import <Foundation/NSJSONSerialization.h>
+#import <UIKit/UIImage.h>
 
 @implementation ASJResponseValidator
 
@@ -47,10 +48,20 @@
   
   if (!response || jsonError)
   {
-    completion(ASJResponseStatusCodeOtherIssue, response, jsonError);
-    return;
+    // try to look for image
+    UIImage *image = [UIImage imageWithData:data];
+    if (!image) {
+      completion(ASJResponseStatusCodeOtherIssue, response, jsonError);
+      return;
+    }
+    else {
+      response = @{@"image": image};
+      completion(ASJResponseStatusCodeOk, response, nil);
+      return;
+    }
   }
   
+  // for all types of requests except photos
   ASJStatusCodeValueTransformer *transformer = [[ASJStatusCodeValueTransformer alloc] init];
   NSNumber *statusCodeBoxed = [transformer transformedValue:response[@"status"]];
   ASJResponseStatusCode statusCode = (ASJResponseStatusCode)statusCodeBoxed.unsignedIntegerValue;
