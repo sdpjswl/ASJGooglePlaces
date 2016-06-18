@@ -10,6 +10,11 @@
 
 @implementation BaseController
 
+- (void)showEmptyTextFieldsAlert
+{
+  [self showAlertWithMessage:@"One or more text fields is empty."];
+}
+
 - (void)showAlertWithMessage:(NSString *)message
 {
   UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Boo!" message:message preferredStyle:UIAlertControllerStyleAlert];

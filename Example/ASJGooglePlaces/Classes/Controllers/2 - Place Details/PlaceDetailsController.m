@@ -39,6 +39,11 @@
 
 - (IBAction)goTapped:(id)sender
 {
+  if (!_placeTextField.text.length)
+  {
+    [self showEmptyTextFieldsAlert];
+    return;
+  }
   [self dismissKeyboard];
   [self executePlaceDetailsRequest];
 }

@@ -28,9 +28,13 @@
 }
 
 #pragma mark - Setup
-#warning add validations for go button
 - (IBAction)goTapped:(id)sender
 {
+  if (!_placeTextField.text.length)
+  {
+    [self showEmptyTextFieldsAlert];
+    return;
+  }
   [self dismissKeyboard];
   [self executePlaceIDRequest];
 }

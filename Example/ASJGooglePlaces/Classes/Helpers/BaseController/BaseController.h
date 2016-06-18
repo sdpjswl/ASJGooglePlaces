@@ -10,6 +10,7 @@
 
 @interface BaseController : UIViewController
 
+- (void)showEmptyTextFieldsAlert;
 - (void)showAlertWithMessage:(NSString *)message;
 - (void)dismissKeyboard;
 

@@ -31,6 +31,7 @@ static BOOL const kShouldAutofillTextFields = NO;
 @property (copy, nonatomic) NSArray<ASJOriginDestination *> *directionDetails;
 
 @property (assign, nonatomic) DirectionsType directionsType;
+@property (readonly, nonatomic) BOOL isFormValid;
 @property (readonly, copy, nonatomic) NSArray<UITextField *> *coordinateTextFields;
 @property (readonly, copy, nonatomic) NSArray<UITextField *> *nameTextFields;
 
@@ -118,6 +119,12 @@ static BOOL const kShouldAutofillTextFields = NO;
 
 - (IBAction)goTapped:(id)sender
 {
+  if (!self.isFormValid)
+  {
+    [self showEmptyTextFieldsAlert];
+    return;
+  }
+  
   [self dismissKeyboard];
   
   if (self.directionsType == DirectionsTypeByCoordinates) {
@@ -126,6 +133,28 @@ static BOOL const kShouldAutofillTextFields = NO;
   else if (self.directionsType == DirectionsTypeByName) {
     [self executeDirectionsByNameRequest];
   }
+}
+
+- (BOOL)isFormValid
+{
+  if (self.directionsType == DirectionsTypeByCoordinates)
+  {
+    for (UITextField *textField in self.coordinateTextFields)
+    {
+      if (!textField.text.length) {
+        return NO;
+      }
+    }
+    return YES;
+  }
+  
+  for (UITextField *textField in self.nameTextFields)
+  {
+    if (!textField.text.length) {
+      return NO;
+    }
+  }
+  return YES;
 }
 
 #pragma mark - Directions requests
