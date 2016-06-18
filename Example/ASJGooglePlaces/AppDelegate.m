@@ -14,11 +14,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#warning Provide keys for app to work correctly. If you don't have one, go to: https://console.developers.google.com
-  // key for Google Places API requests
+#warning API key(s) needed
+  /**
+   *  Google Places API needs an API key to authorize requests. You will need one to run the example project. To get one, go to: https://console.developers.google.com
+   */
   [ASJConstants sharedInstance].apiKey = @"AIzaSyAoXVbnsD_AV8ejPliFjT3vIEtEXsv1lPc";
   
-  // key for Google Maps SDK
+  /**
+   *  Google Maps SDK requires a separate key. This is being used here to show directions between two places.
+   */
   [GMSServices provideAPIKey:@"AIzaSyAYgIBV4d2xGc24Hq144GYT4R204tNFRQY"];
   
   return YES;
