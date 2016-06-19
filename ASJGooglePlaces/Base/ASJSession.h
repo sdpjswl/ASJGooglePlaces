@@ -21,8 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#warning add nullability annotations
-
 #import "ASJConstants.h"
 #import <Foundation/NSCharacterSet.h>
 #import <Foundation/NSURL.h>

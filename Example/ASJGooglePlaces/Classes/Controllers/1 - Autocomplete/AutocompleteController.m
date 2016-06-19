@@ -56,7 +56,7 @@ static NSString *const kCellIdentifier = @"cell";
 - (void)executeAutocompleteRequest
 {
   ASJAutocompleteAPI *api = [[ASJAutocompleteAPI alloc] init];
-  api.minimumInputLength = 3;
+  api.minimumQueryLength = 3;
   
   [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error)
    {
