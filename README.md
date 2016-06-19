@@ -2,6 +2,14 @@
 
 This library is a collection of classes that act as a wrapper around a few features of the Google Places and the Maps Directions REST APIs. Note that if you are using Google Maps SDK in your project, you will probably not need this library. The Maps SDK contains classes that provide the functionality that you get from this library and I recommend you use them over this.
 
+# Installation
+
+CocoaPods is the preferred way to install this library. Add this command to your `Podfile`:
+
+```ruby
+pod 'ASJGooglePlaces'
+```
+
 # Prerequisites
 
 Most APIs require a key to work. The Maps Directions API is an exception that is used here. To create a key, head over to [Google's API console](https://code.google.com/apis/console), enable the APIs you need and generate your key(s) in the credentials section.
