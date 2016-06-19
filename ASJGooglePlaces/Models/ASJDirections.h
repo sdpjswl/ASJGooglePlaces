@@ -41,7 +41,7 @@
 @property (nonatomic) CLLocationCoordinate2D origin;
 
 /**
- *  The destication's coordinates.
+ *  The destination's coordinates.
  */
 @property (nonatomic) CLLocationCoordinate2D destination;
 

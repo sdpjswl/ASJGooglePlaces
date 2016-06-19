@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ASJConstants.h"
+#import "ASJGooglePlaces.h"
 #import <GoogleMaps/GMSServices.h>
 
 @implementation AppDelegate

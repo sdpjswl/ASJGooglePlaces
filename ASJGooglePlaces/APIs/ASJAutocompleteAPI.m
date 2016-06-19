@@ -40,7 +40,7 @@
   _query = query;
   _completion = completion;
   
-  if (query.length >= _minimumInputLength) {
+  if (query.length >= _minimumQueryLength) {
     [self executeGooglePlacesRequest];
   }
 }

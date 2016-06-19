@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPlaceID.h"
-#import "ASJPlaceDetails.h"
-#import "ASJPlacePhotos.h"
-#import "ASJAutocomplete.h"
-#import "ASJDirections.h"
+#import "ASJPlaceIDAPI.h"
+#import "ASJPlaceDetailsAPI.h"
+#import "ASJPlacePhotosAPI.h"
+#import "ASJAutocompleteAPI.h"
+#import "ASJDirectionsAPI.h"

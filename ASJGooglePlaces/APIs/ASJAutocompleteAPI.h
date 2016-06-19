@@ -31,7 +31,7 @@ typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPl
 /**
  *  The minimum number of characters input after which autocomplete results should be fetched.
  */
-@property (assign, nonatomic) NSUInteger minimumInputLength;
+@property (assign, nonatomic) NSUInteger minimumQueryLength;
 
 /**
  *  Fetch place results from Google's Places Autocomplete API.
