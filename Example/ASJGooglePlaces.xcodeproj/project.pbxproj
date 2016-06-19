@@ -45,6 +45,7 @@
 		C022648E1AF5F98D006A1903 /* ASJDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJDetails.m; sourceTree = "<group>"; };
 		C022648F1AF5F98D006A1903 /* ASJPlaceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPlaceDetails.h; sourceTree = "<group>"; };
 		C02264901AF5F98D006A1903 /* ASJPlaceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPlaceDetails.m; sourceTree = "<group>"; };
+		C040EEDA1D1679CB0092C015 /* ASJGooglePlaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASJGooglePlaces.h; sourceTree = "<group>"; };
 		C060D4951D10350100EA44B9 /* HomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeController.h; sourceTree = "<group>"; };
 		C060D4961D10350100EA44B9 /* HomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeController.m; sourceTree = "<group>"; };
 		C060D4981D10350100EA44B9 /* PlaceIDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceIDController.h; sourceTree = "<group>"; };
@@ -239,6 +240,7 @@
 		C0978EE61AF5F12D00729DD2 /* ASJGooglePlaces */ = {
 			isa = PBXGroup;
 			children = (
+				C040EEDA1D1679CB0092C015 /* ASJGooglePlaces.h */,
 				C0978EE71AF5F12D00729DD2 /* Autocomplete */,
 				C0978EEE1AF5F12D00729DD2 /* Base */,
 				C0978EF31AF5F12D00729DD2 /* Directions */,
