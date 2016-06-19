@@ -1,5 +1,5 @@
 //
-// ASJDirections.m
+// ASJDirectionsAPI.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,9 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJDirections.h"
+#import "ASJDirectionsAPI.h"
 
-@interface ASJDirections ()
+@interface ASJDirectionsAPI ()
 
 @property (copy, nonatomic) NSString *originName;
 @property (copy, nonatomic) NSString *destinationName;
@@ -34,7 +34,7 @@
 
 @end
 
-@implementation ASJDirections
+@implementation ASJDirectionsAPI
 
 #pragma mark - Public
 
@@ -62,7 +62,7 @@
    {
      if (_completion)
      {
-       NSArray *directions = [ASJOriginDestination directionsForResponse:response];
+       NSArray *directions = [ASJDirections directionsForResponse:response];
        _completion(statusCode, directions, error);
      }
    }];

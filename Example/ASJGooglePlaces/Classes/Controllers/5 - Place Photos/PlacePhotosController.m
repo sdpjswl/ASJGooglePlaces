@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "ASJPlacePhotos.h"
+#import "ASJPlacePhotosAPI.h"
 #import "PlacePhotosController.h"
 
 static NSString *const kCellIdentifier = @"cell";
@@ -73,7 +73,7 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (void)executePlacePhotosRequest
 {
-  ASJPlacePhotos *api = [[ASJPlacePhotos alloc] init];
+  ASJPlacePhotosAPI *api = [[ASJPlacePhotosAPI alloc] init];
   [api placePhotosForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<UIImage *> *placePhotos, NSError *error)
    {
      if (!placePhotos.count)

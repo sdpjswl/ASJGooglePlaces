@@ -1,5 +1,5 @@
 //
-// ASJPlacePhotos.m
+// ASJPlacePhotosAPI.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,14 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPlaceDetails.h"
-#import "ASJPlacePhotos.h"
+#import "ASJPlaceDetailsAPI.h"
+#import "ASJPlacePhotosAPI.h"
 #import <UIKit/UIImage.h>
 
-@interface ASJPlacePhotos ()
+@interface ASJPlacePhotosAPI ()
 
 @property (copy, nonatomic) NSString *place;
-@property (strong, nonatomic) ASJDetails *placeDetails;
+@property (strong, nonatomic) ASJPlaceDetails *placeDetails;
 @property (copy) PlacePhotosBlock completion;
 
 - (void)fetchPlaceDetails;
@@ -36,7 +36,7 @@
 
 @end
 
-@implementation ASJPlacePhotos
+@implementation ASJPlacePhotosAPI
 
 #pragma mark - Public
 
@@ -51,8 +51,8 @@
 
 - (void)fetchPlaceDetails
 {
-  ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
-  [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error)
+  ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
+  [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
    {
      if (!_completion) {
        return;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "ASJAutocomplete.h"
+#import "ASJAutocompleteAPI.h"
 #import "ASJPlace.h"
 #import "AutocompleteController.h"
 
@@ -55,7 +55,7 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (void)executeAutocompleteRequest
 {
-  ASJAutocomplete *api = [[ASJAutocomplete alloc] init];
+  ASJAutocompleteAPI *api = [[ASJAutocompleteAPI alloc] init];
   api.minimumInputLength = 3;
   
   [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error)

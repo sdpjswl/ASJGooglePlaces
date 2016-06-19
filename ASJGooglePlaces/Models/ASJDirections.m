@@ -1,5 +1,5 @@
 //
-// ASJOriginDestination.m
+// ASJDirections.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,12 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJOriginDestination.h"
+#import "ASJDirections.h"
 
-@implementation ASJOriginDestination
+@implementation ASJDirections
 
 // Thanks: Deepti
-+ (NSArray<ASJOriginDestination *> *)directionsForResponse:(NSDictionary *)response
++ (NSArray<ASJDirections *> *)directionsForResponse:(NSDictionary *)response
 {
   NSArray *routesArray = [response objectForKey:@"routes"];
   NSMutableArray *originDestinationArray = [[NSMutableArray alloc] init];
@@ -46,7 +46,7 @@
     CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(originLat.doubleValue, originLng.doubleValue);
     CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(destinationLat.doubleValue, destinationLng.doubleValue);
     
-    ASJOriginDestination *directionDetails = [[ASJOriginDestination alloc] init];
+    ASJDirections *directionDetails = [[ASJDirections alloc] init];
     directionDetails.originName = originName;
     directionDetails.destinationName = destinationName;
     directionDetails.origin = origin;

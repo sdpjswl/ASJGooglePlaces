@@ -1,5 +1,5 @@
 //
-// ASJAutocomplete.m
+// ASJAutocompleteAPI.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,9 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJAutocomplete.h"
+#import "ASJAutocompleteAPI.h"
 
-@interface ASJAutocomplete ()
+@interface ASJAutocompleteAPI ()
 
 @property (copy, nonatomic) NSString *query;
 @property (copy) AutocompleteBlock completion;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation ASJAutocomplete
+@implementation ASJAutocompleteAPI
 
 #pragma mark - Public
 

@@ -1,5 +1,5 @@
 //
-// ASJPlaceDetails.m
+// ASJPlaceDetailsAPI.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,10 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPlaceDetails.h"
-#import "ASJPlaceID.h"
+#import "ASJPlaceDetailsAPI.h"
+#import "ASJPlaceIDAPI.h"
 
-@interface ASJPlaceDetails ()
+@interface ASJPlaceDetailsAPI ()
 
 @property (copy, nonatomic) NSString *placeName;
 @property (copy, nonatomic) NSString *placeID;
@@ -35,7 +35,7 @@
 
 @end
 
-@implementation ASJPlaceDetails
+@implementation ASJPlaceDetailsAPI
 
 #pragma mark - Public: By place name
 
@@ -57,7 +57,7 @@
 
 - (void)fetchPlaceID
 {
-  ASJPlaceID *api = [[ASJPlaceID alloc] init];
+  ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
   [api placeIDForPlace:_placeName completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
    {
      if (!_completion) {
@@ -81,7 +81,7 @@
    {
      if (_completion)
      {
-       ASJDetails *placeDetails = [ASJDetails placeDetailsForResponse:response];
+       ASJPlaceDetails *placeDetails = [ASJPlaceDetails placeDetailsForResponse:response];
        _completion(statusCode, placeDetails, error);
      }
    }];

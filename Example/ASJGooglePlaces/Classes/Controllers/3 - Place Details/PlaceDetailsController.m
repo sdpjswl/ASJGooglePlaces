@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "ASJPlaceDetails.h"
+#import "ASJPlaceDetailsAPI.h"
 #import "PlaceDetailsController.h"
 #import "UILabel+PreferredWidth.h"
 
@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (strong, nonatomic) ASJDetails *placeDetails;
+@property (strong, nonatomic) ASJPlaceDetails *placeDetails;
 
 - (IBAction)goTapped:(id)sender;
 - (void)executePlaceDetailsRequest;
@@ -50,8 +50,8 @@
 
 - (void)executePlaceDetailsRequest
 {
-  ASJPlaceDetails *api = [[ASJPlaceDetails alloc] init];
-  [api placeDetailsForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error)
+  ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
+  [api placeDetailsForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
    {
      if (!placeDetails || error)
      {

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "ASJDirections.h"
+#import "ASJDirectionsAPI.h"
 #import "DirectionsController.h"
 #import <GoogleMaps/GoogleMaps.h>
 
@@ -28,7 +28,7 @@ static BOOL const kShouldAutofillTextFields = NO;
 @property (weak, nonatomic) IBOutlet UITextField *destinationNameTextField;
 
 @property (weak, nonatomic) IBOutlet UIView *mapContainerView;
-@property (copy, nonatomic) NSArray<ASJOriginDestination *> *directionDetails;
+@property (copy, nonatomic) NSArray<ASJDirections *> *directionDetails;
 
 @property (assign, nonatomic) DirectionsType directionsType;
 @property (readonly, nonatomic) BOOL isFormValid;
@@ -164,8 +164,8 @@ static BOOL const kShouldAutofillTextFields = NO;
   CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(_originLatTextField.text.doubleValue, _originLngTextField.text.doubleValue);
   CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(_destinationLatTextField.text.doubleValue, _destinationLngTextField.text.doubleValue);
   
-  ASJDirections *api = [[ASJDirections alloc] init];
-  [api directionsFromOrigin:origin destination:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
+  ASJDirectionsAPI *api = [[ASJDirectionsAPI alloc] init];
+  [api directionsFromOrigin:origin destination:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJDirections *> *directionDetails, NSError *error)
    {
      if (!directionDetails.count)
      {
@@ -188,8 +188,8 @@ static BOOL const kShouldAutofillTextFields = NO;
   NSString *origin = _originNameTextField.text;
   NSString *destination = _destinationNameTextField.text;
   
-  ASJDirections *api = [[ASJDirections alloc] init];
-  [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error)
+  ASJDirectionsAPI *api = [[ASJDirectionsAPI alloc] init];
+  [api directionsFromOriginNamed:origin destinationNamed:destination completion:^(ASJResponseStatusCode statusCode, NSArray<ASJDirections *> *directionDetails, NSError *error)
    {
      if (!directionDetails.count)
      {
@@ -225,7 +225,7 @@ static BOOL const kShouldAutofillTextFields = NO;
      }
      [map clear];
      
-     ASJOriginDestination *originDestination = _directionDetails[0];
+     ASJDirections *originDestination = _directionDetails[0];
      GMSPath *path = [GMSPath pathFromEncodedPath:originDestination.polyline];
      GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
      GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0];

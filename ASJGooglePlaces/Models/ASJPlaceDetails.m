@@ -1,5 +1,5 @@
 //
-// ASJDirections.h
+// ASJPlaceDetails.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,30 +21,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJOriginDestination.h"
-#import "ASJSession.h"
-#import <CoreLocation/CLLocation.h>
+#import "ASJPlaceDetails.h"
 
-typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJOriginDestination *> *directionDetails, NSError *error);
+@implementation ASJPlaceDetails
 
-@interface ASJDirections : ASJSession
-
-/**
- *  Fetch directions between points A and B by their names.
- *
- *  @param origin      The starting point's name.
- *  @param destination The destination's name.
- *  @param completion  A completion block that is called when the API call is complete.
- */
-- (void)directionsFromOriginNamed:(NSString *)origin destinationNamed:(NSString *)destination completion:(DirectionsBlock)completion;
-
-/**
- *  Fetch directions between points A and B by their coordinates.
- *
- *  @param origin      The starting point's coordinates.
- *  @param destination The destination's coordinates.
- *  @param completion  A completion block that is called when the API call is complete.
- */
-- (void)directionsFromOrigin:(CLLocationCoordinate2D)origin destination:(CLLocationCoordinate2D)destination completion:(DirectionsBlock)completion;
++ (ASJPlaceDetails *)placeDetailsForResponse:(NSDictionary *)response
+{
+  NSDictionary *result = response[@"result"];
+  ASJPlaceDetails *detail = [[ASJPlaceDetails alloc] init];
+  detail.placeID = result[@"place_id"];
+  detail.name = result[@"name"];
+  detail.address = result[@"formatted_address"];
+  detail.phone = result[@"formatted_phone_number"];
+  detail.website = result[@"website"];
+  detail.photos = [ASJPhoto photosForResponse:result[@"photos"]];
+  
+  NSNumber *lat = result[@"geometry"][@"location"][@"lat"];
+  NSNumber *lng = result[@"geometry"][@"location"][@"lng"];
+  detail.location = CLLocationCoordinate2DMake(lat.doubleValue, lng.doubleValue);
+  return detail;
+}
 
 @end

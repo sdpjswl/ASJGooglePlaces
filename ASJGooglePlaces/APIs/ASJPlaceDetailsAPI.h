@@ -1,5 +1,5 @@
 //
-// ASJAutocomplete.h
+// ASJPlaceDetailsAPI.h
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,24 +21,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPlace.h"
+#import "ASJPlaceDetails.h"
 #import "ASJSession.h"
 
-typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error);
+typedef void(^PlaceDetailsBlock)(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error);
 
-@interface ASJAutocomplete : ASJSession
-
-/**
- *  The minimum number of characters input after which autocomplete results should be fetched.
- */
-@property (assign, nonatomic) NSUInteger minimumInputLength;
+@interface ASJPlaceDetailsAPI : ASJSession
 
 /**
- *  Fetch place results from Google's Places Autocomplete API.
+ *  Fetch place details of a place by its name.
  *
- *  @param input      The search query against which place results are te be fetched.
- *  @param completion The completion block that is called after the API call is complete. It contains an array of 'ASJPlace' instances and a status code indicating the result of the request. Be sure you check it for ay failure conditions.
+ *  @param place      The place's name.
+ *  @param completion A completion block that is called when the API call is complete.
  */
-- (void)autocompleteForQuery:(NSString *)query completion:(AutocompleteBlock)completion;
+- (void)placeDetailsForPlace:(NSString *)place completion:(PlaceDetailsBlock)completion;
+
+/**
+ *  Fetch place details of a place by its unique place ID.
+ *
+ *  @param placeID    The place's unique ID.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
+- (void)placeDetailsForPlaceID:(NSString *)placeID completion:(PlaceDetailsBlock)completion;
 
 @end

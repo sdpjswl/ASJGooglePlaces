@@ -1,5 +1,5 @@
 //
-// ASJPlaceID.m
+// ASJPlaceIDAPI.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,11 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPlaceID.h"
+#import "ASJPlaceIDAPI.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDictionary.h>
 
-@interface ASJPlaceID ()
+@interface ASJPlaceIDAPI ()
 
 @property (copy, nonatomic) NSString *placeName;
 @property (copy) PlaceIDBlock completion;
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation ASJPlaceID
+@implementation ASJPlaceIDAPI
 
 #pragma mark - Public
 

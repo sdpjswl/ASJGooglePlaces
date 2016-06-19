@@ -1,5 +1,5 @@
 //
-// ASJPlaceID.h
+// ASJDirections.h
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,18 +21,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJSession.h"
+#import <CoreLocation/CLLocation.h>
 
-typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error);
-
-@interface ASJPlaceID : ASJSession
+@interface ASJDirections : NSObject
 
 /**
- *  Fetch unique place ID assigned by Google to a place by its name.
- *
- *  @param place      The place's name.
- *  @param completion A completion block that is called when the API call is complete.
+ *  The starting point's name.
  */
-- (void)placeIDForPlace:(NSString *)place completion:(PlaceIDBlock)completion;
+@property (copy, nonatomic) NSString *originName;
+
+/**
+ *  The destination's name.
+ */
+@property (copy, nonatomic) NSString *destinationName;
+
+/**
+ *  The starting point's coordinates.
+ */
+@property (nonatomic) CLLocationCoordinate2D origin;
+
+/**
+ *  The destication's coordinates.
+ */
+@property (nonatomic) CLLocationCoordinate2D destination;
+
+/**
+ *  The polyline between points A and B. You can use this string to show a path between two points on a 'GMSMapView'.
+ */
+@property (copy, nonatomic) NSString *polyline;
+
+/**
+ *  A helper method that creates 'ASJOriginDestination' model objects from a JSON response.
+ *
+ *  @param response JSON fetched from Google API.
+ *
+ *  @return An array of 'ASJOriginDestination' instances.
+ */
++ (NSArray<ASJDirections *> *)directionsForResponse:(NSDictionary *)response;
 
 @end

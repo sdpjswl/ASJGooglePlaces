@@ -1,5 +1,5 @@
 //
-// ASJPlaceDetails.h
+// ASJPlacePhotosAPI.h
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -21,27 +21,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJDetails.h"
+#import "ASJPhoto.h"
 #import "ASJSession.h"
+#import <UIKit/UIImage.h>
 
-typedef void(^PlaceDetailsBlock)(ASJResponseStatusCode statusCode, ASJDetails *placeDetails, NSError *error);
+typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<UIImage *> *placePhotos, NSError *error);
 
-@interface ASJPlaceDetails : ASJSession
+@interface ASJPlacePhotosAPI : ASJSession
 
 /**
- *  Fetch place details of a place by its name.
+ *  Fetch photos of a place by its name.
  *
  *  @param place      The place's name.
  *  @param completion A completion block that is called when the API call is complete.
  */
-- (void)placeDetailsForPlace:(NSString *)place completion:(PlaceDetailsBlock)completion;
-
-/**
- *  Fetch place details of a place by its unique place ID.
- *
- *  @param placeID    The place's unique ID.
- *  @param completion A completion block that is called when the API call is complete.
- */
-- (void)placeDetailsForPlaceID:(NSString *)placeID completion:(PlaceDetailsBlock)completion;
+- (void)placePhotosForPlace:(NSString *)place completion:(PlacePhotosBlock)completion;
 
 @end

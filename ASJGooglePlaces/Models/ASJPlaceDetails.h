@@ -1,5 +1,5 @@
 //
-// ASJDetails.h
+// ASJPlaceDetails.h
 //
 // Copyright (c) 2015 Sudeep Jaiswal
 //
@@ -24,7 +24,7 @@
 #import "ASJPhoto.h"
 #import <CoreLocation/CLLocation.h>
 
-@interface ASJDetails : NSObject
+@interface ASJPlaceDetails : NSObject
 
 /**
  *  The unique ID assigned by Google to each place.
@@ -68,6 +68,6 @@
  *
  *  @return An instance of 'ASJDetails'.
  */
-+ (ASJDetails *)placeDetailsForResponse:(NSDictionary *)response;
++ (ASJPlaceDetails *)placeDetailsForResponse:(NSDictionary *)response;
 
 @end

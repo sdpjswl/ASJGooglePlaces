@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
-#import "ASJPlaceID.h"
+#import "ASJPlaceIDAPI.h"
 #import "PlaceIDController.h"
 
 @interface PlaceIDController () <UITextFieldDelegate>
@@ -41,7 +41,7 @@
 
 - (void)executePlaceIDRequest
 {
-  ASJPlaceID *api = [[ASJPlaceID alloc] init];
+  ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
   [api placeIDForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
    {
      if (!placeID.length || error)
