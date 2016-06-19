@@ -116,6 +116,7 @@ Returns an array of `ASJPhoto`s for a provided place name. It will return `nil` 
 - Add nullability annotations.
 - Add more info to models.
 - Add place photos by place ID.
+- Handle invalid user inputs.
 
 # Credits
 
