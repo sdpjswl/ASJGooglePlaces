@@ -6,8 +6,8 @@ This library is a collection of classes that act as a wrapper around a few featu
 
 Most APIs require a key to work. The Maps Directions API is an exception that is used here. To create a key, head over to [Google's API console](https://code.google.com/apis/console), enable the APIs you need and generate your key(s) in the credentials section.
 
-![alt tag](Enable APIs.png)
-![alt tag](Credentials.png)
+![alt tag](Images/EnableAPIs.png)
+![alt tag](Images/Credentials.png)
 
 Note that you will need API keys to run the example project. You need one browser key to make API requests and one iOS key configured for the bundle identifier of the project; used to show the directions on a `GMSMapView`.
 
@@ -103,8 +103,8 @@ Returns an array of `ASJPhoto`s for a provided place name. It will return `nil` 
 
 # To-do
 
-- Refactor project and library.
-- Add documentation.
+- ~~Refactor project and library.~~
+- ~~Add documentation.~~
 - Add nullability annotations.
 - Add more info to models.
 - Add place photos by place ID.
