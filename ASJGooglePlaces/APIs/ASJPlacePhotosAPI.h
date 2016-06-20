@@ -37,4 +37,12 @@ typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<UIImag
  */
 - (void)placePhotosForPlace:(NSString *)place completion:(PlacePhotosBlock)completion;
 
+/**
+ *  Fetch photos of a place by its unique place ID.
+ *
+ *  @param placeID    The place's unique ID.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
+- (void)placePhotosForPlaceID:(NSString *)placeID completion:(PlacePhotosBlock)completion;
+
 @end

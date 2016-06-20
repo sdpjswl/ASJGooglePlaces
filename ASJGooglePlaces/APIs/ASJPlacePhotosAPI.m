@@ -28,10 +28,12 @@
 @interface ASJPlacePhotosAPI ()
 
 @property (copy, nonatomic) NSString *place;
+@property (copy, nonatomic) NSString *placeID;
 @property (strong, nonatomic) ASJPlaceDetails *placeDetails;
 @property (copy) PlacePhotosBlock completion;
 
-- (void)fetchPlaceDetails;
+- (void)fetchPlaceDetailsByName;
+- (void)fetchPlaceDetailsByID;
 - (NSURL *)urlForPhoto:(ASJPhoto *)photo;
 
 @end
@@ -44,15 +46,43 @@
 {
   _place = place;
   _completion = completion;
-  [self fetchPlaceDetails];
+  [self fetchPlaceDetailsByName];
+}
+
+- (void)placePhotosForPlaceID:(NSString *)placeID completion:(PlacePhotosBlock)completion
+{
+  _placeID = placeID;
+  _completion = completion;
+  [self fetchPlaceDetailsByID];
 }
 
 #pragma mark - Private
 
-- (void)fetchPlaceDetails
+- (void)fetchPlaceDetailsByName
 {
   ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
   [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
+   {
+     if (!_completion) {
+       return;
+     }
+     
+     if (statusCode != ASJResponseStatusCodeOk ||
+         !placeDetails.photos.count)
+     {
+       _completion(statusCode, nil, error);
+       return;
+     }
+     
+     _placeDetails = placeDetails;
+     [self executeGooglePlacesRequest];
+   }];
+}
+
+- (void)fetchPlaceDetailsByID
+{
+  ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
+  [api placeDetailsForPlaceID:_placeID completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
    {
      if (!_completion) {
        return;
