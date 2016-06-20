@@ -105,9 +105,11 @@ Provide a name of a place and get the corresponding unique place ID in the compl
 
 ```objc
 - (void)placePhotosForPlace:(NSString *)place completion:(PlacePhotosBlock)completion;
+
+- (void)placePhotosForPlaceID:(NSString *)place completion:(PlacePhotosBlock)completion;
 ```
 
-Returns an array of `ASJPhoto`s for a provided place name. It will return `nil` if there are no available photos for the place or if the place itself was not found.
+Returns an array of `ASJPhoto`s for a provided place name or ID. It will return `nil` if there are no available photos for the place or if the place itself was not found.
 
 # To-do
 
