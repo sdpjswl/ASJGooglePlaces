@@ -115,14 +115,14 @@ Returns an array of `ASJPhoto`s for a provided place name or ID. It will return 
 
 - ~~Refactor project and library.~~
 - ~~Add documentation.~~
+- ~~Add place photos by place ID.~~
 - Add nullability annotations.
 - Add more info to models.
-- ~~Add place photos by place ID.~~
 - Handle invalid user inputs.
 
 # Credits
 
-- To **Deepti Walde** for adding code to get all available directions.
+- To **Deepti Walde** for adding code to get all available directions
 
 # License
 

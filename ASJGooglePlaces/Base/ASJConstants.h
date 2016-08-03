@@ -1,7 +1,7 @@
 //
 // ASJConstants.h
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// Copyright (c) 2014-2016 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -84,9 +84,9 @@ typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
 /**
  *  These are a few constants that help construct the different URLs used to make API calls.
  */
-static NSString *const kBaseURL             = @"https://maps.googleapis.com/maps/api/place/";
-static NSString *const kDirectionsBaseURL   = @"http://maps.googleapis.com/maps/api/directions/json?alternatives=true&sensor=false&mode=driving&";
-static NSString *const kAutocompleteSubURL  = @"autocomplete/json";
-static NSString *const kPlaceDetailsSubURL  = @"details/json";
-static NSString *const kPlaceIDSubURL       = @"textsearch/json";
-static NSString *const kPlacePhotosSubURL   = @"photo";
+static NSString *const k_asj_BaseURL             = @"https://maps.googleapis.com/maps/api/place/";
+static NSString *const k_asj_DirectionsBaseURL   = @"http://maps.googleapis.com/maps/api/directions/json?alternatives=true&sensor=false&mode=driving&";
+static NSString *const k_asj_AutocompleteSubURL  = @"autocomplete/json";
+static NSString *const k_asj_PlaceDetailsSubURL  = @"details/json";
+static NSString *const k_asj_PlaceIDSubURL       = @"textsearch/json";
+static NSString *const k_asj_PlacePhotosSubURL   = @"photo";

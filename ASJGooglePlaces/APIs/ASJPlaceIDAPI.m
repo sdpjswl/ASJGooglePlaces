@@ -1,7 +1,7 @@
 //
 // ASJPlaceIDAPI.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// Copyright (c) 2014-2016 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -69,7 +69,7 @@
 
 - (NSURL *)placeIDURL
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?query=%@&key=%@", kPlaceIDSubURL, _placeName, self.apiKey];
+  NSString *relativePath = [NSString stringWithFormat:@"%@?query=%@&key=%@", k_asj_PlaceIDSubURL, _placeName, self.apiKey];
   relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
   return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }

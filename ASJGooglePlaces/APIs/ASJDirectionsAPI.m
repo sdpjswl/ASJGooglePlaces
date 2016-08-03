@@ -1,7 +1,7 @@
 //
 // ASJDirectionsAPI.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// Copyright (c) 2014-2016 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -74,11 +74,11 @@
   NSMutableString *urlString = [[NSMutableString alloc] init];
   if (_originName.length && _destinationName.length)
   {
-    [urlString appendFormat:@"%@origin=%@&destination=%@", kDirectionsBaseURL, _originName, _destinationName];
+    [urlString appendFormat:@"%@origin=%@&destination=%@", k_asj_DirectionsBaseURL, _originName, _destinationName];
   }
   else
   {
-    [urlString appendFormat:@"%@origin=%f,%f&destination=%f,%f", kDirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
+    [urlString appendFormat:@"%@origin=%f,%f&destination=%f,%f", k_asj_DirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
   }
   
   NSString *percentEscapedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

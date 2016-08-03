@@ -1,7 +1,7 @@
 //
 // ASJPlacePhotosAPI.m
 //
-// Copyright (c) 2015 Sudeep Jaiswal
+// Copyright (c) 2014-2016 Sudeep Jaiswal
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -127,7 +127,7 @@
 
 - (NSURL *)urlForPhoto:(ASJPhoto *)photo
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", kPlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
+  NSString *relativePath = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", k_asj_PlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
   relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
   return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
