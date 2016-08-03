@@ -56,7 +56,7 @@ For a provided query, this method returns an array of `ASJPlace`s that match the
 
 To control the minimum length of the query before the autocomplete query should run.
 
-### ASJDirections
+### ASJDirectionsAPI
 
 ```objc
 - (void)directionsFromOriginNamed:(NSString *)origin destinationNamed:(NSString *)destination completion:(DirectionsBlock)completion;
@@ -74,7 +74,7 @@ These methods get the directions polyline between two places; an 'origin' and a 
 
 The polyline can be used to draw a `GMSPolyline` between the two places on a `GMSMapView`. Refer the example project to see how it can be done.
 
-### ASJPlaceDetails
+### ASJPlaceDetailsAPI
 
 ```objc
 - (void)placeDetailsForPlace:(NSString *)place completion:(PlaceDetailsBlock)completion;
@@ -93,7 +93,7 @@ These methods fetch the details corresponding to a place. You can either provide
 - Coordinates
 - Photos
 
-### ASJPlaceID
+### ASJPlaceIDAPI
 
 ```objc
 - (void)placeIDForPlace:(NSString *)place completion:(PlaceIDBlock)completion;
@@ -101,7 +101,7 @@ These methods fetch the details corresponding to a place. You can either provide
 
 Provide a name of a place and get the corresponding unique place ID in the completion. Returns `nil` if none was found. This ID is assigned by Google.
 
-### ASJPlacePhotos
+### ASJPlacePhotosAPI
 
 ```objc
 - (void)placePhotosForPlace:(NSString *)place completion:(PlacePhotosBlock)completion;
