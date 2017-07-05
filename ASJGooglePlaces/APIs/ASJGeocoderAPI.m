@@ -23,6 +23,7 @@
 // THE SOFTWARE.
 
 #import "ASJGeocoderAPI.h"
+#import "ASJGeocode.h"
 
 @interface ASJGeocoderAPI()
 @property (copy, nonatomic) NSString *placeID;
@@ -58,13 +59,8 @@
             return;
         }
 
-        NSDictionary *topResult = results[0];
-        NSDictionary *location = topResult[@"geometry"][@"location"];
-        NSNumber *latitude = location[@"lat"];
-        NSNumber *longitude = location[@"lng"];
-//      TODO: implement class with full response. for now, just answer only coordinates
-        CLLocationCoordinate2D locationCoordinate2D = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
-        _completion(statusCode, locationCoordinate2D, error);
+        NSArray *geocodes = [ASJGeocode geocodesForResponse:response];
+        _completion(statusCode, geocodes, error);
     }];
 }
 

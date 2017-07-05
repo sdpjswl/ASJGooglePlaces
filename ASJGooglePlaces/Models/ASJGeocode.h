@@ -1,5 +1,5 @@
 //
-//  ASJGeocoderAPI.h
+//  ASJGeocode.h
 //
 //  Created by Ivan Gaydamakin on 05/07/2017.
 //  Copyright © 2017 Sudeep Jaiswal. All rights reserved.
@@ -22,21 +22,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJSession.h"
+#import <Foundation/Foundation.h>
 #import <CoreLocation/CLLocation.h>
 
-@class ASJGeocode;
-
-typedef void(^GeocoderBlock)(ASJResponseStatusCode statusCode, NSArray <ASJGeocode *> *geocodes, NSError *error);
-
-@interface ASJGeocoderAPI : ASJSession
+@interface ASJGeocode : NSObject
 
 /**
- *  Fetch coordinate assigned by Google to a place by unique place ID.
- *
- *  @param placeID      The place id.
- *  @param completion A completion block that is called when the API call is complete.
+ *  The location assigned by Google to each geocode.
  */
-- (void)geocoderForPlaceID:(NSString *)placeID completion:(GeocoderBlock)completion;
+@property (nonatomic) CLLocationCoordinate2D location;
+
+/**
+ *  A helper method that creates 'ASJGeocode' model objects from a JSON response.
+ *
+ *  @param response JSON fetched from Google API.
+ *
+ *  @return An array of 'ASJGeocode' instances.
+ */
++ (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response;
 
 @end

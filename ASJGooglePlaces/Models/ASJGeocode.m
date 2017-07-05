@@ -1,5 +1,5 @@
 //
-//  ASJGeocoderAPI.h
+//  ASJGeocode.m
 //
 //  Created by Ivan Gaydamakin on 05/07/2017.
 //  Copyright © 2017 Sudeep Jaiswal. All rights reserved.
@@ -22,21 +22,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJSession.h"
-#import <CoreLocation/CLLocation.h>
+#import "ASJGeocode.h"
 
-@class ASJGeocode;
+@implementation ASJGeocode
 
-typedef void(^GeocoderBlock)(ASJResponseStatusCode statusCode, NSArray <ASJGeocode *> *geocodes, NSError *error);
++ (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response
+{
+    NSArray *results = response[@"results"];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
 
-@interface ASJGeocoderAPI : ASJSession
+    for (NSDictionary *dict in results)
+    {
+        NSDictionary *location = dict[@"geometry"][@"location"];
+        NSNumber *latitude = location[@"lat"];
+        NSNumber *longitude = location[@"lng"];
+        CLLocationCoordinate2D locationCoordinate2D = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
 
-/**
- *  Fetch coordinate assigned by Google to a place by unique place ID.
- *
- *  @param placeID      The place id.
- *  @param completion A completion block that is called when the API call is complete.
- */
-- (void)geocoderForPlaceID:(NSString *)placeID completion:(GeocoderBlock)completion;
+
+//      TODO: implement class with full response. for now, just answer only coordinates
+        ASJGeocode *geocode = [[ASJGeocode alloc] init];
+        geocode.location = locationCoordinate2D;
+        [temp addObject:geocode];
+    }
+
+    return [NSArray arrayWithArray:temp];
+}
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2CDCA0AE1F0CD63700B406C7 /* ASJGeocoderAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCA0AD1F0CD63700B406C7 /* ASJGeocoderAPI.m */; };
+		2CDCA0B11F0CE33300B406C7 /* ASJGeocode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCA0B01F0CE33300B406C7 /* ASJGeocode.m */; };
 		6BF362B91D0FF8D90054BF24 /* UILabel+PreferredWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF362AB1D0FF8D90054BF24 /* UILabel+PreferredWidth.m */; };
 		98992455F180BF297FEE90FA /* libPods-ASJGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A273F68526C8047DD35AEE0 /* libPods-ASJGooglePlaces.a */; };
 		C040EF271D167DA60092C015 /* ASJAutocompleteAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C040EF0A1D167DA60092C015 /* ASJAutocompleteAPI.m */; };
@@ -40,6 +41,8 @@
 /* Begin PBXFileReference section */
 		2CDCA0AC1F0CD63700B406C7 /* ASJGeocoderAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASJGeocoderAPI.h; sourceTree = "<group>"; };
 		2CDCA0AD1F0CD63700B406C7 /* ASJGeocoderAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASJGeocoderAPI.m; sourceTree = "<group>"; };
+		2CDCA0AF1F0CE33300B406C7 /* ASJGeocode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASJGeocode.h; sourceTree = "<group>"; };
+		2CDCA0B01F0CE33300B406C7 /* ASJGeocode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASJGeocode.m; sourceTree = "<group>"; };
 		58F1A7EA4F0B86570C88A124 /* Pods-ASJGooglePlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASJGooglePlaces.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASJGooglePlaces/Pods-ASJGooglePlaces.release.xcconfig"; sourceTree = "<group>"; };
 		6BF362AA1D0FF8D90054BF24 /* UILabel+PreferredWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+PreferredWidth.h"; sourceTree = "<group>"; };
 		6BF362AB1D0FF8D90054BF24 /* UILabel+PreferredWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+PreferredWidth.m"; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				C040EF1F1D167DA60092C015 /* ASJPlace.m */,
 				C040EF201D167DA60092C015 /* ASJPlaceDetails.h */,
 				C040EF211D167DA60092C015 /* ASJPlaceDetails.m */,
+				2CDCA0AF1F0CE33300B406C7 /* ASJGeocode.h */,
+				2CDCA0B01F0CE33300B406C7 /* ASJGeocode.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -476,6 +481,7 @@
 				C060D4AE1D10352F00EA44B9 /* BaseController.m in Sources */,
 				C040EF301D167DA60092C015 /* ASJPlace.m in Sources */,
 				C040EF481D167DFA0092C015 /* DirectionsController.m in Sources */,
+				2CDCA0B11F0CE33300B406C7 /* ASJGeocode.m in Sources */,
 				C040EF4B1D167DFA0092C015 /* PlacePhotosController.m in Sources */,
 				C040EF2D1D167DA60092C015 /* ASJSession.m in Sources */,
 				C040EF2C1D167DA60092C015 /* ASJConstants.m in Sources */,
