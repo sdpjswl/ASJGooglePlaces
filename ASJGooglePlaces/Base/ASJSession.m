@@ -84,7 +84,9 @@
   [ASJResponseValidator validateData:data error:error completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
      if (_completion) {
-       _completion(statusCode, response, error);
+         dispatch_async(dispatch_get_main_queue(), ^{
+           _completion(statusCode, response, error);
+         });
      }
    }];
 }
