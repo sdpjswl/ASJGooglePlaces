@@ -39,4 +39,12 @@ typedef void(^GeocoderBlock)(ASJResponseStatusCode statusCode, NSArray <ASJGeoco
  */
 - (void)geocoderForPlaceID:(NSString *)placeID completion:(GeocoderBlock)completion;
 
+/**
+ *  Fetch coordinate assigned by Google to a place by unique place ID.
+ *
+ *  @param coordinate      The coordinates.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
+- (void)geocoderForCoordinate:(CLLocationCoordinate2D)coordinate completion:(GeocoderBlock)completion;
+
 @end

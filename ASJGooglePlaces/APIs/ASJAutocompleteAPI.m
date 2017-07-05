@@ -35,12 +35,12 @@
 
 #pragma mark - Public
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
-        self.userLocation = kCLLocationCoordinate2DInvalid;
+        _userLocation = kCLLocationCoordinate2DInvalid;
     }
-
     return self;
 }
 
@@ -71,8 +71,8 @@
 - (NSURL *)autocompleteURL
 {
     NSString *relativePath = [NSString stringWithFormat:@"%@?input=%@&key=%@", k_asj_AutocompleteSubURL, _query, self.apiKey];
-    if (CLLocationCoordinate2DIsValid(self.userLocation)) {
-        relativePath = [relativePath stringByAppendingFormat:@"&location=%f,%f", self.userLocation.latitude, self.userLocation.longitude];
+    if (CLLocationCoordinate2DIsValid(_userLocation)) {
+        relativePath = [relativePath stringByAppendingFormat:@"&location=%f,%f", _userLocation.latitude, _userLocation.longitude];
     }
     relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
