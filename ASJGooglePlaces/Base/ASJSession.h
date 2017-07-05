@@ -40,12 +40,6 @@ typedef void(^SessionBlock)(ASJResponseStatusCode statusCode, NSDictionary *resp
 @interface ASJSession : NSObject <ASJSession>
 
 /**
- *  Cancel all requests.
- *
- */
-- (void)cancelAllTasks;
-
-/**
  *  A single URL session to make all API calls.
  *
  *  @return An instance of NSURLSession.

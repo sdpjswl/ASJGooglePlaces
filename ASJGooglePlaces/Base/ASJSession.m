@@ -76,11 +76,6 @@
     }] resume];
 }
 
-- (void)cancelAllTasks
-{
-    [self.urlSession invalidateAndCancel];
-}
-
 #pragma mark - Private
 
 - (void)validate:(NSData *)data error:(NSError *)error
