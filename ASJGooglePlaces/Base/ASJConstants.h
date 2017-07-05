@@ -92,7 +92,9 @@ typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
  */
 static NSString *const k_asj_BaseURL             = @"https://maps.googleapis.com/maps/api/place/";
 static NSString *const k_asj_DirectionsBaseURL   = @"http://maps.googleapis.com/maps/api/directions/json?alternatives=true&sensor=false&mode=driving&";
+static NSString *const k_asj_GeocoderBaseURL     = @"https://maps.googleapis.com/maps/api/";
 static NSString *const k_asj_AutocompleteSubURL  = @"autocomplete/json";
 static NSString *const k_asj_PlaceDetailsSubURL  = @"details/json";
 static NSString *const k_asj_PlaceIDSubURL       = @"textsearch/json";
 static NSString *const k_asj_PlacePhotosSubURL   = @"photo";
+static NSString *const k_asj_GeocoderSubURL      = @"geocode/json";

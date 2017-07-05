@@ -1,7 +1,8 @@
 //
-// ASJGooglePlaces.h
+//  ASJGeocoderAPI.h
 //
-// Copyright (c) 2014-2016 Sudeep Jaiswal
+//  Created by Ivan Gaydamakin on 05/07/2017.
+//  Copyright © 2017 Sudeep Jaiswal. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,9 +22,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPlaceIDAPI.h"
-#import "ASJPlaceDetailsAPI.h"
-#import "ASJPlacePhotosAPI.h"
-#import "ASJAutocompleteAPI.h"
-#import "ASJDirectionsAPI.h"
-#import "ASJGeocoderAPI.h"
+#import "ASJSession.h"
+#import <CoreLocation/CLLocation.h>
+
+typedef void(^GeocoderBlock)(ASJResponseStatusCode statusCode, CLLocationCoordinate2D location, NSError *error);
+
+@interface ASJGeocoderAPI : ASJSession
+
+/**
+ *  Fetch coordinate assigned by Google to a place by unique place ID.
+ *
+ *  @param placeID      The place id.
+ *  @param completion A completion block that is called when the API call is complete.
+ */
+- (void)geocoderForPlaceID:(NSString *)placeID completion:(GeocoderBlock)completion;
+
+@end
