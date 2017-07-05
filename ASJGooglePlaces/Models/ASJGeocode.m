@@ -24,28 +24,81 @@
 
 #import "ASJGeocode.h"
 
+@interface ASJGeocode ()
+@property(nonatomic, strong) NSDictionary *dictionary;
+@end
+
 @implementation ASJGeocode
 
-+ (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response
-{
++ (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response {
     NSArray *results = response[@"results"];
     NSMutableArray *temp = [[NSMutableArray alloc] init];
 
-    for (NSDictionary *dict in results)
-    {
-        NSDictionary *location = dict[@"geometry"][@"location"];
-        NSNumber *latitude = location[@"lat"];
-        NSNumber *longitude = location[@"lng"];
-        CLLocationCoordinate2D locationCoordinate2D = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
-
-
-//      TODO: implement class with full response. for now, just answer only coordinates
-        ASJGeocode *geocode = [[ASJGeocode alloc] init];
-        geocode.location = locationCoordinate2D;
+    for (NSDictionary *dict in results) {
+        ASJGeocode *geocode = [[ASJGeocode alloc] initWithResponse:dict];
         [temp addObject:geocode];
     }
 
     return [NSArray arrayWithArray:temp];
 }
+
+- (id)initWithResponse:(NSDictionary *)dictionary {
+    self = [super init];
+    if (self) {
+        self.dictionary = dictionary;
+    }
+    return self;
+}
+
+- (CLLocationCoordinate2D)coordinate {
+    NSDictionary *location = self.dictionary[@"geometry"][@"location"];
+    NSNumber *latitude = location[@"lat"];
+    NSNumber *longitude = location[@"lng"];
+    return CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+}
+
+- (NSString *)placeID {
+    return self.dictionary[@"place_id"];
+}
+
+- (NSString *)locality {
+    return [self getFromAddressComponents:@"locality"];
+}
+
+- (NSString *)country {
+    return [self getFromAddressComponents:@"country"];
+}
+
+- (NSString *)formattedAddress {
+    return self.dictionary[@"formatted_address"];
+}
+
+- (NSArray *)addressComponents {
+    return self.dictionary[@"address_components"];
+}
+
+- (NSString *)postalCode {
+    return [self getFromAddressComponents:@"postal_code"];
+}
+
+- (NSString *)getFromAddressComponents:(NSString *)string {
+    for (NSDictionary *dictionary in self.addressComponents) {
+        NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
+        if([type isEqual:string]){
+            return dictionary[@"long_name"];
+        }
+    }
+    return nil;
+}
+
+- (NSArray<NSString *> *)lines {
+    NSArray<NSString *> *array = [self.formattedAddress componentsSeparatedByString:@","];
+    NSMutableArray *strings = [@[] mutableCopy];
+    for (NSString *line in array) {
+        [strings addObject:[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    }
+    return [strings copy];
+}
+
 
 @end

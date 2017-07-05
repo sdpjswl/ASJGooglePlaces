@@ -27,10 +27,29 @@
 
 @interface ASJGeocode : NSObject
 
-/**
- *  The location assigned by Google to each geocode.
- */
-@property (nonatomic) CLLocationCoordinate2D location;
+/** Location, or kLocationCoordinate2DInvalid if unknown. */
+@property(nonatomic, readonly) CLLocationCoordinate2D coordinate;
+
+/** Place id. */
+@property(nonatomic, readonly, copy) NSString *placeID;
+
+/** Locality or city. */
+@property(nonatomic, readonly, copy) NSString *locality;
+
+/** The country name. */
+@property(nonatomic, readonly, copy) NSString *country;
+
+/** Postal/Zip code. */
+@property(nonatomic, copy, readonly) NSString *postalCode;
+
+/** The formatted address. */
+@property(nonatomic, readonly, copy) NSString *formattedAddress;
+
+/** An array containing address components. May be nil. */
+@property(nonatomic, readonly, copy) NSArray *addressComponents;
+
+/** An array of NSString containing formatted lines of the address. May be nil. */
+@property(nonatomic, copy, readonly) NSArray<NSString *> *lines;
 
 /**
  *  A helper method that creates 'ASJGeocode' model objects from a JSON response.
@@ -40,5 +59,7 @@
  *  @return An array of 'ASJGeocode' instances.
  */
 + (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response;
+
+- (id)initWithResponse:(NSDictionary *)dictionary;
 
 @end
