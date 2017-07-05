@@ -30,6 +30,12 @@
  */
 @property (copy, nonatomic) NSString *apiKey;
 
+
+/**
+ *  The Language key used for show correct translation response.
+ */
+@property (copy, nonatomic) NSString *languageKey;
+
 /**
  *  The singleton object. Use it to set the API key in your AppDelegate.
  *

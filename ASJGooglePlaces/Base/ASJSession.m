@@ -58,8 +58,18 @@
   return [ASJConstants sharedInstance].apiKey;
 }
 
+- (NSString *)languageKey
+{
+  return [ASJConstants sharedInstance].languageKey;
+}
+
 - (void)executeRequestForURL:(NSURL *)url completion:(SessionBlock)completion
 {
+  if(self.languageKey){
+      NSString *urlString = [url absoluteString];
+      urlString = [urlString stringByAppendingFormat:@"&language=%@", self.languageKey];
+      url = [[NSURL alloc] initWithString:urlString];
+  }
   _completion = completion;
   [[self.urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
     {
