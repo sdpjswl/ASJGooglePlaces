@@ -91,7 +91,7 @@ typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
  *  These are a few constants that help construct the different URLs used to make API calls.
  */
 static NSString *const k_asj_BaseURL             = @"https://maps.googleapis.com/maps/api/place/";
-static NSString *const k_asj_DirectionsBaseURL   = @"http://maps.googleapis.com/maps/api/directions/json?alternatives=true&sensor=false&mode=driving&";
+static NSString *const k_asj_DirectionsBaseURL   = @"https://maps.googleapis.com/maps/api/directions/json?alternatives=true&sensor=false&mode=driving&";
 static NSString *const k_asj_GeocoderBaseURL     = @"https://maps.googleapis.com/maps/api/";
 static NSString *const k_asj_AutocompleteSubURL  = @"autocomplete/json";
 static NSString *const k_asj_PlaceDetailsSubURL  = @"details/json";
