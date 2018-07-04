@@ -42,6 +42,9 @@
 /** Postal/Zip code. */
 @property(nonatomic, copy, readonly) NSString *postalCode;
 
+/** Country code. */
+@property(nonatomic, copy, readonly) NSString *countryCode;
+
 /** The formatted address. */
 @property(nonatomic, readonly, copy) NSString *formattedAddress;
 

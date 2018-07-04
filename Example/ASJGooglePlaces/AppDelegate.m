@@ -18,7 +18,7 @@
   /**
    *  Google Places API needs an API key to authorize requests. You will need one to run the example project. To get one, go to: https://console.developers.google.com
    */
-  [ASJConstants sharedInstance].apiKey = @"AIzaSyAoXVbnsD_AV8ejPliFjT3vIEtEXsv1lPc";
+  [ASJConstants sharedInstance].apiKey = @"AIzaSyA4P7Yl9425BDClBqo_Gvxt7Mw1RWpJJrY";
 
   /**
    *  Language key for Google Services API for correct translation response.

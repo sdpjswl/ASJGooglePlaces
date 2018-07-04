@@ -62,11 +62,11 @@
 }
 
 - (NSString *)locality {
-    return [self getFromAddressComponents:@"locality"];
+    return [self getLongNameFrom:@"locality"];
 }
 
 - (NSString *)country {
-    return [self getFromAddressComponents:@"country"];
+    return [self getLongNameFrom:@"country"];
 }
 
 - (NSString *)formattedAddress {
@@ -78,14 +78,28 @@
 }
 
 - (NSString *)postalCode {
-    return [self getFromAddressComponents:@"postal_code"];
+    return [self getLongNameFrom:@"postal_code"];
 }
 
-- (NSString *)getFromAddressComponents:(NSString *)string {
+- (NSString *)countryCode {
+    return [self getShortNameFrom:@"country"];
+}
+
+- (NSString *)getLongNameFrom:(NSString *)string {
     for (NSDictionary *dictionary in self.addressComponents) {
         NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
         if([type isEqual:string]){
             return dictionary[@"long_name"];
+        }
+    }
+    return nil;
+}
+
+- (NSString *)getShortNameFrom:(NSString *)string {
+    for (NSDictionary *dictionary in self.addressComponents) {
+        NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
+        if([type isEqual:string]){
+            return dictionary[@"short_name"];
         }
     }
     return nil;
