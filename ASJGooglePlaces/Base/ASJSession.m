@@ -70,6 +70,11 @@
         urlString = [urlString stringByAppendingFormat:@"&language=%@", self.languageKey];
         url = [[NSURL alloc] initWithString:urlString];
     }
+    if (self.apiKey) {
+        NSString *urlString = [url absoluteString];
+        urlString = [urlString stringByAppendingFormat:@"&key=%@", self.apiKey];
+        url = [[NSURL alloc] initWithString:urlString];
+    }
     _completion = completion;
     [[self.urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         [self validate:data error:error];
