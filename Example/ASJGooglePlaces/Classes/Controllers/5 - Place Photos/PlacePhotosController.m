@@ -78,7 +78,7 @@ static NSString *const kCellIdentifier = @"cell";
    {
      if (!placePhotos.count)
      {
-       NSString *message = [NSString stringWithFormat:@"No photos found for %@.", _placeTextField.text];
+       NSString *message = [NSString stringWithFormat:@"No photos found for %@.", self->_placeTextField.text];
        if (error) {
          message = error.localizedDescription;
        }
@@ -87,7 +87,7 @@ static NSString *const kCellIdentifier = @"cell";
        return;
      }
      
-     _photos = placePhotos;
+    self->_photos = placePhotos;
      [self reloadCollectionView];
    }];
 }
@@ -95,7 +95,7 @@ static NSString *const kCellIdentifier = @"cell";
 - (void)reloadCollectionView
 {
   [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-    [_photosCollectionView reloadData];
+    [self->_photosCollectionView reloadData];
   }];
 }
 

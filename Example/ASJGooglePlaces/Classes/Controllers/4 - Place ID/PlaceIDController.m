@@ -44,16 +44,16 @@
   ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
   [api placeIDForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
    {
-     if (!placeID.length || error)
-     {
-       [self showAlertWithMessage:error.localizedDescription];
-       return;
-     }
-     
-     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-       _placeIDLabel.text = placeID;
-     }];
-   }];
+    if (!placeID.length || error)
+    {
+      [self showAlertWithMessage:error.localizedDescription];
+      return;
+    }
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+      self->_placeIDLabel.text = placeID;
+    }];
+  }];
 }
 
 #pragma mark - UITextFieldDelegate

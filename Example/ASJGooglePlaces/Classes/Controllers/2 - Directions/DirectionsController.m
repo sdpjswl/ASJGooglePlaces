@@ -178,7 +178,7 @@ static BOOL const kShouldAutofillTextFields = NO;
        return;
      }
      
-     _directionDetails = directionDetails;
+      self->_directionDetails = directionDetails;
      [self showMap];
    }];
 }
@@ -202,7 +202,7 @@ static BOOL const kShouldAutofillTextFields = NO;
        return;
      }
      
-     _directionDetails = directionDetails;
+      self->_directionDetails = directionDetails;
      [self showMap];
    }];
 }
@@ -221,11 +221,11 @@ static BOOL const kShouldAutofillTextFields = NO;
    {
      static GMSMapView *map = nil;
      if (!map) {
-       map = [[GMSMapView alloc] initWithFrame:_mapContainerView.bounds];
+       map = [[GMSMapView alloc] initWithFrame:self->_mapContainerView.bounds];
      }
      [map clear];
      
-     ASJDirections *originDestination = _directionDetails[0];
+     ASJDirections *originDestination = self->_directionDetails[0];
      GMSPath *path = [GMSPath pathFromEncodedPath:originDestination.polyline];
      GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
      GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withPadding:50.0];
@@ -242,7 +242,7 @@ static BOOL const kShouldAutofillTextFields = NO;
      destination.title = originDestination.destinationName;
      destination.map = map;
      
-     [_mapContainerView addSubview:map];
+     [self->_mapContainerView addSubview:map];
      [map animateWithCameraUpdate:update];
    }];
 }

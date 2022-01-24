@@ -60,31 +60,31 @@
   ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
   [api placeIDForPlace:_placeName completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
    {
-     if (!_completion) {
-       return;
-     }
-     
-     if (statusCode != ASJResponseStatusCodeOk)
-     {
-       _completion(statusCode, nil, error);
-       return;
-     }
-     
-     _placeID = placeID;
-     [self executeGooglePlacesRequest];
-   }];
+    if (!self->_completion) {
+      return;
+    }
+    
+    if (statusCode != ASJResponseStatusCodeOk)
+    {
+      self->_completion(statusCode, nil, error);
+      return;
+    }
+    
+    self->_placeID = placeID;
+    [self executeGooglePlacesRequest];
+  }];
 }
 
 - (void)executeGooglePlacesRequest
 {
   [self executeRequestForURL:self.placeDetailsURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
-     if (_completion)
-     {
-       ASJPlaceDetails *placeDetails = [ASJPlaceDetails placeDetailsForResponse:response];
-       _completion(statusCode, placeDetails, error);
-     }
-   }];
+    if (self->_completion)
+    {
+      ASJPlaceDetails *placeDetails = [ASJPlaceDetails placeDetailsForResponse:response];
+      self->_completion(statusCode, placeDetails, error);
+    }
+  }];
 }
 
 - (NSURL *)placeDetailsURL

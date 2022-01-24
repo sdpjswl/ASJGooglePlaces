@@ -50,21 +50,21 @@
 {
   [self executeRequestForURL:self.placeIDURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
-     if (!_completion) {
-       return;
-     }
-     
-     NSArray *results = response[@"results"];
-     if (!results.count)
-     {
-       _completion(statusCode, nil, error);
-       return;
-     }
-     
-     NSDictionary *topResult = results[0];
-     NSString *placeID = topResult[@"place_id"];
-     _completion(statusCode, placeID, error);
-   }];
+    if (!self->_completion) {
+      return;
+    }
+    
+    NSArray *results = response[@"results"];
+    if (!results.count)
+    {
+      self->_completion(statusCode, nil, error);
+      return;
+    }
+    
+    NSDictionary *topResult = results[0];
+    NSString *placeID = topResult[@"place_id"];
+    self->_completion(statusCode, placeID, error);
+  }];
 }
 
 - (NSURL *)placeIDURL

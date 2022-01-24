@@ -60,12 +60,12 @@
 {
   [self executeRequestForURL:self.urlForDirectionsQuery completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
-     if (_completion)
-     {
-       NSArray *directions = [ASJDirections directionsForResponse:response];
-       _completion(statusCode, directions, error);
-     }
-   }];
+    if (self->_completion)
+    {
+      NSArray *directions = [ASJDirections directionsForResponse:response];
+      self->_completion(statusCode, directions, error);
+    }
+  }];
 }
 
 // Thanks: Deepti

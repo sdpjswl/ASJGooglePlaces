@@ -59,7 +59,7 @@
        return;
      }
      
-     _placeDetails = placeDetails;
+      self->_placeDetails = placeDetails;
      [self showDetailsOnScreen];
    }];
 }
@@ -68,33 +68,33 @@
 {
   [[NSOperationQueue mainQueue] addOperationWithBlock:^
    {
-     if (_placeDetails.placeID.length)
+     if (self->_placeDetails.placeID.length)
      {
-       _placeIDLabel.text = _placeDetails.placeID;
+         self->_placeIDLabel.text = self->_placeDetails.placeID;
      }
-     if (_placeDetails.name.length)
+     if (self->_placeDetails.name.length)
      {
-       _nameLabel.text = _placeDetails.name;
+         self->_nameLabel.text = self->_placeDetails.name;
      }
-     if (_placeDetails.address.length)
+     if (self->_placeDetails.address.length)
      {
-       _addressLabel.text = _placeDetails.address;
-       _addressLabel.preferredMaxLayoutWidth = [_addressLabel preferredMaxWidthWithPadding:15.0];
+         self->_addressLabel.text = self->_placeDetails.address;
+         self->_addressLabel.preferredMaxLayoutWidth = [self->_addressLabel preferredMaxWidthWithPadding:15.0];
      }
-     if (_placeDetails.phone.length)
+     if (self->_placeDetails.phone.length)
      {
-       _phoneLabel.text = _placeDetails.phone;
+         self->_phoneLabel.text = self->_placeDetails.phone;
      }
-     if (_placeDetails.website.length)
+     if (self->_placeDetails.website.length)
      {
-       _websiteLabel.text = _placeDetails.website;
+         self->_websiteLabel.text = self->_placeDetails.website;
      }
      
-     CGFloat lat = _placeDetails.location.latitude;
-     CGFloat lng = _placeDetails.location.longitude;
+     CGFloat lat = self->_placeDetails.location.latitude;
+     CGFloat lng = self->_placeDetails.location.longitude;
      if (lat && lng)
      {
-       _locationLabel.text = [NSString stringWithFormat:@"%f, %f", lat, lng];
+         self->_locationLabel.text = [NSString stringWithFormat:@"%f, %f", lat, lng];
      }
    }];
 }

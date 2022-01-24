@@ -25,94 +25,112 @@
 #import "ASJGeocode.h"
 
 @interface ASJGeocode ()
+
 @property(nonatomic, strong) NSDictionary *dictionary;
+
 @end
 
 @implementation ASJGeocode
 
-+ (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response {
-    NSArray *results = response[@"results"];
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
++ (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response
+{
+  NSArray *results = response[@"results"];
+  NSMutableArray *temp = [[NSMutableArray alloc] init];
+  
+  for (NSDictionary *dict in results)
+  {
+    ASJGeocode *geocode = [[ASJGeocode alloc] initWithResponse:dict];
+    [temp addObject:geocode];
+  }
+  
+  return [NSArray arrayWithArray:temp];
+}
 
-    for (NSDictionary *dict in results) {
-        ASJGeocode *geocode = [[ASJGeocode alloc] initWithResponse:dict];
-        [temp addObject:geocode];
+- (id)initWithResponse:(NSDictionary *)dictionary
+{
+  self = [super init];
+  if (self) {
+    self.dictionary = dictionary;
+  }
+  return self;
+}
+
+- (CLLocationCoordinate2D)coordinate
+{
+  NSDictionary *location = self.dictionary[@"geometry"][@"location"];
+  NSNumber *latitude = location[@"lat"];
+  NSNumber *longitude = location[@"lng"];
+  return CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+}
+
+- (NSString *)placeID
+{
+  return self.dictionary[@"place_id"];
+}
+
+- (NSString *)locality
+{
+  return [self getLongNameFrom:@"locality"];
+}
+
+- (NSString *)country
+{
+  return [self getLongNameFrom:@"country"];
+}
+
+- (NSString *)formattedAddress
+{
+  return self.dictionary[@"formatted_address"];
+}
+
+- (NSArray *)addressComponents
+{
+  return self.dictionary[@"address_components"];
+}
+
+- (NSString *)postalCode
+{
+  return [self getLongNameFrom:@"postal_code"];
+}
+
+- (NSString *)countryCode
+{
+  return [self getShortNameFrom:@"country"];
+}
+
+- (NSString *)getLongNameFrom:(NSString *)string
+{
+  for (NSDictionary *dictionary in self.addressComponents)
+  {
+    NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
+    if([type isEqual:string]) {
+      return dictionary[@"long_name"];
     }
-
-    return [NSArray arrayWithArray:temp];
+  }
+  return nil;
 }
 
-- (id)initWithResponse:(NSDictionary *)dictionary {
-    self = [super init];
-    if (self) {
-        self.dictionary = dictionary;
+- (NSString *)getShortNameFrom:(NSString *)string
+{
+  for (NSDictionary *dictionary in self.addressComponents)
+  {
+    NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
+    if([type isEqual:string]) {
+      return dictionary[@"short_name"];
     }
-    return self;
+  }
+  return nil;
 }
 
-- (CLLocationCoordinate2D)coordinate {
-    NSDictionary *location = self.dictionary[@"geometry"][@"location"];
-    NSNumber *latitude = location[@"lat"];
-    NSNumber *longitude = location[@"lng"];
-    return CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+- (NSArray<NSString *> *)lines
+{
+  NSArray<NSString *> *array = [self.formattedAddress componentsSeparatedByString:@","];
+  NSMutableArray *strings = [@[] mutableCopy];
+  for (NSString *line in array)
+  {
+    [strings addObject:[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+  }
+  return [strings copy];
 }
-
-- (NSString *)placeID {
-    return self.dictionary[@"place_id"];
-}
-
-- (NSString *)locality {
-    return [self getLongNameFrom:@"locality"];
-}
-
-- (NSString *)country {
-    return [self getLongNameFrom:@"country"];
-}
-
-- (NSString *)formattedAddress {
-    return self.dictionary[@"formatted_address"];
-}
-
-- (NSArray *)addressComponents {
-    return self.dictionary[@"address_components"];
-}
-
-- (NSString *)postalCode {
-    return [self getLongNameFrom:@"postal_code"];
-}
-
-- (NSString *)countryCode {
-    return [self getShortNameFrom:@"country"];
-}
-
-- (NSString *)getLongNameFrom:(NSString *)string {
-    for (NSDictionary *dictionary in self.addressComponents) {
-        NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
-        if([type isEqual:string]){
-            return dictionary[@"long_name"];
-        }
-    }
-    return nil;
-}
-
-- (NSString *)getShortNameFrom:(NSString *)string {
-    for (NSDictionary *dictionary in self.addressComponents) {
-        NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
-        if([type isEqual:string]){
-            return dictionary[@"short_name"];
-        }
-    }
-    return nil;
-}
-
-- (NSArray<NSString *> *)lines {
-    NSArray<NSString *> *array = [self.formattedAddress componentsSeparatedByString:@","];
-    NSMutableArray *strings = [@[] mutableCopy];
-    for (NSString *line in array) {
-        [strings addObject:[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-    }
-    return [strings copy];
-}
-
 
 @end

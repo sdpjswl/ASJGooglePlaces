@@ -66,7 +66,7 @@ static NSString *const kCellIdentifier = @"cell";
        return;
      }
      
-     _results = places;
+    self->_results = places;
      [self reloadTable];
    }];
 }
@@ -74,7 +74,7 @@ static NSString *const kCellIdentifier = @"cell";
 - (void)reloadTable
 {
   [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-    [_resultsTableView reloadData];
+    [self->_resultsTableView reloadData];
   }];
 }
 
