@@ -3,6 +3,9 @@
 ## [1.1](https://github.com/sdpjswl/ASJGooglePlaces/releases/tag/1.1)
 Released on Monday, 24 Jan, 2022.
 
+#### Added
+* Using geocoding to search for places.
+
 ## [1.0](https://github.com/sdpjswl/ASJGooglePlaces/releases/tag/1.0)
 Released on Wednesday, 3 Aug, 2016.
 
