@@ -16,7 +16,7 @@
 {
 #warning API key(s) needed
   /**
-   *  Google Places API needs an API key to authorize requests. You will need one to run the example project. To get one, go to: https://console.developers.google.com
+   *  Google Places API needs an API key to authorize requests. You will need one to run the example project. To get one, go to: https://console.cloud.google.com/
    */
   [ASJConstants sharedInstance].apiKey = @"AIzaSyA4P7Yl9425BDClBqo_Gvxt7Mw1RWpJJrY";
 

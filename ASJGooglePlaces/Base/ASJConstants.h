@@ -26,7 +26,7 @@
 @interface ASJConstants : NSObject
 
 /**
- *  The API key used to authorize requests. You must set this before making any requests. This is usually done in AppDelegate's 'application:didFinishLaunchingWithOptions:' method. If you don't have a key, generate one from https://console.developers.google.com
+ *  The API key used to authorize requests. You must set this before making any requests. This is usually done in AppDelegate's 'application:didFinishLaunchingWithOptions:' method. If you don't have a key, generate one from https://console.cloud.google.com
  */
 @property (copy, nonatomic) NSString *apiKey;
 

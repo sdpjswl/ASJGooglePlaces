@@ -52,7 +52,7 @@ typedef void(^SessionBlock)(ASJResponseStatusCode statusCode, NSDictionary *resp
 @property (readonly, strong, nonatomic) NSURL *baseURL;
 
 /**
- *  The key that authorizes each API call. If you don't have a key, generate one from https://console.developers.google.com
+ *  The key that authorizes each API call. If you don't have a key, generate one from https://console.cloud.google.com
  */
 @property (readonly, copy, nonatomic) NSString *apiKey;
 
