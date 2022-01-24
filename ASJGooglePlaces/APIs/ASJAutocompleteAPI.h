@@ -42,7 +42,7 @@ typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPl
 /**
  *  Fetch place results from Google's Places Autocomplete API.
  *
- *  @param input      The search query against which place results are te be fetched.
+ *  @param query      The search query against which place results are te be fetched.
  *  @param completion The completion block that is called after the API call is complete. It contains an array of 'ASJPlace' instances and a status code indicating the result of the request. Be sure you check it for ay failure conditions.
  */
 - (void)autocompleteForQuery:(NSString *)query completion:(AutocompleteBlock)completion;
