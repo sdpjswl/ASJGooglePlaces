@@ -12,7 +12,7 @@ pod 'ASJGooglePlaces'
 
 # Prerequisites
 
-Most APIs require a key to work. The Maps Directions API is an exception that is used here. To create a key, head over to [Google's API console](https://code.google.com/apis/console), enable the APIs you need and generate your key(s) in the credentials section.
+Most APIs require a key to work. The Maps Directions API is an exception that is used here. To create a key, head over to [Google Cloud Console](https://console.cloud.google.com/), enable the APIs you need and generate your key(s) in the credentials section.
 
 ![alt tag](Images/EnableAPIs.png)
 ![alt tag](Images/Credentials.png)
@@ -40,6 +40,7 @@ There are five classes that you can use that invoke different APIs:
 3. `ASJPlaceDetailsAPI` ([details](https://developers.google.com/places/web-service/details))
 4. `ASJPlaceIDAPI` ([details](https://developers.google.com/places/place-id))
 5. `ASJPlacePhotosAPI` ([details](https://developers.google.com/places/web-service/photos))
+6. `ASJGeocoderAPI` ([details](https://developers.google.com/maps/documentation/geocoding/requests-geocoding))
 
 ### ASJAutocompleteAPI
 
@@ -111,6 +112,16 @@ Provide a name of a place and get the corresponding unique place ID in the compl
 
 Returns an array of `ASJPhoto`s for a provided place name or ID. It will return `nil` if there are no available photos for the place or if the place itself was not found.
 
+### ASJGeocoderAPI
+
+```objc
+- (void)geocoderForPlaceID:(NSString *)placeID completion:(GeocoderBlock)completion;
+
+- (void)geocoderForCoordinate:(CLLocationCoordinate2D)coordinate completion:(GeocoderBlock)completion;
+```
+
+Returns an array of `ASJGeocode`s for a provided place ID or coordinates. It will return `nil` if there are no available plcaes were found.
+
 # To-do
 
 - ~~Refactor project and library.~~
@@ -123,6 +134,7 @@ Returns an array of `ASJPhoto`s for a provided place name or ID. It will return 
 # Credits
 
 - To **Deepti Walde** for adding code to get all available directions
+- To [MeGaPk](https://github.com/MeGaPk) for adding new feature Geocoding
 
 # License
 
