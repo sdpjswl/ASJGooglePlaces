@@ -120,7 +120,7 @@ Returns an array of `ASJPhoto`s for a provided place name or ID. It will return 
 - (void)geocoderForCoordinate:(CLLocationCoordinate2D)coordinate completion:(GeocoderBlock)completion;
 ```
 
-Returns an array of `ASJGeocode`s for a provided place ID or coordinates. It will return `nil` if there are no available plcaes were found.
+Returns an array of `ASJGeocode`s for a provided place ID or coordinates. It will return `nil` if there are no available places were found.
 
 # To-do
 
