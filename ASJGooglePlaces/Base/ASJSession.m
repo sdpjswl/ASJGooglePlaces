@@ -58,12 +58,26 @@
   return [ASJConstants sharedInstance].apiKey;
 }
 
+- (NSString *)languageKey
+{
+  return [ASJConstants sharedInstance].languageKey;
+}
+
 - (void)executeRequestForURL:(NSURL *)url completion:(SessionBlock)completion
 {
-  _completion = completion;
-  [[self.urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-    {
-      [self validate:data error:error];
+    if (self.languageKey) {
+        NSString *urlString = [url absoluteString];
+        urlString = [urlString stringByAppendingFormat:@"&language=%@", self.languageKey];
+        url = [[NSURL alloc] initWithString:urlString];
+    }
+    if (self.apiKey) {
+        NSString *urlString = [url absoluteString];
+        urlString = [urlString stringByAppendingFormat:@"&key=%@", self.apiKey];
+        url = [[NSURL alloc] initWithString:urlString];
+    }
+    _completion = completion;
+    [[self.urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [self validate:data error:error];
     }] resume];
 }
 
@@ -74,7 +88,9 @@
   [ASJResponseValidator validateData:data error:error completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
    {
      if (_completion) {
-       _completion(statusCode, response, error);
+         dispatch_async(dispatch_get_main_queue(), ^{
+           _completion(statusCode, response, error);
+         });
      }
    }];
 }

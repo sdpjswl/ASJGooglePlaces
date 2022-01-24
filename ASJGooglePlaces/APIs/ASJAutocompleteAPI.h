@@ -23,6 +23,7 @@
 
 #import "ASJPlace.h"
 #import "ASJSession.h"
+#import <CoreLocation/CLLocation.h>
 
 typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error);
 
@@ -32,6 +33,11 @@ typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPl
  *  The minimum number of characters input after which autocomplete results should be fetched.
  */
 @property (assign, nonatomic) NSUInteger minimumQueryLength;
+
+/**
+ *  Current user location for best autocomplete result.
+ */
+@property (assign, nonatomic) CLLocationCoordinate2D userLocation;
 
 /**
  *  Fetch place results from Google's Places Autocomplete API.

@@ -35,6 +35,15 @@
 
 #pragma mark - Public
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _userLocation = kCLLocationCoordinate2DInvalid;
+    }
+    return self;
+}
+
 - (void)autocompleteForQuery:(NSString *)query completion:(AutocompleteBlock)completion
 {
   _query = query;
@@ -61,9 +70,12 @@
 
 - (NSURL *)autocompleteURL
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?input=%@&key=%@", k_asj_AutocompleteSubURL, _query, self.apiKey];
-  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
+    NSString *relativePath = [NSString stringWithFormat:@"%@?input=%@&key=%@", k_asj_AutocompleteSubURL, _query, self.apiKey];
+    if (CLLocationCoordinate2DIsValid(_userLocation)) {
+        relativePath = [relativePath stringByAppendingFormat:@"&location=%f,%f", _userLocation.latitude, _userLocation.longitude];
+    }
+    relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end
