@@ -250,7 +250,7 @@
                                             <constraint firstAttribute="width" constant="50" id="COX-s5-4Eo"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="location"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="COX-s5-4Eo"/>
@@ -266,7 +266,7 @@
                                             <constraint firstAttribute="width" constant="50" id="J0S-cA-r5N"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="location"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="J0S-cA-r5N"/>
@@ -324,7 +324,7 @@
                                             <constraint firstAttribute="width" constant="50" id="x0N-i4-Wfi"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="location"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="x0N-i4-Wfi"/>
@@ -340,7 +340,7 @@
                                             <constraint firstAttribute="width" constant="50" id="txI-Dd-Nbi"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="location"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="txI-Dd-Nbi"/>
