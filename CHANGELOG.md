@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.2](https://github.com/sdpjswl/ASJGooglePlaces/releases/tag/1.2)
+Released on Tuesday, 25 Jan, 2022.
+
+#### Added
+* Added nullability annotations.
+
 ## [1.1](https://github.com/sdpjswl/ASJGooglePlaces/releases/tag/1.1)
 Released on Monday, 24 Jan, 2022.
 
