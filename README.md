@@ -127,9 +127,9 @@ Returns an array of `ASJGeocode`s for a provided place ID or coordinates. It wil
 - ~~Refactor project and library.~~
 - ~~Add documentation.~~
 - ~~Add place photos by place ID.~~
-- Add nullability annotations.
+- ~~Add nullability annotations.~~
+- ~~Handle invalid user inputs.~~
 - Add more info to models.
-- Handle invalid user inputs.
 
 # Credits
 
