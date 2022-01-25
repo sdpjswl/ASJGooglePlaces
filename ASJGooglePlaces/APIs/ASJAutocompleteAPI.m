@@ -37,45 +37,45 @@
 
 - (instancetype)init
 {
-  self = [super init];
-  if (self) {
-    _userLocation = kCLLocationCoordinate2DInvalid;
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        _userLocation = kCLLocationCoordinate2DInvalid;
+    }
+    return self;
 }
 
 - (void)autocompleteForQuery:(NSString *)query completion:(AutocompleteBlock)completion
 {
-  _query = query;
-  _completion = completion;
-  
-  if (query.length >= _minimumQueryLength) {
-    [self executeGooglePlacesRequest];
-  }
+    _query = query;
+    _completion = completion;
+    
+    if (query.length >= _minimumQueryLength) {
+        [self executeGooglePlacesRequest];
+    }
 }
 
 #pragma mark - Private
 
 - (void)executeGooglePlacesRequest
 {
-  [self executeRequestForURL:self.autocompleteURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
-   {
-    if (self->_completion)
-    {
-      NSArray *places = [ASJPlace placesForResponse:response];
-      self->_completion(statusCode, places, error);
-    }
-  }];
+    [self executeRequestForURL:self.autocompleteURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+     {
+        if (self->_completion)
+        {
+            NSArray *places = [ASJPlace placesForResponse:response];
+            self->_completion(statusCode, places, error);
+        }
+    }];
 }
 
 - (NSURL *)autocompleteURL
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?input=%@&key=%@", k_asj_AutocompleteSubURL, _query, self.apiKey];
-  if (CLLocationCoordinate2DIsValid(_userLocation)) {
-    relativePath = [relativePath stringByAppendingFormat:@"&location=%f,%f", _userLocation.latitude, _userLocation.longitude];
-  }
-  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
+    NSString *relativePath = [NSString stringWithFormat:@"%@?input=%@&key=%@", k_asj_AutocompleteSubURL, _query, self.apiKey];
+    if (CLLocationCoordinate2DIsValid(_userLocation)) {
+        relativePath = [relativePath stringByAppendingFormat:@"&location=%f,%f", _userLocation.latitude, _userLocation.longitude];
+    }
+    relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end

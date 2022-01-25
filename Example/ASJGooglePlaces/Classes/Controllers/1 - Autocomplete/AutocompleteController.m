@@ -29,79 +29,79 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (void)viewDidLoad
 {
-  [super viewDidLoad];
-  [self setup];
+    [super viewDidLoad];
+    [self setup];
 }
 
 #pragma mark - Setup
 
 - (void)setup
 {
-  self.title = @"Autocomplete";
-  Class cellClass = [UITableViewCell class];
-  [_resultsTableView registerClass:cellClass forCellReuseIdentifier:kCellIdentifier];
+    self.title = @"Autocomplete";
+    Class cellClass = [UITableViewCell class];
+    [_resultsTableView registerClass:cellClass forCellReuseIdentifier:kCellIdentifier];
 }
 
 - (IBAction)goTapped:(id)sender
 {
-  if (!_placeTextField.text.length)
-  {
-    [self showEmptyTextFieldsAlert];
-    return;
-  }
-  [self dismissKeyboard];
-  [self executeAutocompleteRequest];
+    if (!_placeTextField.text.length)
+    {
+        [self showEmptyTextFieldsAlert];
+        return;
+    }
+    [self dismissKeyboard];
+    [self executeAutocompleteRequest];
 }
 
 - (void)executeAutocompleteRequest
 {
-  ASJAutocompleteAPI *api = [[ASJAutocompleteAPI alloc] init];
-  api.minimumQueryLength = 3;
-  
-  [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error)
-   {
-     if (!places.count || error)
+    ASJAutocompleteAPI *api = [[ASJAutocompleteAPI alloc] init];
+    api.minimumQueryLength = 3;
+    
+    [api autocompleteForQuery:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error)
      {
-       [self showAlertWithMessage:error.localizedDescription];
-       return;
-     }
-     
-    self->_results = places;
-     [self reloadTable];
-   }];
+        if (!places.count || error)
+        {
+            [self showAlertWithMessage:error.localizedDescription];
+            return;
+        }
+        
+        self->_results = places;
+        [self reloadTable];
+    }];
 }
 
 - (void)reloadTable
 {
-  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-    [self->_resultsTableView reloadData];
-  }];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self->_resultsTableView reloadData];
+    }];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return _results.count;
+    return _results.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-  
-  ASJPlace *place = _results[indexPath.row];
-  cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
-  cell.selectionStyle = UITableViewCellSelectionStyleNone;
-  cell.textLabel.text = place.placeDescription;
-  
-  return cell;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+    
+    ASJPlace *place = _results[indexPath.row];
+    cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = place.placeDescription;
+    
+    return cell;
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  return [textField resignFirstResponder];
+    return [textField resignFirstResponder];
 }
 
 @end

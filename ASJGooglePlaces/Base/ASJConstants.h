@@ -23,6 +23,8 @@
 
 #import <Foundation/NSString.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ASJConstants : NSObject
 
 /**
@@ -49,42 +51,42 @@
  *  Every Places API request gives a 'status code' in its response. Each is mapped to an enum. Defined here: https://developers.google.com/maps/documentation/directions/intro#DirectionsResponseElements
  */
 typedef NS_ENUM(NSUInteger, ASJResponseStatusCode) {
-  /**
-   *  For response 'OK'.
-   */
-  ASJResponseStatusCodeOk,
-  /**
-   *  For response 'ZERO_RESULTS'.
-   */
-  ASJResponseStatusCodeZeroResults,
-  /**
-   *  For response 'MAX_WAYPOINTS_EXCEEDED'.
-   */
-  ASJResponseStatusCodeMaxWaypointsExceeded,
-  /**
-   *  For response 'OVER_QUERY_LIMIT'.
-   */
-  ASJResponseStatusCodeOverQueryLimit,
-  /**
-   *  For response 'REQUEST_DENIED'.
-   */
-  ASJResponseStatusCodeRequestDenied,
-  /**
-   *  For response 'INVALID_REQUEST'.
-   */
-  ASJResponseStatusCodeInvalidRequest,
-  /**
-   *  For response 'UNKNOWN_ERROR'.
-   */
-  ASJResponseStatusCodeUnknownError,
-  /**
-   *  For response 'NOT_FOUND'.
-   */
-  ASJResponseStatusCodeNotFound,
-  /**
-   *  For none of the above status codes.
-   */
-  ASJResponseStatusCodeOtherIssue
+    /**
+     *  For response 'OK'.
+     */
+    ASJResponseStatusCodeOk,
+    /**
+     *  For response 'ZERO_RESULTS'.
+     */
+    ASJResponseStatusCodeZeroResults,
+    /**
+     *  For response 'MAX_WAYPOINTS_EXCEEDED'.
+     */
+    ASJResponseStatusCodeMaxWaypointsExceeded,
+    /**
+     *  For response 'OVER_QUERY_LIMIT'.
+     */
+    ASJResponseStatusCodeOverQueryLimit,
+    /**
+     *  For response 'REQUEST_DENIED'.
+     */
+    ASJResponseStatusCodeRequestDenied,
+    /**
+     *  For response 'INVALID_REQUEST'.
+     */
+    ASJResponseStatusCodeInvalidRequest,
+    /**
+     *  For response 'UNKNOWN_ERROR'.
+     */
+    ASJResponseStatusCodeUnknownError,
+    /**
+     *  For response 'NOT_FOUND'.
+     */
+    ASJResponseStatusCodeNotFound,
+    /**
+     *  For none of the above status codes.
+     */
+    ASJResponseStatusCodeOtherIssue
 };
 
 /**
@@ -98,3 +100,5 @@ static NSString *const k_asj_PlaceDetailsSubURL  = @"details/json";
 static NSString *const k_asj_PlaceIDSubURL       = @"textsearch/json";
 static NSString *const k_asj_PlacePhotosSubURL   = @"photo";
 static NSString *const k_asj_GeocoderSubURL      = @"geocode/json";
+
+NS_ASSUME_NONNULL_END

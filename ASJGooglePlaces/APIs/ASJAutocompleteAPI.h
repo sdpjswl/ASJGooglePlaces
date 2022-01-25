@@ -25,7 +25,9 @@
 #import "ASJSession.h"
 #import <CoreLocation/CLLocation.h>
 
-typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPlace *> *places, NSError * _Nullable error);
 
 @interface ASJAutocompleteAPI : ASJSession
 
@@ -48,3 +50,5 @@ typedef void(^AutocompleteBlock)(ASJResponseStatusCode statusCode, NSArray<ASJPl
 - (void)autocompleteForQuery:(NSString *)query completion:(AutocompleteBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

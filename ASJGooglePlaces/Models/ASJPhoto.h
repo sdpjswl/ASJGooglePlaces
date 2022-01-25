@@ -27,6 +27,8 @@
 
 @interface ASJPhoto : NSObject
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  The photo's width.
  */
@@ -52,3 +54,5 @@
 + (NSArray<ASJPhoto *> *)photosForResponse:(NSDictionary *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END

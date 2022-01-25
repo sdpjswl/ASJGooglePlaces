@@ -28,18 +28,18 @@
 
 + (NSArray<ASJPlace *> *)placesForResponse:(NSDictionary *)response
 {
-  NSArray *predictions = response[@"predictions"];
-  NSMutableArray *temp = [[NSMutableArray alloc] init];
-  
-  for (NSDictionary *dict in predictions)
-  {
-    ASJPlace *place = [[ASJPlace alloc] init];
-    place.placeID = dict[@"place_id"];
-    place.placeDescription = dict[@"description"];
-    [temp addObject:place];
-  }
-  
-  return [NSArray arrayWithArray:temp];
+    NSArray *predictions = response[@"predictions"];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *dict in predictions)
+    {
+        ASJPlace *place = [[ASJPlace alloc] init];
+        place.placeID = dict[@"place_id"];
+        place.placeDescription = dict[@"description"];
+        [temp addObject:place];
+    }
+    
+    return [NSArray arrayWithArray:temp];
 }
 
 @end

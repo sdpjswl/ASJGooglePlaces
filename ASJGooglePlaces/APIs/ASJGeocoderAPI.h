@@ -25,9 +25,11 @@
 #import "ASJSession.h"
 #import <CoreLocation/CLLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class ASJGeocode;
 
-typedef void(^GeocoderBlock)(ASJResponseStatusCode statusCode, NSArray <ASJGeocode *> *geocodes, NSError *error);
+typedef void(^GeocoderBlock)(ASJResponseStatusCode statusCode, NSArray <ASJGeocode *> * _Nullable geocodes, NSError * _Nullable error);
 
 @interface ASJGeocoderAPI : ASJSession
 
@@ -48,3 +50,5 @@ typedef void(^GeocoderBlock)(ASJResponseStatusCode statusCode, NSArray <ASJGeoco
 - (void)geocoderForCoordinate:(CLLocationCoordinate2D)coordinate completion:(GeocoderBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -27,19 +27,19 @@
 
 + (ASJPlaceDetails *)placeDetailsForResponse:(NSDictionary *)response
 {
-  NSDictionary *result = response[@"result"];
-  ASJPlaceDetails *detail = [[ASJPlaceDetails alloc] init];
-  detail.placeID = result[@"place_id"];
-  detail.name = result[@"name"];
-  detail.address = result[@"formatted_address"];
-  detail.phone = result[@"formatted_phone_number"];
-  detail.website = result[@"website"];
-  detail.photos = [ASJPhoto photosForResponse:result[@"photos"]];
-  
-  NSNumber *lat = result[@"geometry"][@"location"][@"lat"];
-  NSNumber *lng = result[@"geometry"][@"location"][@"lng"];
-  detail.location = CLLocationCoordinate2DMake(lat.doubleValue, lng.doubleValue);
-  return detail;
+    NSDictionary *result = response[@"result"];
+    ASJPlaceDetails *detail = [[ASJPlaceDetails alloc] init];
+    detail.placeID = result[@"place_id"];
+    detail.name = result[@"name"];
+    detail.address = result[@"formatted_address"];
+    detail.phone = result[@"formatted_phone_number"];
+    detail.website = result[@"website"];
+    detail.photos = [ASJPhoto photosForResponse:result[@"photos"]];
+    
+    NSNumber *lat = result[@"geometry"][@"location"][@"lat"];
+    NSNumber *lng = result[@"geometry"][@"location"][@"lng"];
+    detail.location = CLLocationCoordinate2DMake(lat.doubleValue, lng.doubleValue);
+    return detail;
 }
 
 @end

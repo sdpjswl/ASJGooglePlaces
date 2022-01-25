@@ -39,39 +39,39 @@
 
 - (void)placeIDForPlace:(NSString *)place completion:(PlaceIDBlock)completion
 {
-  _placeName = place;
-  _completion = completion;
-  [self executeGooglePlacesRequest];
+    _placeName = place;
+    _completion = completion;
+    [self executeGooglePlacesRequest];
 }
 
 #pragma mark - Private
 
 - (void)executeGooglePlacesRequest
 {
-  [self executeRequestForURL:self.placeIDURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
-   {
-    if (!self->_completion) {
-      return;
-    }
-    
-    NSArray *results = response[@"results"];
-    if (!results.count)
-    {
-      self->_completion(statusCode, nil, error);
-      return;
-    }
-    
-    NSDictionary *topResult = results[0];
-    NSString *placeID = topResult[@"place_id"];
-    self->_completion(statusCode, placeID, error);
-  }];
+    [self executeRequestForURL:self.placeIDURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+     {
+        if (!self->_completion) {
+            return;
+        }
+        
+        NSArray *results = response[@"results"];
+        if (!results.count)
+        {
+            self->_completion(statusCode, nil, error);
+            return;
+        }
+        
+        NSDictionary *topResult = results[0];
+        NSString *placeID = topResult[@"place_id"];
+        self->_completion(statusCode, placeID, error);
+    }];
 }
 
 - (NSURL *)placeIDURL
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?query=%@&key=%@", k_asj_PlaceIDSubURL, _placeName, self.apiKey];
-  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
+    NSString *relativePath = [NSString stringWithFormat:@"%@?query=%@&key=%@", k_asj_PlaceIDSubURL, _placeName, self.apiKey];
+    relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end

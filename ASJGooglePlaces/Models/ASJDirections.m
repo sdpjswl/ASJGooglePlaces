@@ -28,35 +28,35 @@
 // Thanks: Deepti
 + (NSArray<ASJDirections *> *)directionsForResponse:(NSDictionary *)response
 {
-  NSArray *routesArray = [response objectForKey:@"routes"];
-  NSMutableArray *originDestinationArray = [[NSMutableArray alloc] init];
-  
-  for (NSDictionary *topRoute in routesArray)
-  {
-    NSString *polyline = topRoute[@"overview_polyline"][@"points"];
-    NSDictionary *legs = [topRoute[@"legs"] objectAtIndex:0];
-    NSString *originName = legs[@"start_address"];
-    NSString *destinationName = legs[@"end_address"];
+    NSArray *routesArray = [response objectForKey:@"routes"];
+    NSMutableArray *originDestinationArray = [[NSMutableArray alloc] init];
     
-    NSNumber *originLat = legs[@"start_location"][@"lat"];
-    NSNumber *originLng = legs[@"start_location"][@"lng"];
-    NSNumber *destinationLat = legs[@"end_location"][@"lat"];
-    NSNumber *destinationLng = legs[@"end_location"][@"lng"];
+    for (NSDictionary *topRoute in routesArray)
+    {
+        NSString *polyline = topRoute[@"overview_polyline"][@"points"];
+        NSDictionary *legs = [topRoute[@"legs"] objectAtIndex:0];
+        NSString *originName = legs[@"start_address"];
+        NSString *destinationName = legs[@"end_address"];
+        
+        NSNumber *originLat = legs[@"start_location"][@"lat"];
+        NSNumber *originLng = legs[@"start_location"][@"lng"];
+        NSNumber *destinationLat = legs[@"end_location"][@"lat"];
+        NSNumber *destinationLng = legs[@"end_location"][@"lng"];
+        
+        CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(originLat.doubleValue, originLng.doubleValue);
+        CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(destinationLat.doubleValue, destinationLng.doubleValue);
+        
+        ASJDirections *directionDetails = [[ASJDirections alloc] init];
+        directionDetails.originName = originName;
+        directionDetails.destinationName = destinationName;
+        directionDetails.origin = origin;
+        directionDetails.destination = destination;
+        directionDetails.polyline = polyline;
+        
+        [originDestinationArray addObject:directionDetails];
+    }
     
-    CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(originLat.doubleValue, originLng.doubleValue);
-    CLLocationCoordinate2D destination = CLLocationCoordinate2DMake(destinationLat.doubleValue, destinationLng.doubleValue);
-    
-    ASJDirections *directionDetails = [[ASJDirections alloc] init];
-    directionDetails.originName = originName;
-    directionDetails.destinationName = destinationName;
-    directionDetails.origin = origin;
-    directionDetails.destination = destination;
-    directionDetails.polyline = polyline;
-    
-    [originDestinationArray addObject:directionDetails];
-  }
-  
-  return originDestinationArray;
+    return originDestinationArray;
 }
 
 @end

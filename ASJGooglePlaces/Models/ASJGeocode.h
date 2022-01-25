@@ -24,34 +24,36 @@
 
 #import <CoreLocation/CLLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ASJGeocode : NSObject
 
 /** Location, or kLocationCoordinate2DInvalid if unknown. */
-@property(nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
 /** Place id. */
-@property(nonatomic, readonly, copy) NSString *placeID;
+@property (nonatomic, readonly, copy) NSString *placeID;
 
 /** Locality or city. */
-@property(nonatomic, readonly, copy) NSString *locality;
+@property (nonatomic, readonly, copy) NSString *locality;
 
 /** The country name. */
-@property(nonatomic, readonly, copy) NSString *country;
+@property (nonatomic, readonly, copy) NSString *country;
 
 /** Postal/Zip code. */
-@property(nonatomic, copy, readonly) NSString *postalCode;
+@property (nonatomic, copy, readonly) NSString *postalCode;
 
 /** Country code. */
-@property(nonatomic, copy, readonly) NSString *countryCode;
+@property (nonatomic, copy, readonly) NSString *countryCode;
 
 /** The formatted address. */
-@property(nonatomic, readonly, copy) NSString *formattedAddress;
+@property (nonatomic, readonly, copy) NSString *formattedAddress;
 
 /** An array containing address components. May be nil. */
-@property(nonatomic, readonly, copy) NSArray *addressComponents;
+@property (nonatomic, readonly, copy) NSArray *addressComponents;
 
 /** An array of NSString containing formatted lines of the address. May be nil. */
-@property(nonatomic, copy, readonly) NSArray<NSString *> *lines;
+@property (nonatomic, copy, readonly) NSArray<NSString *> *lines;
 
 /**
  *  A helper method that creates 'ASJGeocode' model objects from a JSON response.
@@ -62,6 +64,8 @@
  */
 + (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response;
 
-- (id)initWithResponse:(NSDictionary *)dictionary;
+- (instancetype)initWithResponse:(NSDictionary *)dictionary;
 
 @end
+
+NS_ASSUME_NONNULL_END

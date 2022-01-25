@@ -40,56 +40,56 @@
 
 - (void)geocoderForPlaceID:(NSString *)placeID completion:(GeocoderBlock)completion
 {
-  _coordinate = kCLLocationCoordinate2DInvalid;
-  _placeID = placeID;
-  _completion = completion;
-  [self executeGoogleGeocoderRequest];
+    _coordinate = kCLLocationCoordinate2DInvalid;
+    _placeID = placeID;
+    _completion = completion;
+    [self executeGoogleGeocoderRequest];
 }
 
 - (void)geocoderForCoordinate:(CLLocationCoordinate2D)coordinate completion:(GeocoderBlock)completion
 {
-  _coordinate = coordinate;
-  _placeID = nil;
-  _completion = completion;
-  [self executeGoogleGeocoderRequest];
+    _coordinate = coordinate;
+    _placeID = nil;
+    _completion = completion;
+    [self executeGoogleGeocoderRequest];
 }
 
 #pragma mark - Private
 
 - (void)executeGoogleGeocoderRequest
 {
-  [self executeRequestForURL:self.geocoderURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
-   {
-    if (!self->_completion) {
-      return;
-    }
-    
-    NSArray *results = response[@"results"];
-    if (!results.count)
-    {
-      self->_completion(statusCode, nil, error);
-      return;
-    }
-    
-    NSArray *geocodes = [ASJGeocode geocodesForResponse:response];
-    self->_completion(statusCode, geocodes, error);
-  }];
+    [self executeRequestForURL:self.geocoderURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+     {
+        if (!self->_completion) {
+            return;
+        }
+        
+        NSArray *results = response[@"results"];
+        if (!results.count)
+        {
+            self->_completion(statusCode, nil, error);
+            return;
+        }
+        
+        NSArray *geocodes = [ASJGeocode geocodesForResponse:response];
+        self->_completion(statusCode, geocodes, error);
+    }];
 }
 
 - (NSURL *)geocoderURL
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?key=%@", k_asj_GeocoderSubURL, self.apiKey];
-  if(_placeID)
-    relativePath = [relativePath stringByAppendingFormat:@"&place_id=%@", _placeID];
-  else if(CLLocationCoordinate2DIsValid(_coordinate))
-    relativePath = [relativePath stringByAppendingFormat:@"&latlng=%f,%f", _coordinate.latitude, _coordinate.longitude];
-  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
+    NSString *relativePath = [NSString stringWithFormat:@"%@?key=%@", k_asj_GeocoderSubURL, self.apiKey];
+    if(_placeID)
+        relativePath = [relativePath stringByAppendingFormat:@"&place_id=%@", _placeID];
+    else if(CLLocationCoordinate2DIsValid(_coordinate))
+        relativePath = [relativePath stringByAppendingFormat:@"&latlng=%f,%f", _coordinate.latitude, _coordinate.longitude];
+    relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 - (NSURL *)baseURL
 {
-  return [NSURL URLWithString:k_asj_GeocoderBaseURL];
+    return [NSURL URLWithString:k_asj_GeocoderBaseURL];
 }
 
 @end

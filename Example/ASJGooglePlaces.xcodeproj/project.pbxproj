@@ -311,9 +311,9 @@
 				31AC227FA5DCCF752983AD7E /* Pods */,
 				F38919D2F3AA22A56070B465 /* Frameworks */,
 			);
-			indentWidth = 2;
+			indentWidth = 4;
 			sourceTree = "<group>";
-			tabWidth = 2;
+			tabWidth = 4;
 		};
 		C0BC8E561AF5435900209170 /* Products */ = {
 			isa = PBXGroup;

@@ -41,57 +41,57 @@
 
 - (void)placeDetailsForPlace:(NSString *)place completion:(PlaceDetailsBlock)completion
 {
-  _placeName = place;
-  _completion = completion;
-  [self fetchPlaceID];
+    _placeName = place;
+    _completion = completion;
+    [self fetchPlaceID];
 }
 
 - (void)placeDetailsForPlaceID:(NSString *)placeID completion:(PlaceDetailsBlock)completion
 {
-  _placeID = placeID;
-  _completion = completion;
-  [self executeGooglePlacesRequest];
+    _placeID = placeID;
+    _completion = completion;
+    [self executeGooglePlacesRequest];
 }
 
 #pragma mark - Private
 
 - (void)fetchPlaceID
 {
-  ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
-  [api placeIDForPlace:_placeName completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
-   {
-    if (!self->_completion) {
-      return;
-    }
-    
-    if (statusCode != ASJResponseStatusCodeOk)
-    {
-      self->_completion(statusCode, nil, error);
-      return;
-    }
-    
-    self->_placeID = placeID;
-    [self executeGooglePlacesRequest];
-  }];
+    ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
+    [api placeIDForPlace:_placeName completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
+     {
+        if (!self->_completion) {
+            return;
+        }
+        
+        if (statusCode != ASJResponseStatusCodeOk)
+        {
+            self->_completion(statusCode, nil, error);
+            return;
+        }
+        
+        self->_placeID = placeID;
+        [self executeGooglePlacesRequest];
+    }];
 }
 
 - (void)executeGooglePlacesRequest
 {
-  [self executeRequestForURL:self.placeDetailsURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
-   {
-    if (self->_completion)
-    {
-      ASJPlaceDetails *placeDetails = [ASJPlaceDetails placeDetailsForResponse:response];
-      self->_completion(statusCode, placeDetails, error);
-    }
-  }];
+    [self executeRequestForURL:self.placeDetailsURL completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+     {
+        if (self->_completion)
+        {
+            ASJPlaceDetails *placeDetails = [ASJPlaceDetails placeDetailsForResponse:response];
+            self->_completion(statusCode, placeDetails, error);
+        }
+    }];
 }
 
 - (NSURL *)placeDetailsURL
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?placeid=%@&key=%@", k_asj_PlaceDetailsSubURL, _placeID, self.apiKey];
-  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
+    NSString *relativePath = [NSString stringWithFormat:@"%@?placeid=%@&key=%@", k_asj_PlaceDetailsSubURL, _placeID, self.apiKey];
+    relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end

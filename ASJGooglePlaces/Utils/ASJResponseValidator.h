@@ -23,7 +23,9 @@
 
 #import "ASJConstants.h"
 
-typedef void(^ValidatorBlock)(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^ValidatorBlock)(ASJResponseStatusCode statusCode, NSDictionary * _Nullable response, NSError * _Nullable error);
 
 @interface ASJResponseValidator : NSObject
 
@@ -37,3 +39,5 @@ typedef void(^ValidatorBlock)(ASJResponseStatusCode statusCode, NSDictionary *re
 + (void)validateData:(NSData *)data error:(NSError *)error completion:(ValidatorBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

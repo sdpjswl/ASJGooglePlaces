@@ -33,39 +33,39 @@
 
 + (void)validateData:(NSData *)data error:(NSError *)error completion:(ValidatorBlock)completion
 {
-  if (!completion) {
-    return;
-  }
-  
-  if (!data.length || error)
-  {
-    completion(ASJResponseStatusCodeOtherIssue, nil, error);
-    return;
-  }
-  
-  NSError *jsonError = nil;
-  NSDictionary *response = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-  
-  if (!response || jsonError)
-  {
-    // try to look for image
-    UIImage *image = [UIImage imageWithData:data];
-    if (!image) {
-      completion(ASJResponseStatusCodeOtherIssue, response, jsonError);
-      return;
+    if (!completion) {
+        return;
     }
-    else {
-      response = @{@"image": image};
-      completion(ASJResponseStatusCodeOk, response, nil);
-      return;
+    
+    if (!data.length || error)
+    {
+        completion(ASJResponseStatusCodeOtherIssue, nil, error);
+        return;
     }
-  }
-  
-  // for all types of requests except photos
-  ASJStatusCodeValueTransformer *transformer = [[ASJStatusCodeValueTransformer alloc] init];
-  NSNumber *statusCodeBoxed = [transformer transformedValue:response[@"status"]];
-  ASJResponseStatusCode statusCode = (ASJResponseStatusCode)statusCodeBoxed.unsignedIntegerValue;
-  completion(statusCode, response, jsonError);
+    
+    NSError *jsonError = nil;
+    NSDictionary *response = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+    
+    if (!response || jsonError)
+    {
+        // try to look for image
+        UIImage *image = [UIImage imageWithData:data];
+        if (!image) {
+            completion(ASJResponseStatusCodeOtherIssue, response, jsonError);
+            return;
+        }
+        else {
+            response = @{@"image": image};
+            completion(ASJResponseStatusCodeOk, response, nil);
+            return;
+        }
+    }
+    
+    // for all types of requests except photos
+    ASJStatusCodeValueTransformer *transformer = [[ASJStatusCodeValueTransformer alloc] init];
+    NSNumber *statusCodeBoxed = [transformer transformedValue:response[@"status"]];
+    ASJResponseStatusCode statusCode = (ASJResponseStatusCode)statusCodeBoxed.unsignedIntegerValue;
+    completion(statusCode, response, jsonError);
 }
 
 @end

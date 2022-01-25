@@ -25,7 +25,9 @@
 #import "ASJSession.h"
 #import <UIKit/UIImage.h>
 
-typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<UIImage *> *placePhotos, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<UIImage *> * _Nullable placePhotos, NSError * _Nullable error);
 
 @interface ASJPlacePhotosAPI : ASJSession
 
@@ -46,3 +48,5 @@ typedef void(^PlacePhotosBlock)(ASJResponseStatusCode statusCode, NSArray<UIImag
 - (void)placePhotosForPlaceID:(NSString *)placeID completion:(PlacePhotosBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

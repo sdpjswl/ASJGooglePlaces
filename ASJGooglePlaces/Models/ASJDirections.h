@@ -23,6 +23,8 @@
 
 #import <CoreLocation/CLLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ASJDirections : NSObject
 
 /**
@@ -60,3 +62,5 @@
 + (NSArray<ASJDirections *> *)directionsForResponse:(NSDictionary *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END

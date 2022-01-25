@@ -12,22 +12,22 @@
 
 - (void)showEmptyTextFieldsAlert
 {
-  [self showAlertWithMessage:@"One or more text fields is empty."];
+    [self showAlertWithMessage:@"One or more text fields is empty."];
 }
 
 - (void)showAlertWithMessage:(NSString *)message
 {
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Boo!" message:message preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-  
-  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-    [self presentViewController:alert animated:YES completion:nil];
-  }];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Boo!" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self presentViewController:alert animated:YES completion:nil];
+    }];
 }
 
 - (void)dismissKeyboard
 {
-  [self.view endEditing:YES];
+    [self.view endEditing:YES];
 }
 
 @end

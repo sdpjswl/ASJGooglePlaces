@@ -44,92 +44,92 @@
 
 - (void)placePhotosForPlace:(NSString *)place completion:(PlacePhotosBlock)completion
 {
-  _place = place;
-  _completion = completion;
-  [self fetchPlaceDetailsByName];
+    _place = place;
+    _completion = completion;
+    [self fetchPlaceDetailsByName];
 }
 
 - (void)placePhotosForPlaceID:(NSString *)placeID completion:(PlacePhotosBlock)completion
 {
-  _placeID = placeID;
-  _completion = completion;
-  [self fetchPlaceDetailsByID];
+    _placeID = placeID;
+    _completion = completion;
+    [self fetchPlaceDetailsByID];
 }
 
 #pragma mark - Private
 
 - (void)fetchPlaceDetailsByName
 {
-  ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
-  [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
-   {
-    if (!self->_completion) {
-      return;
-    }
-    
-    if (statusCode != ASJResponseStatusCodeOk ||
-        !placeDetails.photos.count)
-    {
-      self->_completion(statusCode, nil, error);
-      return;
-    }
-    
-    self->_placeDetails = placeDetails;
-    [self executeGooglePlacesRequest];
-  }];
+    ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
+    [api placeDetailsForPlace:_place completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
+     {
+        if (!self->_completion) {
+            return;
+        }
+        
+        if (statusCode != ASJResponseStatusCodeOk ||
+            !placeDetails.photos.count)
+        {
+            self->_completion(statusCode, nil, error);
+            return;
+        }
+        
+        self->_placeDetails = placeDetails;
+        [self executeGooglePlacesRequest];
+    }];
 }
 
 - (void)fetchPlaceDetailsByID
 {
-  ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
-  [api placeDetailsForPlaceID:_placeID completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
-   {
-    if (!self->_completion) {
-      return;
-    }
-    
-    if (statusCode != ASJResponseStatusCodeOk ||
-        !placeDetails.photos.count)
-    {
-      self->_completion(statusCode, nil, error);
-      return;
-    }
-    
-    self->_placeDetails = placeDetails;
-    [self executeGooglePlacesRequest];
-  }];
+    ASJPlaceDetailsAPI *api = [[ASJPlaceDetailsAPI alloc] init];
+    [api placeDetailsForPlaceID:_placeID completion:^(ASJResponseStatusCode statusCode, ASJPlaceDetails *placeDetails, NSError *error)
+     {
+        if (!self->_completion) {
+            return;
+        }
+        
+        if (statusCode != ASJResponseStatusCodeOk ||
+            !placeDetails.photos.count)
+        {
+            self->_completion(statusCode, nil, error);
+            return;
+        }
+        
+        self->_placeDetails = placeDetails;
+        [self executeGooglePlacesRequest];
+    }];
 }
 
 - (void)executeGooglePlacesRequest
 {
-  if (!_completion) {
-    return;
-  }
-  
-  NSMutableArray *temp = [[NSMutableArray alloc] init];
-  for (ASJPhoto *photo in _placeDetails.photos)
-  {
-    NSURL *url = [self urlForPhoto:photo];
-    [self executeRequestForURL:url completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
-     {
-      if ([response.allKeys containsObject:@"image"])
-      {
-        UIImage *image = response[@"image"];
-        [temp addObject:image];
-      }
-      
-      if (temp.count == self->_placeDetails.photos.count) {
-        self->_completion(statusCode, [NSArray arrayWithArray:temp], error);
-      }
-    }];
-  }
+    if (!_completion) {
+        return;
+    }
+    
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    for (ASJPhoto *photo in _placeDetails.photos)
+    {
+        NSURL *url = [self urlForPhoto:photo];
+        [self executeRequestForURL:url completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+         {
+            if ([response.allKeys containsObject:@"image"])
+            {
+                UIImage *image = response[@"image"];
+                [temp addObject:image];
+            }
+            
+            if (temp.count == self->_placeDetails.photos.count) {
+                self->_completion(statusCode, [NSArray arrayWithArray:temp], error);
+            }
+        }];
+    }
 }
 
 - (NSURL *)urlForPhoto:(ASJPhoto *)photo
 {
-  NSString *relativePath = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", k_asj_PlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
-  relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-  return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
+    NSString *relativePath = [NSString stringWithFormat:@"%@?photoreference=%@&maxwidth=%ld&key=%@", k_asj_PlacePhotosSubURL, photo.photoReference, (unsigned long)photo.width, self.apiKey];
+    relativePath = [relativePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:relativePath relativeToURL:self.baseURL];
 }
 
 @end

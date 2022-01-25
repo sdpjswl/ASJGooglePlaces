@@ -23,44 +23,44 @@
 
 - (void)viewDidLoad
 {
-  [super viewDidLoad];
-  self.title = @"Place ID";
+    [super viewDidLoad];
+    self.title = @"Place ID";
 }
 
 #pragma mark - Setup
 - (IBAction)goTapped:(id)sender
 {
-  if (!_placeTextField.text.length)
-  {
-    [self showEmptyTextFieldsAlert];
-    return;
-  }
-  [self dismissKeyboard];
-  [self executePlaceIDRequest];
+    if (!_placeTextField.text.length)
+    {
+        [self showEmptyTextFieldsAlert];
+        return;
+    }
+    [self dismissKeyboard];
+    [self executePlaceIDRequest];
 }
 
 - (void)executePlaceIDRequest
 {
-  ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
-  [api placeIDForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
-   {
-    if (!placeID.length || error)
-    {
-      [self showAlertWithMessage:error.localizedDescription];
-      return;
-    }
-    
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-      self->_placeIDLabel.text = placeID;
+    ASJPlaceIDAPI *api = [[ASJPlaceIDAPI alloc] init];
+    [api placeIDForPlace:_placeTextField.text completion:^(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error)
+     {
+        if (!placeID.length || error)
+        {
+            [self showAlertWithMessage:error.localizedDescription];
+            return;
+        }
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self->_placeIDLabel.text = placeID;
+        }];
     }];
-  }];
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  return [textField resignFirstResponder];
+    return [textField resignFirstResponder];
 }
 
 @end

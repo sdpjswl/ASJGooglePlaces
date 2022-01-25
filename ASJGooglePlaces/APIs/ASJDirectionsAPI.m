@@ -40,49 +40,49 @@
 
 - (void)directionsFromOriginNamed:(NSString *)origin destinationNamed:(NSString *)destination completion:(DirectionsBlock)completion
 {
-  _originName = origin;
-  _destinationName = destination;
-  _completion = completion;
-  [self executeGooglePlacesRequest];
+    _originName = origin;
+    _destinationName = destination;
+    _completion = completion;
+    [self executeGooglePlacesRequest];
 }
 
 - (void)directionsFromOrigin:(CLLocationCoordinate2D)origin destination:(CLLocationCoordinate2D)destination completion:(DirectionsBlock)completion
 {
-  _origin = origin;
-  _destination = destination;
-  _completion = completion;
-  [self executeGooglePlacesRequest];
+    _origin = origin;
+    _destination = destination;
+    _completion = completion;
+    [self executeGooglePlacesRequest];
 }
 
 #pragma mark - Private
 
 - (void)executeGooglePlacesRequest
 {
-  [self executeRequestForURL:self.urlForDirectionsQuery completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
-   {
-    if (self->_completion)
-    {
-      NSArray *directions = [ASJDirections directionsForResponse:response];
-      self->_completion(statusCode, directions, error);
-    }
-  }];
+    [self executeRequestForURL:self.urlForDirectionsQuery completion:^(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error)
+     {
+        if (self->_completion)
+        {
+            NSArray *directions = [ASJDirections directionsForResponse:response];
+            self->_completion(statusCode, directions, error);
+        }
+    }];
 }
 
 // Thanks: Deepti
 - (NSURL *)urlForDirectionsQuery
 {
-  NSMutableString *urlString = [[NSMutableString alloc] init];
-  if (_originName.length && _destinationName.length)
-  {
-    [urlString appendFormat:@"%@origin=%@&destination=%@", k_asj_DirectionsBaseURL, _originName, _destinationName];
-  }
-  else
-  {
-    [urlString appendFormat:@"%@origin=%f,%f&destination=%f,%f", k_asj_DirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
-  }
-  
-  NSString *percentEscapedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-  return [NSURL URLWithString:percentEscapedString];
+    NSMutableString *urlString = [[NSMutableString alloc] init];
+    if (_originName.length && _destinationName.length)
+    {
+        [urlString appendFormat:@"%@origin=%@&destination=%@", k_asj_DirectionsBaseURL, _originName, _destinationName];
+    }
+    else
+    {
+        [urlString appendFormat:@"%@origin=%f,%f&destination=%f,%f", k_asj_DirectionsBaseURL, _origin.latitude, _origin.longitude, _destination.latitude, _destination.longitude];
+    }
+    
+    NSString *percentEscapedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:percentEscapedString];
 }
 
 @end

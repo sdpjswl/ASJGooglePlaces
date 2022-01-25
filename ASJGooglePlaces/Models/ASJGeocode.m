@@ -26,7 +26,7 @@
 
 @interface ASJGeocode ()
 
-@property(nonatomic, strong) NSDictionary *dictionary;
+@property (nonatomic, strong) NSDictionary *dictionary;
 
 @end
 
@@ -34,103 +34,103 @@
 
 + (NSArray<ASJGeocode *> *)geocodesForResponse:(NSDictionary *)response
 {
-  NSArray *results = response[@"results"];
-  NSMutableArray *temp = [[NSMutableArray alloc] init];
-  
-  for (NSDictionary *dict in results)
-  {
-    ASJGeocode *geocode = [[ASJGeocode alloc] initWithResponse:dict];
-    [temp addObject:geocode];
-  }
-  
-  return [NSArray arrayWithArray:temp];
+    NSArray *results = response[@"results"];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *dict in results)
+    {
+        ASJGeocode *geocode = [[ASJGeocode alloc] initWithResponse:dict];
+        [temp addObject:geocode];
+    }
+    
+    return [NSArray arrayWithArray:temp];
 }
 
 - (id)initWithResponse:(NSDictionary *)dictionary
 {
-  self = [super init];
-  if (self) {
-    self.dictionary = dictionary;
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        self.dictionary = dictionary;
+    }
+    return self;
 }
 
 - (CLLocationCoordinate2D)coordinate
 {
-  NSDictionary *location = self.dictionary[@"geometry"][@"location"];
-  NSNumber *latitude = location[@"lat"];
-  NSNumber *longitude = location[@"lng"];
-  return CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+    NSDictionary *location = self.dictionary[@"geometry"][@"location"];
+    NSNumber *latitude = location[@"lat"];
+    NSNumber *longitude = location[@"lng"];
+    return CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
 }
 
 - (NSString *)placeID
 {
-  return self.dictionary[@"place_id"];
+    return self.dictionary[@"place_id"];
 }
 
 - (NSString *)locality
 {
-  return [self getLongNameFrom:@"locality"];
+    return [self getLongNameFrom:@"locality"];
 }
 
 - (NSString *)country
 {
-  return [self getLongNameFrom:@"country"];
+    return [self getLongNameFrom:@"country"];
 }
 
 - (NSString *)formattedAddress
 {
-  return self.dictionary[@"formatted_address"];
+    return self.dictionary[@"formatted_address"];
 }
 
 - (NSArray *)addressComponents
 {
-  return self.dictionary[@"address_components"];
+    return self.dictionary[@"address_components"];
 }
 
 - (NSString *)postalCode
 {
-  return [self getLongNameFrom:@"postal_code"];
+    return [self getLongNameFrom:@"postal_code"];
 }
 
 - (NSString *)countryCode
 {
-  return [self getShortNameFrom:@"country"];
+    return [self getShortNameFrom:@"country"];
 }
 
 - (NSString *)getLongNameFrom:(NSString *)string
 {
-  for (NSDictionary *dictionary in self.addressComponents)
-  {
-    NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
-    if([type isEqual:string]) {
-      return dictionary[@"long_name"];
+    for (NSDictionary *dictionary in self.addressComponents)
+    {
+        NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
+        if([type isEqual:string]) {
+            return dictionary[@"long_name"];
+        }
     }
-  }
-  return nil;
+    return nil;
 }
 
 - (NSString *)getShortNameFrom:(NSString *)string
 {
-  for (NSDictionary *dictionary in self.addressComponents)
-  {
-    NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
-    if([type isEqual:string]) {
-      return dictionary[@"short_name"];
+    for (NSDictionary *dictionary in self.addressComponents)
+    {
+        NSString *type = ((NSArray *) dictionary[@"types"]).firstObject;
+        if([type isEqual:string]) {
+            return dictionary[@"short_name"];
+        }
     }
-  }
-  return nil;
+    return nil;
 }
 
 - (NSArray<NSString *> *)lines
 {
-  NSArray<NSString *> *array = [self.formattedAddress componentsSeparatedByString:@","];
-  NSMutableArray *strings = [@[] mutableCopy];
-  for (NSString *line in array)
-  {
-    [strings addObject:[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-  }
-  return [strings copy];
+    NSArray<NSString *> *array = [self.formattedAddress componentsSeparatedByString:@","];
+    NSMutableArray *strings = [@[] mutableCopy];
+    for (NSString *line in array)
+    {
+        [strings addObject:[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    }
+    return [strings copy];
 }
 
 @end

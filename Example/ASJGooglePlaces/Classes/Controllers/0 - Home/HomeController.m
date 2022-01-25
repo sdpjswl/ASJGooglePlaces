@@ -24,51 +24,51 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (void)viewDidLoad
 {
-  [super viewDidLoad];
-  [self setup];
+    [super viewDidLoad];
+    [self setup];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  [super viewWillAppear:animated];
-  
-  // unselect the selected row if any
-  NSIndexPath *selection = [_optionsTableView indexPathForSelectedRow];
-  if (selection) {
-    [_optionsTableView deselectRowAtIndexPath:selection animated:YES];
-  }
+    [super viewWillAppear:animated];
+    
+    // unselect the selected row if any
+    NSIndexPath *selection = [_optionsTableView indexPathForSelectedRow];
+    if (selection) {
+        [_optionsTableView deselectRowAtIndexPath:selection animated:YES];
+    }
 }
 
 #pragma mark - Setup
 
 - (void)setup
 {
-  Class cellClass = [UITableViewCell class];
-  [_optionsTableView registerClass:cellClass forCellReuseIdentifier:kCellIdentifier];
+    Class cellClass = [UITableViewCell class];
+    [_optionsTableView registerClass:cellClass forCellReuseIdentifier:kCellIdentifier];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return self.options.count;
+    return self.options.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-  cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
-  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-  cell.textLabel.text = self.options[indexPath.row];
-  return cell;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+    cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.text = self.options[indexPath.row];
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString *segueIdentifier = self.optionsSegueIdentifiers[indexPath.row];
-  [self performSegueWithIdentifier:segueIdentifier sender:self];
+    NSString *segueIdentifier = self.optionsSegueIdentifiers[indexPath.row];
+    [self performSegueWithIdentifier:segueIdentifier sender:self];
 }
 
 
@@ -76,20 +76,20 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (NSArray *)options
 {
-  return @[@"Autocomplete",
-           @"Directions",
-           @"Place Details",
-           @"Place ID",
-           @"Place Photos"];
+    return @[@"Autocomplete",
+             @"Directions",
+             @"Place Details",
+             @"Place ID",
+             @"Place Photos"];
 }
 
 - (NSArray *)optionsSegueIdentifiers
 {
-  return @[@"AutocompleteController",
-           @"DirectionsController",
-           @"PlaceDetailsController",
-           @"PlaceIDController",
-           @"PlacePhotosController"];
+    return @[@"AutocompleteController",
+             @"DirectionsController",
+             @"PlaceDetailsController",
+             @"PlaceIDController",
+             @"PlacePhotosController"];
 }
 
 @end

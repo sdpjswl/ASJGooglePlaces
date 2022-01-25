@@ -25,7 +25,9 @@
 #import "ASJSession.h"
 #import <CoreLocation/CLLocation.h>
 
-typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJDirections *> *directionDetails, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJDirections *> *directionDetails, NSError * _Nullable error);
 
 @interface ASJDirectionsAPI : ASJSession
 
@@ -48,3 +50,5 @@ typedef void(^DirectionsBlock)(ASJResponseStatusCode statusCode, NSArray<ASJDire
 - (void)directionsFromOrigin:(CLLocationCoordinate2D)origin destination:(CLLocationCoordinate2D)destination completion:(DirectionsBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

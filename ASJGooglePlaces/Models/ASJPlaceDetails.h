@@ -24,6 +24,8 @@
 #import "ASJPhoto.h"
 #import <CoreLocation/CLLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ASJPlaceDetails : NSObject
 
 /**
@@ -71,3 +73,5 @@
 + (ASJPlaceDetails *)placeDetailsForResponse:(NSDictionary *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END

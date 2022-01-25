@@ -26,6 +26,8 @@
 #import <Foundation/NSURL.h>
 #import <Foundation/NSURLSession.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ASJSession <NSObject>
 
 /**
@@ -35,7 +37,7 @@
 
 @end
 
-typedef void(^SessionBlock)(ASJResponseStatusCode statusCode, NSDictionary *response, NSError *error);
+typedef void(^SessionBlock)(ASJResponseStatusCode statusCode, NSDictionary * _Nullable response, NSError * _Nullable error);
 
 @interface ASJSession : NSObject <ASJSession>
 
@@ -65,3 +67,5 @@ typedef void(^SessionBlock)(ASJResponseStatusCode statusCode, NSDictionary *resp
 - (void)executeRequestForURL:(NSURL *)url completion:(SessionBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

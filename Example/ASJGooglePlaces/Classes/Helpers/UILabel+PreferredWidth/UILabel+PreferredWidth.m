@@ -12,10 +12,10 @@
 
 - (CGFloat)preferredMaxWidthWithPadding:(CGFloat)padding
 {
-  self.numberOfLines = 0;
-  self.lineBreakMode = NSLineBreakByWordWrapping;
-  CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-  return screenWidth - self.frame.origin.y - padding;
+    self.numberOfLines = 0;
+    self.lineBreakMode = NSLineBreakByWordWrapping;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    return screenWidth - self.frame.origin.y - padding;
 }
 
 @end

@@ -23,7 +23,9 @@
 
 #import "ASJSession.h"
 
-typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString *placeID, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString * _Nullable placeID, NSError * _Nullable error);
 
 @interface ASJPlaceIDAPI : ASJSession
 
@@ -36,3 +38,5 @@ typedef void(^PlaceIDBlock)(ASJResponseStatusCode statusCode, NSString *placeID,
 - (void)placeIDForPlace:(NSString *)place completion:(PlaceIDBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

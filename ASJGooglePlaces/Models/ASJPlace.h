@@ -26,6 +26,8 @@
 
 @interface ASJPlace : NSObject
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  The unique ID assigned by Google to each place.
  */
@@ -46,3 +48,5 @@
 + (NSArray<ASJPlace *> *)placesForResponse:(NSDictionary *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END
